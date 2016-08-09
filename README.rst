@@ -1,4 +1,5 @@
-# Macaca Python Client
+Macaca Python Client
+====================
 
 Python language bindings for Macaca
 
