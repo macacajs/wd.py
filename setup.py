@@ -8,7 +8,7 @@ with open(path.join(here, 'README.rst'), encoding='utf-8') as f:
     long_description = f.read()
 
 setup(
-    name='macaca-python-client',
+    name='wd',
 
     version='1.0.0.dev0',
 
