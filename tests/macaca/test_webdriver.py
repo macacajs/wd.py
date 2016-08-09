@@ -100,7 +100,7 @@ def test_find_element(driver):
     assert isinstance(el, WebElement)
     assert el.element_id == '1'
     assert el._driver == driver
-    body = responses.calls[0].request.body
+    body = responses.calls[0].request.body.decode('utf-8')
     assert json.loads(body) == {
         "using": "id",
         "value": "login"
@@ -491,7 +491,7 @@ def test_set_context(driver):
             'value': ''
         })
     driver.context = 'WEBVIEW_1'
-    assert responses.calls[0].request.body == '{"name": "WEBVIEW_1"}'
+    assert responses.calls[0].request.body.decode('utf-8') == '{"name": "WEBVIEW_1"}'
 
 
 @responses.activate
@@ -557,7 +557,7 @@ def test_keys(driver):
             'value': ''
         })
     assert driver.keys(123) == driver
-    body = responses.calls[0].request.body
+    body = responses.calls[0].request.body.decode('utf-8')
     data = json.loads(body)
     assert data['value'] == ['1', '2', '3']
 
@@ -578,7 +578,7 @@ def test_switch_to_frame(driver, element):
         driver.switch_to_frame([1])
 
     assert driver.switch_to_frame(element) == driver
-    body = responses.calls[0].request.body
+    body = responses.calls[0].request.body.decode('utf-8')
     assert json.loads(body) == {
         "id": {
             "ELEMENT": "1"
@@ -641,7 +641,7 @@ def test_execute_script(driver, element):
         })
     assert driver.execute_script(
         'return arguments[0].tagName', element) == 'input'
-    body = responses.calls[0].request.body
+    body = responses.calls[0].request.body.decode('utf-8')
     assert json.loads(body) == {
         'script': 'return arguments[0].tagName',
         'args': [{"ELEMENT": "1"}]

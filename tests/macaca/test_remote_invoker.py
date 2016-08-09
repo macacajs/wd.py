@@ -91,7 +91,7 @@ def test_correct_uri_and_data(remote_invoker):
         'data': 'test'
     })
     assert responses.calls[0].request.url == url
-    assert responses.calls[0].request.body == '{"data": "test"}'
+    assert responses.calls[0].request.body.decode('utf-8') == '{"data": "test"}'
 
 
 @responses.activate

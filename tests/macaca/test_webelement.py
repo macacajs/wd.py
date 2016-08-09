@@ -63,7 +63,7 @@ def test_find_element(driver, element):
     assert isinstance(el, WebElement)
     assert el.element_id == '2'
     assert el._driver == driver
-    body = responses.calls[0].request.body
+    body = responses.calls[0].request.body.decode('utf-8')
     assert json.loads(body) == {
         "using": "id",
         "value": "login"
@@ -440,7 +440,7 @@ def test_send_keys(element):
             'value': ''
         })
     assert element.send_keys('123') == element
-    body = responses.calls[0].request.body
+    body = responses.calls[0].request.body.decode('utf-8')
     data = json.loads(body)
     assert data['value'] == ['1', '2', '3']
 
@@ -456,7 +456,7 @@ def test_move_to(element):
             'value': ''
         })
     assert element.move_to(100, 200) == element
-    body = responses.calls[0].request.body
+    body = responses.calls[0].request.body.decode('utf-8')
     assert json.loads(body) == {
         'element': '1',
         'x': 100,
@@ -475,7 +475,7 @@ def test_flick(element):
             'value': ''
         })
     assert element.flick(100, 200, 100) == element
-    body = responses.calls[0].request.body
+    body = responses.calls[0].request.body.decode('utf-8')
     assert json.loads(body) == {
         'element': '1',
         'x': 100,
