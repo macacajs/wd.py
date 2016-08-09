@@ -15,7 +15,7 @@ setup(
     description='Macaca Python Client',
     long_description=long_description,
 
-    # url='https://github.com/macacajs/macaca-python-client',
+    url='https://github.com/macacajs/wd.py',
 
     author='Zichen Zhu',
     author_email='zic.zhu@gmail.com',
