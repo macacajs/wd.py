@@ -60,3 +60,8 @@ docs/_build/
 # virtualenv
 venv/
 ENV/
+
+# vim
+*.sw*
+
+*.un~
