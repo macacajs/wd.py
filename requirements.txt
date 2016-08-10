@@ -3,7 +3,6 @@ autopep8==1.2.4
 coverage==4.2
 execnet==1.4.1
 flake8==3.0.2
--e git+git@gitlab.alipay-inc.com:zichen.zzc/macaca-python-client.git@72d03a86418067bee6990d750ac006e74da47eba#egg=macaca_python_client
 mccabe==0.5.1
 pep8==1.7.0
 pluggy==0.3.1

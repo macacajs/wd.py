@@ -1,0 +1,10 @@
+sudo: false
+language: python
+python:
+  - "3.5"
+install:
+  - pip install tox-travis
+  - pip install coveralls
+script:
+  - tox -e py35
+  - tox -e coveralls
