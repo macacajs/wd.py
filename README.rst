@@ -1,5 +1,7 @@
-Macaca Python Client
+Macaca Python Client (`Doc`_)
 ====================
+
+.. _`Doc`: https://macacajs.github.io/wd.py
 
 .. image:: https://img.shields.io/coveralls/macacajs/wd.py/master.svg
     :target: https://coveralls.io/github/macacajs/wd.py
