@@ -237,5 +237,4 @@ gh-pages:
 	rm -rf macaca docs/_build && \
     git add -A && \
     git ci -m "Generated gh-pages for `git log master -1 --pretty=short --abbrev-commit`" && \
-	git push origin gh-pages ; git checkout master && \
-	@echo "Update gh-pages finished."
+	git push origin gh-pages ; git checkout master
