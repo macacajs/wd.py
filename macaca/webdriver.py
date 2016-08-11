@@ -252,8 +252,10 @@ class WebDriver:
         """Sets the width and height of the current window.
 
         Args:
-            width(int): the width in pixels
-            height(int): the height in pixels
+            width(int): the width in pixels.
+            height(int): the height in pixels.
+            window_handle(str): Identifier of window_handle,
+                default to 'current'.
 
         Returns:
             WebDriver Object.
@@ -265,6 +267,10 @@ class WebDriver:
 
     def get_window_size(self, window_handle='current'):
         """Gets the width and height of the current window.
+
+        Args:
+            window_handle(str): Identifier of window_handle,
+                default to 'current'.
 
         Returns:
             A dict contains width and height
@@ -279,6 +285,8 @@ class WebDriver:
         Args:
             x(int): the x-coordinate in pixels.
             y(int): the y-coordinate in pixels.
+            window_handle(str): Identifier of window_handle,
+                default to 'current'.
 
         Returns:
             WebDriver Object.
@@ -289,9 +297,13 @@ class WebDriver:
             'window_handle': window_handle})
 
     def get_window_position(self, window_handle='current'):
-        """
-        Gets the x,y position of the current window.
-        :Usage:
+        """Gets the x,y position of the current window.
+
+        Args:
+            window_handle(str): Identifier of window_handle,
+                default to 'current'.
+
+        Usage:
             driver.get_window_position()
         """
         return self._execute(Command.GET_WINDOW_POSITION, {
@@ -484,15 +496,8 @@ class WebDriver:
         """Set a cookie.
 
         Args:
-            cookie_dict: A dictionary object.
-                keys:
-                    "name",
-                    "value",
-                    ["path"],
-                    ["domain"],
-                    ["secure"],
-                    ['httpOnly'],
-                    ["expiry]"
+            cookie_dict: A dictionary contain keys: "name", "value",
+                ["path"], ["domain"], ["secure"], ["httpOnly"], ["expiry"].
 
         Returns:
             WebElement Object.

@@ -39,7 +39,7 @@ setup(
         'e2e'
     ],
 
-    packages=find_packages(exclude=['tests*']),
+    packages=find_packages(exclude=['tests*', 'docs']),
 
     install_requires=[
         'requests',
