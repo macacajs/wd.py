@@ -43,6 +43,7 @@ help:
 	@echo "  doctest    to run all doctests embedded in the documentation (if enabled)"
 	@echo "  coverage   to run coverage check of the documentation (if enabled)"
 	@echo "  dummy      to check syntax errors of document sources"
+	@echo "  gh-pages   to generate gh-pages automatically"
 
 .PHONY: clean
 clean:
@@ -223,3 +224,18 @@ dummy:
 	$(SPHINXBUILD) -b dummy $(ALLSPHINXOPTS) $(BUILDDIR)/dummy
 	@echo
 	@echo "Build finished. Dummy builder generates no files."
+
+.PHONY: gh-pages
+gh-pages:
+	cd .. && git checkout gh-pages && \
+	rm -rf _static _modules _sources && \
+	git checkout master macaca && \
+    git reset HEAD
+	make html && \
+    mv -fv _build/html/* ../ && \
+    cd .. && \
+	rm -rf macaca docs/_build && \
+    git add -A && \
+    git ci -m "Generated gh-pages for `git log master -1 --pretty=short --abbrev-commit`" && \
+	git push origin gh-pages ; git checkout master && \
+	@echo "Update gh-pages finished."
