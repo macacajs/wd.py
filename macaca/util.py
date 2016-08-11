@@ -74,7 +74,7 @@ def add_element_extension_method(Klass):
         find_element.__name__ = find_element_name
         find_element.__doc__ = (
             "Set parameter 'using' to '{0}'.\n".format(using.value) +
-            str(Klass.__dict__['element'].__doc__)
+            "See more in \'element\' method."
         )
 
         def find_element_if_exists(self, value):
@@ -83,7 +83,7 @@ def add_element_extension_method(Klass):
         find_element_if_exists.__name__ = find_element_if_exists_name
         find_element_if_exists.__doc__ = (
             "Set parameter 'using' to '{0}'.\n".format(using.value) +
-            str(Klass.__dict__['element_if_exists'].__doc__)
+            "See more in \'element_if_exists\' method."
         )
 
         def find_element_or_none(self, value):
@@ -92,7 +92,7 @@ def add_element_extension_method(Klass):
         find_element_or_none.__name__ = find_element_or_none_name
         find_element_or_none.__doc__ = (
             "Set parameter 'using' to '{0}'.\n".format(using.value) +
-            str(Klass.__dict__['element_or_none'].__doc__)
+            "See more in \'element_or_none\' method."
         )
 
         def wait_for_element_by(self, *args, **kwargs):
@@ -101,7 +101,7 @@ def add_element_extension_method(Klass):
         wait_for_element_by.__name__ = wait_for_element_name
         wait_for_element_by.__doc__ = (
             "Set parameter 'using' to '{0}'.\n".format(using.value) +
-            str(Klass.__dict__['wait_for_element'].__doc__)
+            "See more in \'wait_for_element\' method."
         )
 
         def find_elements(self, value):
@@ -110,7 +110,7 @@ def add_element_extension_method(Klass):
         find_elements.__name__ = find_elements_name
         find_elements.__doc__ = (
             "Set parameter 'using' to '{0}'.\n".format(using.value) +
-            str(Klass.__dict__['elements'].__doc__)
+            "See more in \'elements\' method."
         )
 
         def wait_for_elements_available(self, *args, **kwargs):
@@ -119,7 +119,7 @@ def add_element_extension_method(Klass):
         wait_for_elements_available.__name__ = wait_for_elements_name
         wait_for_elements_available.__doc__ = (
             "Set parameter 'using' to '{0}'.\n".format(using.value) +
-            str(Klass.__dict__['wait_for_elements'].__doc__)
+            "See more in \'wait_for_elements\' method."
         )
 
         setattr(Klass, find_element_name, find_element)
