@@ -229,12 +229,12 @@ dummy:
 gh-pages:
 	cd .. && git checkout gh-pages && \
 	rm -rf _static _modules _sources && \
-	git checkout master macaca && \
-    git reset HEAD
+	git checkout master macaca docs && \
+  git reset HEAD
 	make html && \
-    mv -fv _build/html/* ../ && \
-    cd .. && \
+  mv -fv _build/html/* ../ && \
+  cd .. && \
 	rm -rf macaca docs/_build && \
-    git add -A && \
-    git ci -m "Generated gh-pages for `git log master -1 --pretty=short --abbrev-commit`" && \
+  git add -A && \
+  git ci -m "Generated gh-pages for `git log master -1 --pretty=short --abbrev-commit`" && \
 	git push origin gh-pages ; git checkout master
