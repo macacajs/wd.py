@@ -60,7 +60,7 @@ Examples
     # WebDriver also has some properties like source, title and current_url.
     >>> html = driver.source
     >>> print('Does Macaca exist: ', 'macaca' in html)
-    True
+    Does Macaca exist: True
     >>> title = driver.title
     >>> print(title)
     macaca - Google Search
