@@ -4,6 +4,7 @@
 #
 
 from base64 import decodebytes
+from collections import abc
 
 from retrying import retry
 
@@ -82,10 +83,10 @@ class WebDriver:
         Returns:
             The unwrapped value.
         """
-        if isinstance(value, dict) and 'ELEMENT' in value:
+        if isinstance(value, abc.Mapping) and 'ELEMENT' in value:
             element_id = value.get('ELEMENT')
             return WebElement(element_id, self)
-        elif isinstance(value, list):
+        elif isinstance(value, abc.Sequence) and not isinstance(value, str):
             return [self._unwrap_el(item) for item in value]
         else:
             return value
@@ -99,11 +100,11 @@ class WebDriver:
         Returns:
             The wrapped value.
         """
-        if isinstance(value, dict):
+        if isinstance(value, abc.Mapping):
             return {k: self._wrap_el(v) for k, v in value.items()}
         elif isinstance(value, WebElement):
             return {'ELEMENT': value.element_id}
-        elif isinstance(value, list):
+        elif isinstance(value, abc.Sequence) and not isinstance(value, str):
             return [self._wrap_el(item) for item in value]
         else:
             return value
@@ -380,7 +381,7 @@ class WebDriver:
         })
 
     @fluent
-    def keys(self, value):
+    def send_keys(self, value):
         """Send a sequence of key strokes.
 
         Args:
@@ -502,7 +503,7 @@ class WebDriver:
         Returns:
             WebElement Object.
         """
-        if not isinstance(cookie_dict, dict):
+        if not isinstance(cookie_dict, abc.Mapping):
             raise TypeError('Type of the cookie must be a dict.')
         if not cookie_dict.get(
             'name', None

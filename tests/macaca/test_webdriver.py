@@ -556,7 +556,7 @@ def test_keys(driver):
             'sessionId': '2345',
             'value': ''
         })
-    assert driver.keys(123) == driver
+    assert driver.send_keys(123) == driver
     body = responses.calls[0].request.body.decode('utf-8')
     data = json.loads(body)
     assert data['value'] == ['1', '2', '3']

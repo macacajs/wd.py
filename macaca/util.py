@@ -4,6 +4,7 @@
 
 from string import Formatter
 from functools import wraps
+from numbers import Integral
 
 from .locator import Locator
 from .keys import Keys
@@ -162,13 +163,13 @@ def value_to_key_strokes(value):
         A list of string.
     """
     result = []
-    if isinstance(value, int):
+    if isinstance(value, Integral):
         value = str(value)
 
     for v in value:
         if isinstance(v, Keys):
             result.append(v.value)
-        elif isinstance(v, int):
+        elif isinstance(v, Integral):
             result.append(str(v))
         else:
             result.append(v)

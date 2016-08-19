@@ -3,6 +3,7 @@
 # WebDriver Result
 #
 
+from collections import abc
 
 from .webdriverexception import WebDriverException, find_exception_by_code
 
@@ -47,7 +48,7 @@ class WebDriverResult:
 
         if isinstance(self.value, str):
             message = self.value
-        elif isinstance(self.value, dict):
+        elif isinstance(self.value, abc.Mapping):
             message = self.value.get('message', None)
             screen = self.value.get('screen', None)
             stacktrace = self.value.get('stacktrace', None)

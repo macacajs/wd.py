@@ -2,6 +2,7 @@
 # Remote Invoker to execute command & handle HTTP communication
 #
 
+from collections import abc
 import logging
 from urllib.parse import urlparse, urlunparse
 
@@ -57,7 +58,7 @@ class RemoteInvoker:
                     'are supported'.format(url, scheme))
             else:
                 self._url = url
-        elif isinstance(url, dict):
+        elif isinstance(url, abc.Mapping):
             scheme = url.get('scheme', None) \
                 or url.get('protocol', None) \
                 or 'http'
