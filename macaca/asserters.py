@@ -16,7 +16,7 @@ def is_displayed(target):
         Return True if the element is displayed or return False otherwise.
     """
     is_displayed = getattr(target, 'is_displayed', None)
-    if not is_displayed or not hasattr(is_displayed, '__call__'):
+    if not is_displayed or not callable(is_displayed):
         raise TypeError('Target has no attribute \'is_displayed\' or not callable')
     if not is_displayed():
         raise WebDriverException('element not visible')
@@ -32,7 +32,7 @@ def is_not_displayed(target):
         Return True if the element is not displayed or return False otherwise.
     """
     is_displayed = getattr(target, 'is_displayed', None)
-    if not is_displayed or not hasattr(is_displayed, '__call__'):
+    if not is_displayed or not callable(is_displayed):
         raise TypeError('Target has no attribute \'is_displayed\' or not callable')
     if is_displayed():
         raise WebDriverException('element is visible')
