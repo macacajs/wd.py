@@ -11,6 +11,7 @@ from macaca.asserters import is_not_displayed
 from macaca.webdriver import WebDriver
 from macaca.webelement import WebElement
 from macaca.webdriverexception import WebDriverException
+from macaca.util import exec_
 
 
 @pytest.fixture(scope="module")
@@ -144,7 +145,7 @@ def test_wait_for(element):
     before_time = datetime.now()
 
     with pytest.raises(WebDriverException):
-        element.wait_for(2000, 500, asserter=lambda d: exec("raise WebDriverException('test')"))
+        element.wait_for(2000, 500, asserter=lambda d: exec_("raise WebDriverException('test')"))
 
     after_time = datetime.now()
     during = after_time - before_time

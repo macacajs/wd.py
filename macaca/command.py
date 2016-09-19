@@ -8,7 +8,7 @@ from collections import namedtuple
 Endpoint = namedtuple('Endpoint', ['method', 'uri'])
 
 
-class Command:
+class Command(object):
     """Commands for WebDriver Defined Endpoints."""
     STATUS = Endpoint(
         'GET',

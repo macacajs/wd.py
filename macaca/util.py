@@ -2,12 +2,16 @@
 # Util for WebDriver
 #
 
+import sys
 from string import Formatter
 from functools import wraps
 from numbers import Integral
 
 from .locator import Locator
 from .keys import Keys
+
+
+PY3 = sys.version_info[0] == 3
 
 
 class MemorizeFormatter(Formatter):
@@ -31,7 +35,7 @@ class MemorizeFormatter(Formatter):
         """Clear used and unused dicts before each formatting."""
         self._used_kwargs = {}
         self._unused_kwargs = {}
-        return super().vformat(format_string, args, kwargs)
+        return super(MemorizeFormatter, self).vformat(format_string, args, kwargs)
 
     def format_map(self, format_string, mapping):
         """format a string by a map
@@ -174,3 +178,20 @@ def value_to_key_strokes(value):
         else:
             result.append(v)
     return result
+
+
+if PY3:
+    import builtins
+    exec_ = getattr(builtins, "exec")
+else:
+    def exec_(code, globs=None, locs=None):
+        """Execute code in a namespace."""
+        if globs is None:
+            frame = sys._getframe(1)
+            globs = frame.f_globals
+            if locs is None:
+                locs = frame.f_locals
+            del frame
+        elif locs is None:
+            locs = globs
+        exec("""exec code in globs, locs""")

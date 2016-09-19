@@ -12,6 +12,7 @@ from macaca.asserters import is_not_displayed
 from macaca.webdriver import WebDriver
 from macaca.webelement import WebElement
 from macaca.webdriverexception import WebDriverException
+from macaca.util import exec_
 
 
 @pytest.fixture(scope="module")
@@ -20,6 +21,7 @@ def driver():
         'browserName': 'chrome',
         'platformName': 'Android'
     })
+    wd.attach('2345')
     return wd
 
 
@@ -35,27 +37,26 @@ def test_init(driver):
         'http://127.0.0.1:3456/wd/hub/session',
         json={
             'status': 0,
-            'sessionId': '1234',
+            'sessionId': '2345',
             'value': {
                 'browserName': 'chrome'
             }
         })
-    assert driver.session_id == None
-    assert driver.capabilities ==  None
     assert driver.desired_capabilities == {
         'browserName': 'chrome',
         'platformName': 'Android'
     }
     assert driver == driver.init()
-    assert driver.session_id == '1234'
+    assert driver.session_id == '2345'
     assert driver.capabilities == {'browserName': 'chrome'}
 
 
 @responses.activate
 def test_attach(driver):
-    assert driver.session_id == '1234'
-    assert driver == driver.attach('2345')
     assert driver.session_id == '2345'
+    driver.attach('1234')
+    assert driver.session_id == '1234'
+    driver.attach('2345')
 
 @responses.activate
 def test_get_url(driver):
@@ -181,7 +182,7 @@ def test_wait_for(driver):
     before_time = datetime.now()
 
     with pytest.raises(WebDriverException):
-        driver.wait_for(2000, 500, asserter=lambda d: exec("raise WebDriverException('test')"))
+        driver.wait_for(2000, 500, asserter=lambda d: exec_("raise WebDriverException('test')"))
 
     after_time = datetime.now()
     during = after_time - before_time
