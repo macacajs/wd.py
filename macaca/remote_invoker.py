@@ -2,9 +2,11 @@
 # Remote Invoker to execute command & handle HTTP communication
 #
 
-from collections import abc
 import logging
-from urllib.parse import urlparse, urlunparse
+try:
+    from urllib.parse import urlparse, urlunparse
+except ImportError:
+    from urlparse import urlparse, urlunparse
 
 from requests import Request, Session
 
@@ -13,7 +15,7 @@ from .util import MemorizeFormatter
 LOGGER = logging.getLogger(__name__)
 
 
-class RemoteInvoker:
+class RemoteInvoker(object):
     """Remote Invoker to execute WebDriver command."""
 
     def __init__(self, url='http://127.0.0.1:3456/wd/hub'):
@@ -58,7 +60,7 @@ class RemoteInvoker:
                     'are supported'.format(url, scheme))
             else:
                 self._url = url
-        elif isinstance(url, abc.Mapping):
+        elif isinstance(url, dict):
             scheme = url.get('scheme', None) \
                 or url.get('protocol', None) \
                 or 'http'

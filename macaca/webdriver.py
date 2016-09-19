@@ -3,8 +3,7 @@
 # WebDriver Protocol Implemenation
 #
 
-from base64 import decodebytes
-from collections import abc
+from base64 import b64decode
 
 from retrying import retry
 
@@ -18,7 +17,7 @@ from .webdriverexception import WebDriverException
 from .webelement import WebElement
 
 
-class WebDriver:
+class WebDriver(object):
     """The WebDriver Object to implement most part of WebDriver protocol.
 
     Attributes:
@@ -83,10 +82,10 @@ class WebDriver:
         Returns:
             The unwrapped value.
         """
-        if isinstance(value, abc.Mapping) and 'ELEMENT' in value:
+        if isinstance(value, dict) and 'ELEMENT' in value:
             element_id = value.get('ELEMENT')
             return WebElement(element_id, self)
-        elif isinstance(value, abc.Sequence) and not isinstance(value, str):
+        elif isinstance(value, list) and not isinstance(value, str):
             return [self._unwrap_el(item) for item in value]
         else:
             return value
@@ -100,11 +99,11 @@ class WebDriver:
         Returns:
             The wrapped value.
         """
-        if isinstance(value, abc.Mapping):
+        if isinstance(value, dict):
             return {k: self._wrap_el(v) for k, v in value.items()}
         elif isinstance(value, WebElement):
             return {'ELEMENT': value.element_id}
-        elif isinstance(value, abc.Sequence) and not isinstance(value, str):
+        elif isinstance(value, list) and not isinstance(value, str):
             return [self._wrap_el(item) for item in value]
         else:
             return value
@@ -503,7 +502,7 @@ class WebDriver:
         Returns:
             WebElement Object.
         """
-        if not isinstance(cookie_dict, abc.Mapping):
+        if not isinstance(cookie_dict, dict):
             raise TypeError('Type of the cookie must be a dict.')
         if not cookie_dict.get(
             'name', None
@@ -609,7 +608,7 @@ class WebDriver:
         imgData = self.take_screenshot()
         try:
             with open(filename, "wb") as f:
-                f.write(decodebytes(imgData.encode('ascii')))
+                f.write(b64decode(imgData.encode('ascii')))
         except IOError as err:
             if not quietly:
                 raise err
@@ -695,7 +694,7 @@ class WebDriver:
 
     def wait_for(
         self, timeout=10000, interval=1000,
-        *, asserter=lambda x: x):
+        asserter=lambda x: x):
         """Wait for driver till satisfy the given condition
 
         Args:
@@ -709,7 +708,7 @@ class WebDriver:
         Raises:
             WebDriverException.
         """
-        if not hasattr(asserter, '__call__'):
+        if not callable(asserter):
             raise TypeError('Asserter must be callable.')
         @retry(
             retry_on_exception=lambda ex: isinstance(ex, WebDriverException),
@@ -724,7 +723,7 @@ class WebDriver:
 
     def wait_for_element(
         self, using, value, timeout=10000,
-        interval=1000, *, asserter=is_displayed):
+        interval=1000, asserter=is_displayed):
         """Wait for element till satisfy the given condition
 
         Args:
@@ -740,7 +739,7 @@ class WebDriver:
         Raises:
             WebDriverException.
         """
-        if not hasattr(asserter, '__call__'):
+        if not callable(asserter):
             raise TypeError('Asserter must be callable.')
         @retry(
             retry_on_exception=lambda ex: isinstance(ex, WebDriverException),
@@ -756,7 +755,7 @@ class WebDriver:
 
     def wait_for_elements(
         self, using, value, timeout=10000,
-        interval=1000, *, asserter=is_displayed):
+        interval=1000, asserter=is_displayed):
         """Wait for elements till satisfy the given condition
 
         Args:
@@ -772,7 +771,7 @@ class WebDriver:
         Raises:
             WebDriverException.
         """
-        if not hasattr(asserter, '__call__'):
+        if not callable(asserter):
             raise TypeError('Asserter must be callable.')
         @retry(
             retry_on_exception=lambda ex: isinstance(ex, WebDriverException),

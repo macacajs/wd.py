@@ -10,7 +10,7 @@ with open(path.join(here, 'README.rst'), encoding='utf-8') as f:
 setup(
     name='wd',
 
-    version='0.1.1',
+    version='0.1.2',
 
     description='Macaca Python Client',
     long_description=long_description,
@@ -27,6 +27,7 @@ setup(
         'Intended Audience :: Developers',
         'Topic :: Software Development :: Build Tools',
         'License :: OSI Approved :: MIT License',
+        'Programming Language :: Python :: 2.7',
         'Programming Language :: Python :: 3.4',
         'Programming Language :: Python :: 3.5',
     ],
@@ -42,6 +43,7 @@ setup(
     packages=find_packages(exclude=['tests*', 'docs']),
 
     install_requires=[
+        'enum34',
         'requests',
         'retrying'
     ],

@@ -3,7 +3,7 @@
 # WebDriver Element Implemenation
 #
 
-from base64 import decodebytes
+from base64 import b64decode
 
 from retrying import retry
 
@@ -14,7 +14,7 @@ from .util import add_element_extension_method, value_to_key_strokes, fluent
 from .webdriverexception import WebDriverException
 
 
-class WebElement:
+class WebElement(object):
     """The WebElement Object to implement most part of WebDriver protocol.
 
     Attributes:
@@ -145,7 +145,7 @@ class WebElement:
 
     def wait_for(
         self, timeout=10000, interval=1000,
-        *, asserter=lambda x: x):
+        asserter=lambda x: x):
         """Wait for element till given condition
 
         Args:
@@ -159,7 +159,7 @@ class WebElement:
         Raises:
             WebDriverException.
         """
-        if not hasattr(asserter, '__call__'):
+        if not callable(asserter):
             raise TypeError('Asserter must be callable.')
         @retry(
             retry_on_exception=lambda ex: isinstance(ex, WebDriverException),
@@ -174,7 +174,7 @@ class WebElement:
 
     def wait_for_element(
         self, using, value, timeout=10000,
-        interval=1000, *, asserter=is_displayed):
+        interval=1000, asserter=is_displayed):
         """Wait for element till the given condition
 
         Args:
@@ -190,7 +190,7 @@ class WebElement:
         Raises:
             WebDriverException.
         """
-        if not hasattr(asserter, '__call__'):
+        if not callable(asserter):
             raise TypeError('Asserter must be callable.')
         @retry(
             retry_on_exception=lambda ex: isinstance(ex, WebDriverException),
@@ -206,7 +206,7 @@ class WebElement:
 
     def wait_for_elements(
         self, using, value, timeout=10000,
-        interval=1000, *, asserter=is_displayed):
+        interval=1000, asserter=is_displayed):
         """Wait for elements till the given condition
 
         Args:
@@ -222,7 +222,7 @@ class WebElement:
         Raises:
             WebDriverException.
         """
-        if not hasattr(asserter, '__call__'):
+        if not callable(asserter):
             raise TypeError('Asserter must be callable.')
         @retry(
             retry_on_exception=lambda ex: isinstance(ex, WebDriverException),
@@ -283,8 +283,8 @@ class WebElement:
 
         Returns:
             The computed value of parameter property name
-            from element’s style declarations if the current
-            browsing context’s document type is not "xml",
+            from element's style declarations if the current
+            browsing context's document type is not "xml",
             else let it be ""
         """
         return self._execute(Command.GET_ELEMENT_VALUE_OF_CSS_PROPERTY, {
@@ -321,8 +321,8 @@ class WebElement:
             A dict contains:
             x(float): X axis position of the top-left corner.
             y(float): Y axis position of the top-left corner.
-            height(float): Height of the web element’s bounding rectangle.
-            width(float): Width of the web element’s bounding rectangle.
+            height(float): Height of the web element's bounding rectangle.
+            width(float): Width of the web element's bounding rectangle.
         """
         return self._execute(Command.GET_ELEMENT_RECT)
 
@@ -332,8 +332,8 @@ class WebElement:
 
         Returns:
             A dict contains:
-            height(float): Height of the web element’s bounding rectangle.
-            width(float): Width of the web element’s bounding rectangle.
+            height(float): Height of the web element's bounding rectangle.
+            width(float): Width of the web element's bounding rectangle.
         """
         return self._execute(Command.GET_ELEMENT_SIZE)
 
@@ -437,7 +437,7 @@ class WebElement:
         imgData = self.take_screenshot()
         try:
             with open(filename, "wb") as f:
-                f.write(decodebytes(imgData.encode('ascii')))
+                f.write(b64decode(imgData.encode('ascii')))
         except IOError as err:
             if not quietly:
                 raise err
