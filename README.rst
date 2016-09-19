@@ -19,8 +19,6 @@ Macaca Python Client
 Intro
 ------
 
-[**Attension**] WD.py only support Python 3.4+. Please upgrade your Python version.
-
 WD.py is a Python WebDriver client implemented most of the APIs in the `WebDriver Protocol <https://www.w3.org/TR/webdriver/>`_.
 It was originally designed for `Macaca <http://macacajs.github.io/macaca/>`_ (A Node.js powered WebDriver server), but also available for any other implementation of WebDriver server
 such as Selenium, Appium and etc.
