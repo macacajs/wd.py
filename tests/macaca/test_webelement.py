@@ -499,6 +499,29 @@ def test_tap(element):
 
 
 @responses.activate
+def test_swipe(driver, element):
+    responses.add(
+        responses.POST,
+        'http://127.0.0.1:3456/wd/hub/session/2345/element/1/swipe',
+        json={
+            'status': 0,
+            'sessionId': '2345',
+            'value': ''
+        })
+    assert element.swipe(0, 0, 200, 200) == element
+    assert element.swipe(100, 100, 200, 200, 2000) == element
+    body = responses.calls[1].request.body.decode('utf-8')
+    data = json.loads(body)
+    assert data == {
+        'startX': 100,
+        'startY': 100,
+        'endX': 200,
+        'endY': 200,
+        'duration': 2000
+    }
+
+
+@responses.activate
 def test_screenshot(element):
     responses.add(
         responses.GET,
