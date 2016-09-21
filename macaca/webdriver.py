@@ -367,7 +367,7 @@ class WebDriver(object):
 
     @fluent
     def tap(self, element):
-        """Single tap on the touch enabled device..
+        """Single tap on the touch enabled device.
 
         Args:
             element(WebElement): WebElement Object to single tap on.
@@ -377,6 +377,29 @@ class WebDriver(object):
         """
         self._execute(Command.SINGLE_TAP, {
             'element': element.element_id,
+        })
+
+    @fluent
+    def swipe(self, startX, startY, endX, endY, duration = 1000):
+        """Swipe on the touch screen using finger motion events.
+
+        Args:
+            startX(Float): The x-coordinate of start point.
+            startY(Float): The y-coordinate of start point.
+            endX(Float): The x-coordinate of end point.
+            endY(Float): The y-coordinate of end point.
+            duration(Float): The duration in ms.
+
+        Returns:
+            WebDriver object.
+        """
+        self._execute(Command.SWIPE_ELEMENT, {
+            'element_id': 'temp',
+            'startX': startX,
+            'startY': startY,
+            'endX': endX,
+            'endY': endY,
+            'duration': duration
         })
 
     @fluent
