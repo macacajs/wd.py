@@ -29,7 +29,7 @@ Homepage
 
 Sample
 -------
-`WD.py’s sample. <//github.com/macacajs/macaca-test-sample-python/>`
+`WD.py’s sample. <//github.com/macacajs/macaca-test-sample-python/>`_
 
 Examples
 ---------
