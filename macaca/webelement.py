@@ -252,22 +252,11 @@ class WebElement(object):
         """Returns whether the element is enabled."""
         return self._execute(Command.IS_ELEMENT_ENABLED)
 
-    def get_attribute(self, name):
-        """Return the attribute of a web element.
-
-        Args:
-            name(str): Name of the attribute to retrieve.
-
-        Returns:
-            The attribute of the web element.
-        """
-        return self._execute(Command.GET_ELEMENT_ATTRIBUTE, {'name': name})
-
     def get_property(self, name):
-        """Return the result of getting a property of a element.
+        """Return the result of getting a property, Support: Android iOS Web(WebView).
 
         Args:
-            name(str): Name of the property to retrieve.
+            name(str): Name of the property to retrieve, Android iOS can only get `origin` `size`.
 
         Returns:
             The property of the element.
