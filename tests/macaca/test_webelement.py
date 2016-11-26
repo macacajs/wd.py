@@ -279,20 +279,6 @@ def test_is_enabled(element):
 
 
 @responses.activate
-def test_get_attribute(element):
-    responses.add(
-        responses.GET,
-        'http://127.0.0.1:3456/wd/hub/session/2345/element/1/attribute/class',
-        json={
-            'status': 0,
-            'sessionId': '2345',
-            'value': 'btn'
-        })
-
-    assert element.get_attribute('class') == 'btn'
-
-
-@responses.activate
 def test_get_property(element):
     responses.add(
         responses.GET,
