@@ -67,6 +67,9 @@ class WebElement(object):
     def element(self, using, value):
         """find an element in the current element.
 
+        Support:
+            Android iOS Web(WebView)
+
         Args:
             using(str): The element location strategy.
             value(str): The value of the location strategy.
@@ -84,6 +87,9 @@ class WebElement(object):
 
     def element_if_exists(self, using, value):
         """Check if an element in the current element.
+
+        Support:
+            Android iOS Web(WebView)
 
         Args:
             using(str): The element location strategy.
@@ -107,6 +113,9 @@ class WebElement(object):
     def element_or_none(self, using, value):
         """Check if an element in the current element.
 
+        Support:
+            Android iOS Web(WebView)
+
         Args:
             using(str): The element location strategy.
             value(str): The value of the location strategy.
@@ -128,6 +137,9 @@ class WebElement(object):
     def elements(self, using, value):
         """find elements in the current element.
 
+        Support:
+            Android iOS Web(WebView)
+
         Args:
             using(str): The element location strategy.
             value(str): The value of the location strategy.
@@ -147,6 +159,9 @@ class WebElement(object):
         self, timeout=10000, interval=1000,
         asserter=lambda x: x):
         """Wait for element till given condition
+
+        Support:
+            Android iOS Web(WebView)
 
         Args:
             timeout(int): How long we should be retrying stuff.
@@ -176,6 +191,9 @@ class WebElement(object):
         self, using, value, timeout=10000,
         interval=1000, asserter=is_displayed):
         """Wait for element till the given condition
+
+        Support:
+            Android iOS Web(WebView)
 
         Args:
             using(str): The element location strategy.
@@ -209,6 +227,9 @@ class WebElement(object):
         interval=1000, asserter=is_displayed):
         """Wait for elements till the given condition
 
+        Support:
+            Android iOS Web(WebView)
+
         Args:
             using(str): The element location strategy.
             value(str): The value of the location strategy.
@@ -241,19 +262,34 @@ class WebElement(object):
         return _wait_for_elements(self, using, value)
 
     def is_displayed(self):
-        """Whether the element is visible."""
+        """Whether the element is visible.
+
+        Support:
+            Android Web(WebView)
+        """
         return self._execute(Command.IS_ELEMENT_DISPLAYED)
 
     def is_selected(self):
-        """Returns whether the element is selected."""
+        """Returns whether the element is selected.
+
+        Support:
+            Web(WebView)
+        """
         return self._execute(Command.IS_ELEMENT_SELECTED)
 
     def is_enabled(self):
-        """Returns whether the element is enabled."""
+        """Returns whether the element is enabled.
+
+        Support:
+            Web(WebView)
+        """
         return self._execute(Command.IS_ELEMENT_ENABLED)
 
     def get_property(self, name):
         """Return the result of getting a property, Support: Android iOS Web(WebView).
+
+        Support:
+            Support: Android iOS Web(WebView)
 
         Args:
             name(str): Name of the property to retrieve, Android iOS can only get `origin` `size`.
@@ -266,6 +302,9 @@ class WebElement(object):
     def get_computed_css(self, property_name):
         """The computed value of the given CSS property
            of the given web element.
+
+        Support:
+            Support: Web(WebView)
 
         Args:
             property_name(str): CSS property.
@@ -283,17 +322,27 @@ class WebElement(object):
     def text(self):
         """Return the text of the element.
            This is equivalent to calling element.innerText.
+
+        Support:
+            Android iOS Web(WebView)
         """
         return self._execute(Command.GET_ELEMENT_TEXT)
 
     @property
     def tag_name(self):
-        """Return the tagName of the element."""
+        """Return the tagName of the element.
+
+        Support:
+            Web(WebView)
+        """
         return self._execute(Command.GET_ELEMENT_TAG_NAME)
 
     @property
     def location(self):
         """The location of the element in the renderable canvas in pixels.
+
+        Support:
+            Web(WebView)
 
         Returns:
             A dict contains:
@@ -305,6 +354,9 @@ class WebElement(object):
     @property
     def rect(self):
         """The dimensions and coordinates of the given web element in pixels.
+
+        Support:
+            Web(WebView)
 
         Returns:
             A dict contains:
@@ -318,6 +370,9 @@ class WebElement(object):
     @property
     def size(self):
         """The size of the given web element in pixels.
+
+        Support:
+            Web(WebView)
 
         Returns:
             A dict contains:
@@ -333,6 +388,9 @@ class WebElement(object):
            centre of the visible area of the first element
            of the DOMRect sequence. In case the element is
            not displayed, an element not visible error is returned.
+
+        Support:
+            Android iOS Web(WebView)
         """
         self._execute(Command.CLICK_ELEMENT)
 
@@ -342,12 +400,18 @@ class WebElement(object):
            a submittable element excluding buttons or
            editable element, and then attempts to clear
            its value, checkedness, or text content.
+
+        Support:
+            Android iOS Web(WebView)
         """
         self._execute(Command.CLEAR_ELEMENT)
 
     @fluent
     def send_keys(self, value):
         """Send a sequence of key strokes to an element.
+
+        Support:
+            Android iOS Web(WebView)
 
         Args:
             value(str|int|list): value can be a string,
@@ -359,6 +423,9 @@ class WebElement(object):
     @fluent
     def move_to(self, x=0, y=0):
         """Move the mouse by an offset of the specificed element.
+
+        Support:
+            Android
 
         Args:
             x(float): X offset to move to, relative to the
@@ -376,6 +443,9 @@ class WebElement(object):
         """Flick on the touch screen using finger motion events.
            This flickcommand starts at a particulat screen location.
 
+        Support:
+            iOS
+
         Args:
             x(float}: The x offset in pixels to flick by.
             y(float): The y offset in pixels to flick by.
@@ -388,7 +458,10 @@ class WebElement(object):
 
     @fluent
     def tap(self):
-        """Single tap on the touch enabled device..
+        """Single tap on the touch enabled device.
+
+        Support:
+            Android iOS
 
         Args:
             element(WebElement): WebElement Object to single tap on.
@@ -401,6 +474,9 @@ class WebElement(object):
     @fluent
     def swipe(self, startX, startY, endX, endY, duration = 1000):
         """Swipe on the touch screen using finger motion events.
+
+        Support:
+            Android iOS
 
         Args:
             startX(Float): The x-coordinate of start point.
@@ -424,6 +500,9 @@ class WebElement(object):
         """Gets the screenshot of the current element
            as a base64 encoded string.
 
+        Support:
+            Android iOS Web(WebView)
+
         Returns:
             Base64 encoded string of the screenshot.
         """
@@ -432,6 +511,9 @@ class WebElement(object):
     @fluent
     def save_screenshot(self, filename, quietly = False):
         """Save the screenshot to local.
+
+        Support:
+            Android iOS Web(WebView)
 
         Args:
             filename(str): The path to save the image.
