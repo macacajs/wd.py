@@ -112,6 +112,9 @@ class WebDriver(object):
     def attach(self, session_id):
         """Attach to given Session.
 
+        Support:
+            Android iOS Web(WebView)
+
         Args:
             session_id(str): The given session ID
 
@@ -123,6 +126,9 @@ class WebDriver(object):
     @fluent
     def init(self):
         """Create Session by desiredCapabilities
+
+        Support:
+            Android iOS Web(WebView)
 
         Returns:
             WebDriver Object.
@@ -138,6 +144,9 @@ class WebDriver(object):
     def quit(self):
         """Quit the driver.
 
+        Support:
+            Android iOS Web(WebView)
+
         Returns:
             WebDriver Object.
         """
@@ -145,8 +154,10 @@ class WebDriver(object):
 
     @fluent
     def get(self, url):
-        """
-        Loads a web page in the current browser session.
+        """Loads a web page in the current browser session.
+
+        Support:
+            Web(WebView)
 
         Args:
             url(str): The URL to navigate to.
@@ -163,6 +174,9 @@ class WebDriver(object):
     def current_url(self):
         """Gets the URL of the current page.
 
+        Support:
+            Web(WebView)
+
         Returns:
             Return the URL of the current page.
         """
@@ -171,6 +185,9 @@ class WebDriver(object):
     @fluent
     def back(self):
         """Back.
+
+        Support:
+            Web(WebView)
 
         Returns:
             WebDriver Object.
@@ -181,6 +198,9 @@ class WebDriver(object):
     def forward(self):
         """Forward.
 
+        Support:
+            Web(WebView)
+
         Returns:
             WebDriver Object.
         """
@@ -190,6 +210,9 @@ class WebDriver(object):
     def refresh(self):
         """Refresh.
 
+        Support:
+            Web(WebView)
+
         Returns:
             WebDriver Object.
         """
@@ -198,18 +221,27 @@ class WebDriver(object):
     @property
     def title(self):
         """Get the current page title.
+
+        Support:
+            Web(WebView)
         """
         return self._execute(Command.GET_TITLE)
 
     @property
     def current_window_handle(self):
         """Returns the handle of the current window.
+
+        Support:
+            Web(WebView)
         """
         return self._execute(Command.GET_CURRENT_WINDOW_HANDLE)
 
     @fluent
     def close(self):
         """Closes the current window.
+
+        Support:
+            Web(WebView)
 
         Returns:
             WebDriver Object.
@@ -219,6 +251,9 @@ class WebDriver(object):
     @fluent
     def switch_to_window(self, window_name):
         """Switch to the given window.
+
+        Support:
+            Web(WebView)
 
         Args:
             window_name(str): The window to change focus to.
@@ -234,12 +269,18 @@ class WebDriver(object):
     @property
     def window_handles(self):
         """Returns the handles of all windows within the current session.
+
+        Support:
+            Web(WebView)
         """
         return self._execute(Command.GET_WINDOW_HANDLES)
 
     @fluent
     def maximize_window(self):
         """Maximizes the current window.
+
+        Support:
+            Web(WebView)
 
         Returns:
             WebDriver Object.
@@ -250,6 +291,9 @@ class WebDriver(object):
     @fluent
     def set_window_size(self, width, height, window_handle='current'):
         """Sets the width and height of the current window.
+
+        Support:
+            Web(WebView)
 
         Args:
             width(int): the width in pixels.
@@ -268,6 +312,9 @@ class WebDriver(object):
     def get_window_size(self, window_handle='current'):
         """Gets the width and height of the current window.
 
+        Support:
+            Web(WebView)
+
         Args:
             window_handle(str): Identifier of window_handle,
                 default to 'current'.
@@ -281,6 +328,9 @@ class WebDriver(object):
     @fluent
     def set_window_position(self, x, y, window_handle='current'):
         """Sets the x,y position of the current window.
+
+        Support:
+            Web(WebView)
 
         Args:
             x(int): the x-coordinate in pixels.
@@ -299,6 +349,9 @@ class WebDriver(object):
     def get_window_position(self, window_handle='current'):
         """Gets the x,y position of the current window.
 
+        Support:
+            Web(WebView)
+
         Args:
             window_handle(str): Identifier of window_handle,
                 default to 'current'.
@@ -311,22 +364,37 @@ class WebDriver(object):
 
     @property
     def context(self):
-        """returns the current context (Native or WebView)."""
+        """returns the current context (Native or WebView).
+
+        Support:
+            Android iOS
+        """
         return self._execute(Command.CURRENT_CONTEXT_HANDLE)
 
     @property
     def contexts(self):
-        """returns a list of available contexts"""
+        """returns a list of available contexts
+
+        Support:
+            Android iOS
+        """
         return self._execute(Command.CONTEXT_HANDLES)
 
     @context.setter
     def context(self, new_context):
-        """sets the current context"""
+        """sets the current context
+
+        Support:
+            Android iOS
+        """
         self._execute(Command.SWITCH_TO_CONTEXT, {"name": new_context})
 
     @fluent
     def move_to(self, element, x=0, y=0):
         """Move the mouse by an offset of the specificed element.
+
+        Support:
+            Android
 
         Args:
             element(WebElement): WebElement Object.
@@ -349,6 +417,9 @@ class WebDriver(object):
         """Flick on the touch screen using finger motion events.
            This flickcommand starts at a particulat screen location.
 
+        Support:
+            iOS
+
         Args:
             element(WebElement): WebElement Object where the flick starts.
             x(float}: The x offset in pixels to flick by.
@@ -369,6 +440,9 @@ class WebDriver(object):
     def tap(self, element):
         """Single tap on the touch enabled device.
 
+        Support:
+            Android iOS
+
         Args:
             element(WebElement): WebElement Object to single tap on.
 
@@ -382,6 +456,9 @@ class WebDriver(object):
     @fluent
     def swipe(self, startX, startY, endX, endY, duration = 1000):
         """Swipe on the touch screen using finger motion events.
+
+        Support:
+            Android iOS
 
         Args:
             startX(Float): The x-coordinate of start point.
@@ -406,6 +483,9 @@ class WebDriver(object):
     def send_keys(self, value):
         """Send a sequence of key strokes.
 
+        Support:
+            Android iOS Web(WebView)
+
         Args:
             value(str|int|list): value can be a string,
               int or a list contains defined Keys.
@@ -417,6 +497,9 @@ class WebDriver(object):
     @fluent
     def switch_to_frame(self, frame_reference=None):
         """Switches focus to the specified frame, by index, name, or webelement.
+
+        Support:
+            Web(WebView)
 
         Args:
             frame_reference(None|int|WebElement):
@@ -436,17 +519,28 @@ class WebDriver(object):
 
     @fluent
     def switch_to_parent_frame(self):
-        """Switches focus to the parent context."""
+        """Switches focus to the parent context.
+
+        Support:
+            Web(WebView)
+        """
         self._execute(Command.SWITCH_TO_PARENT_FRAME)
 
 
     def get_active_element(self):
-        """Returns the active element in current context."""
+        """Returns the active element in current context.
+
+        Support:
+            Web(WebView)
+        """
         return self._execute(Command.GET_ACTIVE_ELEMENT)
 
     @property
     def source(self):
         """Gets the source of the current page.
+
+        Support:
+            Android iOS Web(WebView)
 
         Returns:
             Return the source of the current page.
@@ -456,6 +550,9 @@ class WebDriver(object):
 
     def execute_script(self, script, *args):
         """Execute JavaScript Synchronously in current context.
+
+        Support:
+            Web(WebView)
 
         Args:
             script: The JavaScript to execute.
@@ -472,6 +569,9 @@ class WebDriver(object):
     def execute_async_script(self, script, *args):
         """Execute JavaScript Asynchronously in current context.
 
+        Support:
+            Web(WebView)
+
         Args:
             script: The JavaScript to execute.
             *args: Arguments for your JavaScript.
@@ -486,11 +586,17 @@ class WebDriver(object):
     @property
     def cookies(self):
         """Returns  all cookies associated with the address of the current context.
+
+        Support:
+            Web(WebView)
         """
         return self._execute(Command.GET_ALL_COOKIES)
 
     def get_cookie(self, name):
         """Get a single cookie by name.
+
+        Support:
+            Web(WebView)
 
         Returns:
             Returns the cookie if found, None if not.
@@ -504,6 +610,9 @@ class WebDriver(object):
     def delete_cookie(self, name):
         """Delete a single cookie by name.
 
+        Support:
+            Web(WebView)
+
         Args:
             name: The cookie name.
         """
@@ -511,12 +620,19 @@ class WebDriver(object):
 
     @fluent
     def delete_all_cookies(self):
-        """Delete all cookies at once."""
+        """Delete all cookies at once.
+
+        Support:
+            Web(WebView)
+        """
         self._execute(Command.DELETE_ALL_COOKIES)
 
     @fluent
     def add_cookie(self, cookie_dict):
         """Set a cookie.
+
+        Support:
+            Web(WebView)
 
         Args:
             cookie_dict: A dictionary contain keys: "name", "value",
@@ -540,6 +656,9 @@ class WebDriver(object):
            wait for the implicit element location strategy
            hen locating elements using Find Element and Find Elements.
 
+        Support:
+            Android iOS Web(WebView)
+
         Args:
             time_to_wait(int): Amount of time to wait (in seconds)
 
@@ -552,6 +671,9 @@ class WebDriver(object):
     @fluent
     def set_script_timeout(self, time_to_wait):
         """Script timeout that specifies a time to wait for scripts to run.
+
+        Support:
+            Web(WebView)
 
         Args:
             time_to_wait(int): Amount of time to wait (in seconds)
@@ -567,6 +689,9 @@ class WebDriver(object):
         """Page load timeout that specifies a time to
            wait for the page loading to complete.
 
+        Support:
+            Web(WebView)
+
         Args:
             time_to_wait(int): Amount of time to wait
 
@@ -579,22 +704,38 @@ class WebDriver(object):
 
     @fluent
     def accept_alert(self):
-        """Accepts the alert available."""
+        """Accepts the alert available.
+
+        Support:
+            iOS
+
+        """
         self._execute(Command.ACCEPT_ALERT)
 
     @fluent
     def dismiss_alert(self):
-        """Dismisses the alert available."""
+        """Dismisses the alert available.
+
+        Support:
+            iOS
+        """
         self._execute(Command.DISMISS_ALERT)
 
     @property
     def alert_text(self):
-        """Gets the text of the Alert."""
+        """Gets the text of the Alert.
+
+        Support:
+            iOS
+        """
         return self._execute(Command.GET_ALERT_TEXT)
 
     @fluent
     def alert_keys(self, keys):
         """Sends keystrokes to a JavaScript prompt() dialog.
+
+        Support:
+            iOS
 
         Args:
             keys(str): The keys send to.
@@ -607,6 +748,9 @@ class WebDriver(object):
         """Gets the screenshot of the current window
            as a base64 encoded string.
 
+        Support:
+            Android iOS Web(WebView)
+
         Returns:
             Base64 encoded string of the screenshot.
         """
@@ -615,6 +759,9 @@ class WebDriver(object):
     @fluent
     def save_screenshot(self, filename, quietly = False):
         """Save the screenshot to local.
+
+        Support:
+            Android iOS Web(WebView)
 
         Args:
             filename(str): The path to save the image.
@@ -639,6 +786,9 @@ class WebDriver(object):
     def element(self, using, value):
         """Find an element in the current context.
 
+        Support:
+            Android iOS Web(WebView)
+
         Args:
             using(str): The element location strategy.
             value(str): The value of the location strategy.
@@ -656,6 +806,9 @@ class WebDriver(object):
 
     def element_if_exists(self, using, value):
         """Check if an element in the current context.
+
+        Support:
+            Android iOS Web(WebView)
 
         Args:
             using(str): The element location strategy.
@@ -679,6 +832,9 @@ class WebDriver(object):
     def element_or_none(self, using, value):
         """Check if an element in the current context.
 
+        Support:
+            Android iOS Web(WebView)
+
         Args:
             using(str): The element location strategy.
             value(str): The value of the location strategy.
@@ -700,6 +856,9 @@ class WebDriver(object):
     def elements(self, using, value):
         """Find elements in the current context.
 
+        Support:
+            Android iOS Web(WebView)
+
         Args:
             using(str): The element location strategy.
             value(str): The value of the location strategy.
@@ -719,6 +878,9 @@ class WebDriver(object):
         self, timeout=10000, interval=1000,
         asserter=lambda x: x):
         """Wait for driver till satisfy the given condition
+
+        Support:
+            Android iOS Web(WebView)
 
         Args:
             timeout(int): How long we should be retrying stuff.
@@ -748,6 +910,9 @@ class WebDriver(object):
         self, using, value, timeout=10000,
         interval=1000, asserter=is_displayed):
         """Wait for element till satisfy the given condition
+
+        Support:
+            Android iOS Web(WebView)
 
         Args:
             using(str): The element location strategy.
@@ -780,6 +945,9 @@ class WebDriver(object):
         self, using, value, timeout=10000,
         interval=1000, asserter=is_displayed):
         """Wait for elements till satisfy the given condition
+
+        Support:
+            Android iOS Web(WebView)
 
         Args:
             using(str): The element location strategy.
