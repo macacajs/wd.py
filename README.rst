@@ -20,7 +20,7 @@ Intro
 ------
 
 WD.py is a Python WebDriver client implemented most of the APIs in the `WebDriver Protocol <https://www.w3.org/TR/webdriver/>`_.
-It was originally designed for `Macaca <//macacajs.github.io/macaca/>`_ (A Node.js powered WebDriver server), but also available for any other implementation of WebDriver server
+It was originally designed for `Macaca <//macacajs.github.io>`_ (A Node.js powered WebDriver server), but also available for any other implementation of WebDriver server
 such as Selenium, Appium and etc.
 
 Homepage
