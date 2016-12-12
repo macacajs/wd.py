@@ -442,3 +442,7 @@ class Command(object):
         'POST',
         '/session/{session_id}/context'
     )
+    PERFORM_ACTIONS = Endpoint(
+        'POST',
+        '/session/{session_id}/actions'
+    )

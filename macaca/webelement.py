@@ -535,5 +535,31 @@ class WebElement(object):
             if not quietly:
                 raise err
 
+    @fluent
+    def touch(self, name, args=None):
+        """Apply touch actions on devices. Such as, tap/doubleTap/press/pinch/rotate/drag.
+
+        Support:
+            Android iOS
+
+        Args:
+            name(str): Name of the action
+            args(dict): Arguments of the action
+
+        Returns:
+            WebDriver Object.
+
+        Raises:
+            WebDriverException.
+        """
+        if not args:
+            args = {}
+        args['type'] = name
+        args['element'] = self.element_id
+        actions = [args]
+        self._driver._execute(Command.PERFORM_ACTIONS, {
+            'actions': actions
+        })
+
 
 add_element_extension_method(WebElement)

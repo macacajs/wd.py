@@ -66,8 +66,6 @@ class WebDriver(object):
         res = self.remote_invoker.execute(command, data)
         ret = WebDriverResult.from_object(res)
         ret.raise_for_status()
-        if self.session_id and self.session_id != ret.session_id:
-            raise WebDriverException('invalid session id')
         ret.value = self._unwrap_el(ret.value)
         if not unpack:
             return ret
@@ -107,6 +105,18 @@ class WebDriver(object):
             return [self._wrap_el(item) for item in value]
         else:
             return value
+
+    @property
+    def sessions(self):
+        """Gets all the sessions of the webdriver server.
+
+        Support:
+            Android iOS Web(WebView)
+
+        Returns:
+            Return the URL of the current page.
+        """
+        return self._execute(Command.GET_ALL_SESSIONS)
 
     @fluent
     def attach(self, session_id):
@@ -979,6 +989,31 @@ class WebDriver(object):
                 return els
 
         return _wait_for_elements(self, using, value)
+
+    @fluent
+    def touch(self, name, args=None):
+        """Apply touch actions on devices. Such as, tap/doubleTap/press/pinch/rotate/drag.
+
+        Support:
+            Android iOS
+
+        Args:
+            name(str): Name of the action
+            args(dict): Arguments of the action
+
+        Returns:
+            WebDriver Object.
+
+        Raises:
+            WebDriverException.
+        """
+        if not args:
+            args = {}
+        args['type'] = name
+        actions = [args]
+        self._execute(Command.PERFORM_ACTIONS, {
+            'actions': actions
+        })
 
 
 add_element_extension_method(WebDriver)

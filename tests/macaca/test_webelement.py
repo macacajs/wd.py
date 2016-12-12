@@ -530,3 +530,34 @@ def test_screenshot(element):
         element.save_screenshot('/etc/test.png')
 
     element.save_screenshot('/etc/test.png', True)
+
+
+@responses.activate
+def test_touch(element):
+    responses.add(
+        responses.POST,
+        'http://127.0.0.1:3456/wd/hub/session/2345/actions',
+        json={
+            'status': 0,
+            'sessionId': '2345',
+            'value': None
+        })
+    assert element.touch('drag', { 'toX': 100, 'toY': 100 }) == element
+    body = responses.calls[0].request.body.decode('utf-8')
+    assert json.loads(body) == {
+        "actions": [{
+            "type": "drag",
+            "element": "1",
+            "toX": 100,
+            "toY": 100
+        }]
+    }
+
+    assert element.touch('tap') == element
+    body = responses.calls[1].request.body.decode('utf-8')
+    assert json.loads(body) == {
+        "actions": [{
+            "type": "tap",
+            "element": "1",
+        }]
+    }
