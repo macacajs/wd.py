@@ -52,6 +52,21 @@ def test_init(driver):
 
 
 @responses.activate
+def test_sessions(driver):
+    responses.add(
+        responses.GET,
+        'http://127.0.0.1:3456/wd/hub/sessions',
+        json={
+            'status': 0,
+            'sessionId': '',
+            'value': {
+                'id': '2345'
+            }
+        })
+    assert driver.sessions["id"] == '2345'
+
+
+@responses.activate
 def test_attach(driver):
     assert driver.session_id == '2345'
     driver.attach('1234')
@@ -841,3 +856,33 @@ def test_screenshot(driver):
         driver.save_screenshot('/etc/test.png')
 
     driver.save_screenshot('/etc/test.png', True)
+
+
+@responses.activate
+def test_touch(driver):
+    responses.add(
+        responses.POST,
+        'http://127.0.0.1:3456/wd/hub/session/2345/actions',
+        json={
+            'status': 0,
+            'sessionId': '2345',
+            'value': None
+        })
+    assert driver.touch('tap', { 'x': 100, 'y': 100 }) == driver
+    body = responses.calls[0].request.body.decode('utf-8')
+    assert json.loads(body) == {
+        "actions": [{
+            "type": "tap",
+            "x": 100,
+            "y": 100
+        }]
+    }
+
+    assert driver.touch('tap') == driver
+
+    body = responses.calls[1].request.body.decode('utf-8')
+    assert json.loads(body) == {
+        "actions": [{
+            "type": "tap"
+        }]
+    }
