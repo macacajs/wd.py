@@ -886,3 +886,26 @@ def test_touch(driver):
             "type": "tap"
         }]
     }
+
+
+@responses.activate
+def test_touch_multi(driver):
+    responses.add(
+        responses.POST,
+        'http://127.0.0.1:3456/wd/hub/session/2345/actions',
+        json={
+            'status': 0,
+            'sessionId': '2345',
+            'value': None
+        })
+    assert driver.touch([
+        { 'type': 'drag', 'x': 100, 'y': 100 },
+        { 'type': 'drag', 'x': 200, 'y': 300 }
+    ]) == driver
+    body = responses.calls[0].request.body.decode('utf-8')
+    assert json.loads(body) == {
+        "actions": [
+            { 'type': 'drag', 'x': 100, 'y': 100 },
+            { 'type': 'drag', 'x': 200, 'y': 300 }
+        ]
+    }

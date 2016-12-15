@@ -1007,10 +1007,15 @@ class WebDriver(object):
         Raises:
             WebDriverException.
         """
-        if not args:
-            args = {}
-        args['type'] = name
-        actions = [args]
+        if isinstance(name, list) and not isinstance(name, str):
+            actions = name
+        elif isinstance(name, str):
+            if not args:
+                args = {}
+            args['type'] = name
+            actions = [args]
+        else:
+            raise TypeError('Invalid parameters.')
         self._execute(Command.PERFORM_ACTIONS, {
             'actions': actions
         })
