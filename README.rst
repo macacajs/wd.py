@@ -1,5 +1,5 @@
 Macaca Python Client
-=====================
+====================
 
 .. image:: https://img.shields.io/coveralls/macacajs/wd.py/master.svg
     :target: https://coveralls.io/github/macacajs/wd.py
@@ -29,7 +29,7 @@ Homepage
 
 Sample
 -------
-`WD.py’s sample. <//github.com/macacajs/macaca-test-sample-python/>`_
+`WD.py’s sample. <//github.com/macaca-sample/macaca-test-sample-python/>`_
 
 Examples
 ---------
