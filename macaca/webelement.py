@@ -552,11 +552,18 @@ class WebElement(object):
         Raises:
             WebDriverException.
         """
-        if not args:
-            args = {}
-        args['type'] = name
-        args['element'] = self.element_id
-        actions = [args]
+        if isinstance(name, list) and not isinstance(name, str):
+            for obj in name:
+                obj['element'] = self.element_id
+            actions = name
+        elif isinstance(name, str):
+            if not args:
+                args = {}
+            args['type'] = name
+            args['element'] = self.element_id
+            actions = [args]
+        else:
+            raise TypeError('Invalid parameters.')
         self._driver._execute(Command.PERFORM_ACTIONS, {
             'actions': actions
         })

@@ -561,3 +561,26 @@ def test_touch(element):
             "element": "1",
         }]
     }
+
+
+@responses.activate
+def test_touch_multi(element):
+    responses.add(
+        responses.POST,
+        'http://127.0.0.1:3456/wd/hub/session/2345/actions',
+        json={
+            'status': 0,
+            'sessionId': '2345',
+            'value': None
+        })
+    assert element.touch([
+        { 'type': 'drag', 'toX': 100, 'toY': 100 },
+        { 'type': 'drag', 'toX': 200, 'toY': 300 }
+    ]) == element
+    body = responses.calls[0].request.body.decode('utf-8')
+    assert json.loads(body) == {
+        "actions": [
+            { 'type': 'drag', 'element': '1', 'toX': 100, 'toY': 100 },
+            { 'type': 'drag', 'element': '1', 'toX': 200, 'toY': 300 }
+        ]
+    }
