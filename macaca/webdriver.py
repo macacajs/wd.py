@@ -401,7 +401,8 @@ class WebDriver(object):
 
     @fluent
     def move_to(self, element, x=0, y=0):
-        """Move the mouse by an offset of the specificed element.
+        """Deprecated use element.touch('drag', { toX, toY, duration(s) }) instead.
+            Move the mouse by an offset of the specificed element.
 
         Support:
             Android
@@ -424,8 +425,10 @@ class WebDriver(object):
 
     @fluent
     def flick(self, element, x, y, speed):
-        """Flick on the touch screen using finger motion events.
-           This flickcommand starts at a particulat screen location.
+        """Deprecated use touch('drag', { fromX, fromY, toX, toY, duration(s) }) instead.
+            Flick on the touch screen using finger motion events.
+            This flickcommand starts at a particulat screen location.
+
 
         Support:
             iOS
@@ -448,7 +451,8 @@ class WebDriver(object):
 
     @fluent
     def tap(self, element):
-        """Single tap on the touch enabled device.
+        """Deprecated use element.touch('tap') instead.
+            Single tap on the touch enabled device.
 
         Support:
             Android iOS
@@ -465,7 +469,8 @@ class WebDriver(object):
 
     @fluent
     def swipe(self, startX, startY, endX, endY, duration = 1000):
-        """Swipe on the touch screen using finger motion events.
+        """Deprecated use touch('drag', { fromX, fromY, toX, toY, duration(s) }) instead.
+            Swipe on the touch screen using finger motion events.
 
         Support:
             Android iOS
@@ -993,6 +998,7 @@ class WebDriver(object):
     @fluent
     def touch(self, name, args=None):
         """Apply touch actions on devices. Such as, tap/doubleTap/press/pinch/rotate/drag.
+            See more on https://github.com/alibaba/macaca/issues/366.
 
         Support:
             Android iOS
