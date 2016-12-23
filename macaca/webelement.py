@@ -356,7 +356,7 @@ class WebElement(object):
         """The dimensions and coordinates of the given web element in pixels.
 
         Support:
-            Web(WebView)
+            Android iOS Web(WebView)
 
         Returns:
             A dict contains:
