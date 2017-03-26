@@ -1,5 +1,6 @@
 #
 # Keys for WebDriver
+# keycode: https://github.com/macacajs/webdriver-keycode/blob/master/lib/webdriver-keycode.js
 #
 
 from enum import Enum
@@ -66,4 +67,4 @@ class Keys(Enum):
     F12 = '\ue03c'
     META = '\ue03d'
     COMMAND = '\ue03d'
-    ZENKAKU_HANKAKU	= '\ue040'
+    ZENKAKU_HANKAKU = '\ue040'
