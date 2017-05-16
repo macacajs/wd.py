@@ -132,10 +132,10 @@ def test_fluent_decorator(driver):
 
 
 def test_value_to_key_strokes():
-    assert value_to_key_strokes(123) == ['1', '2', '3']
-    assert value_to_key_strokes('123') == ['1', '2', '3']
-    assert value_to_key_strokes([1, 2, 3]) == ['1', '2', '3']
-    assert value_to_key_strokes(['1', '2', '3']) == ['1', '2', '3']
+    assert value_to_key_strokes(123) == ['123']
+    assert value_to_key_strokes('123') == ['123']
+    assert value_to_key_strokes([1, 2, 3]) == ['123']
+    assert value_to_key_strokes(['123']) == ['123']
     assert value_to_key_strokes([Keys.TAB, 1, '2', 3, Keys.ENTER]) == [
         '\ue004', '1', '2', '3', '\ue007'
     ]

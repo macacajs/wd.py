@@ -429,7 +429,7 @@ def test_send_keys(element):
     assert element.send_keys('123') == element
     body = responses.calls[0].request.body.decode('utf-8')
     data = json.loads(body)
-    assert data['value'] == ['1', '2', '3']
+    assert data['value'] == ['123']
 
 
 @responses.activate
