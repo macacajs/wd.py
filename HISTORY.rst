@@ -6,7 +6,7 @@ Release History
 0.1.7 (2017-05-16)
 +++++++++++++++++++
 
-**Change
+**Change**
 
 - Change the output of `send_keys` function, from ['1', '2', '3'] to ['123']
 
