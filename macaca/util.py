@@ -152,13 +152,13 @@ def fluent(func):
 def value_to_key_strokes(value):
     """Convert value to a list of key strokes
     >>> value_to_key_strokes(123)
-    ['1', '2', '3']
+    ['123']
     >>> value_to_key_strokes('123')
-    ['1', '2', '3']
+    ['123']
     >>> value_to_key_strokes([1, 2, 3])
-    ['1', '2', '3']
+    ['123']
     >>> value_to_key_strokes(['1', '2', '3'])
-    ['1', '2', '3']
+    ['123']
 
     Args:
         value(int|str|list)
@@ -166,18 +166,18 @@ def value_to_key_strokes(value):
     Returns:
         A list of string.
     """
-    result = []
+    result = ''
     if isinstance(value, Integral):
         value = str(value)
 
     for v in value:
         if isinstance(v, Keys):
-            result.append(v.value)
+            result += v.value
         elif isinstance(v, Integral):
-            result.append(str(v))
+            result += str(v)
         else:
-            result.append(v)
-    return result
+            result += v
+    return [result]
 
 
 if PY3:
