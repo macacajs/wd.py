@@ -10,7 +10,7 @@ with open(path.join(here, 'README.rst'), encoding='utf-8') as f:
 setup(
     name='wd',
 
-    version='0.1.7',
+    version='0.1.8',
 
     description='Macaca Python Client',
     long_description=long_description,

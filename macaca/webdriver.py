@@ -495,6 +495,21 @@ class WebDriver(object):
         })
 
     @fluent
+    def keys(self, value):
+        """Send a sequence of key strokes.
+
+        Support:
+            Android iOS Web(WebView)
+
+        Args:
+            value(str|int|list): value can be a string,
+              int or a list contains defined Keys.
+        """
+        self._execute(Command.SEND_KEYS_TO_ACTIVE_ELEMENT, {
+            'value': value_to_key_strokes(value)
+        })
+
+    @fluent
     def send_keys(self, value):
         """Send a sequence of key strokes.
 
