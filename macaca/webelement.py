@@ -10,7 +10,7 @@ from retrying import retry
 from .asserters import is_displayed
 from .command import Command
 from .locator import Locator
-from .util import add_element_extension_method, value_to_key_strokes, fluent
+from .util import add_element_extension_method, value_to_key_strokes, value_to_single_key_strokes, fluent
 from .webdriverexception import WebDriverException
 
 
@@ -405,6 +405,20 @@ class WebElement(object):
             Android iOS Web(WebView)
         """
         self._execute(Command.CLEAR_ELEMENT)
+
+    @fluent
+    def keys(self, value):
+        """Send a sequence of key strokes to an element.
+
+        Support:
+            Android iOS Web(WebView)
+
+        Args:
+            value(str|int|list): value can be a string,
+              int or a list contains defined Keys.
+        """
+        self._execute(Command.SEND_KEYS_TO_ELEMENT, {
+            'value': value_to_single_key_strokes(value)})
 
     @fluent
     def send_keys(self, value):

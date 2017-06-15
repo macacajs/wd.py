@@ -237,7 +237,7 @@ It is convenient to send special keys using array.
 
     from macaca.keys import ENTER, DELETE
 
-    web_element.send_keys([1, DELETE, 1, 2, 3, 4, 5, 6])
+    web_element.keys([1, DELETE, 1, 2, 3, 4, 5, 6])
 
 
 **Screenshot**
