@@ -11,7 +11,7 @@ from .asserters import is_displayed
 from .command import Command
 from .locator import Locator
 from .remote_invoker import RemoteInvoker
-from .util import add_element_extension_method, value_to_key_strokes, fluent
+from .util import add_element_extension_method, value_to_key_strokes, value_to_single_key_strokes, fluent
 from .webdriverresult import WebDriverResult
 from .webdriverexception import WebDriverException
 from .webelement import WebElement
@@ -506,7 +506,7 @@ class WebDriver(object):
               int or a list contains defined Keys.
         """
         self._execute(Command.SEND_KEYS_TO_ACTIVE_ELEMENT, {
-            'value': value_to_key_strokes(value)
+            'value': value_to_single_key_strokes(value)
         })
 
     @fluent
