@@ -102,10 +102,6 @@ class Command(object):
         'POST',
         '/session/{session_id}/element/{element_id}/clear'
     )
-    SWIPE_ELEMENT = Endpoint(
-        'POST',
-        '/session/{session_id}/element/{element_id}/swipe'
-    )
     SUBMIT_ELEMENT = Endpoint(
         'POST',
         '/session/{session_id}/element/{element_id}/submit'
