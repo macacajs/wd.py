@@ -338,20 +338,6 @@ class WebElement(object):
         return self._execute(Command.GET_ELEMENT_TAG_NAME)
 
     @property
-    def location(self):
-        """The location of the element in the renderable canvas in pixels.
-
-        Support:
-            Web(WebView)
-
-        Returns:
-            A dict contains:
-            x(float): X axis position of the top-left corner.
-            y(float): Y axis position of the top-left corner.
-        """
-        return self._execute(Command.GET_ELEMENT_LOCATION)
-
-    @property
     def rect(self):
         """The dimensions and coordinates of the given web element in pixels.
 
