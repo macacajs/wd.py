@@ -146,14 +146,6 @@ class Command(object):
         'GET',
         '/session/{session_id}/element/{element_id}/displayed'
     )
-    GET_ELEMENT_LOCATION = Endpoint(
-        'GET',
-        '/session/{session_id}/element/{element_id}/location'
-    )
-    GET_ELEMENT_LOCATION_ONCE_SCROLLED_INTO_VIEW = Endpoint(
-        'GET',
-        '/session/{session_id}/element/{element_id}/location_in_view'
-    )
     GET_ELEMENT_SIZE = Endpoint(
         'GET',
         '/session/{session_id}/element/{element_id}/size'
@@ -341,14 +333,6 @@ class Command(object):
     EXECUTE_SQL = Endpoint(
         'POST',
         '/session/{session_id}/execute_sql'
-    )
-    GET_LOCATION = Endpoint(
-        'GET',
-        '/session/{session_id}/location'
-    )
-    SET_LOCATION = Endpoint(
-        'POST',
-        '/session/{session_id}/location'
     )
     GET_APP_CACHE = Endpoint(
         'GET',

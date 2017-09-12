@@ -336,17 +336,6 @@ def test_tag_name(element):
 
 @responses.activate
 def test_dimensions_and_coordinates(element):
-    responses.add(
-        responses.GET,
-        'http://127.0.0.1:3456/wd/hub/session/2345/element/1/location',
-        json={
-            'status': 0,
-            'sessionId': '2345',
-            'value': {
-                'x': 200,
-                'y': 100
-            }
-        })
 
     responses.add(
         responses.GET,
@@ -374,10 +363,6 @@ def test_dimensions_and_coordinates(element):
             }
         })
 
-    assert element.location == {
-        'x': 200,
-        'y': 100
-    }
     assert element.size == {
         'width': 400,
         'height': 400
