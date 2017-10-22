@@ -536,13 +536,31 @@ def test_touch_multi(element):
             'value': None
         })
     assert element.touch([
-        { 'type': 'drag', 'toX': 100, 'toY': 100 },
-        { 'type': 'drag', 'toX': 200, 'toY': 300 }
+        {
+            'type': 'drag',
+            'toX': 100,
+            'toY': 100
+        },
+        {
+            'type': 'drag',
+            'toX': 200,
+            'toY': 300
+        }
     ]) == element
     body = responses.calls[0].request.body.decode('utf-8')
     assert json.loads(body) == {
         "actions": [
-            { 'type': 'drag', 'element': '1', 'toX': 100, 'toY': 100 },
-            { 'type': 'drag', 'element': '1', 'toX': 200, 'toY': 300 }
+            {
+                'type': 'drag',
+                'element': '1',
+                'toX': 100,
+                'toY': 100
+            },
+            {
+                'type': 'drag',
+                'element': '1',
+                'toX': 200,
+                'toY': 300
+            }
         ]
     }

@@ -17,22 +17,22 @@ Macaca Python Client
     :target: https://pypi.python.org/pypi/wd/
 
 Intro
-------
+-----
 
 WD.py is a Python WebDriver client implemented most of the APIs in the `WebDriver Protocol <https://www.w3.org/TR/webdriver/>`_.
 It was originally designed for `Macaca <//macacajs.github.io>`_ (A Node.js powered WebDriver server), but also available for any other implementation of WebDriver server
 such as Selenium, Appium and etc.
 
 Homepage
----------
+--------
 `WD.py’s documentation. <//macacajs.github.io/wd.py/>`_
 
 Sample
--------
+------
 `WD.py’s sample. <//github.com/macaca-sample/macaca-test-sample-python/>`_
 
 Examples
----------
+--------
 .. code-block:: python
 
     >>> from macaca import WebDriver, WebElement
@@ -71,9 +71,9 @@ Examples
     macaca - Google Search
 
 Changelog
-----------
+---------
 Details changes for each release are documented in the `HISTORY.rst <HISTORY.rst>`_.
 
 License
---------
+-------
 `MIT <http://opensource.org/licenses/MIT>`_

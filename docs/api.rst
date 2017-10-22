@@ -1,8 +1,8 @@
 API
-==============
+===
 
 WebDriver
------------------------
+---------
 
 .. automodule:: macaca.webdriver
     :members:
@@ -10,7 +10,7 @@ WebDriver
     :show-inheritance:
 
 WebElement
-------------------------
+----------
 
 .. automodule:: macaca.webelement
     :members:
@@ -18,7 +18,7 @@ WebElement
     :show-inheritance:
 
 Asserters
------------------------
+---------
 
 .. automodule:: macaca.asserters
     :members:
@@ -26,7 +26,7 @@ Asserters
     :show-inheritance:
 
 Keys
-------------------
+----
 
 .. automodule:: macaca.keys
     :members:
@@ -34,7 +34,7 @@ Keys
     :show-inheritance:
 
 WebDriverException
---------------------------------
+------------------
 
 .. automodule:: macaca.webdriverexception
     :members: WebDriverException
