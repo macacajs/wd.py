@@ -1,0 +1,395 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Quick Start &#8212; wd.py 0.1.10 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.1.10',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="API" href="api.html" />
+    <link rel="prev" title="Welcome to WD.py’s documentation!" href="index.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="quick-start">
+<h1>Quick Start<a class="headerlink" href="#quick-start" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="what-is-wd-py">
+<h2>What is WD.py?<a class="headerlink" href="#what-is-wd-py" title="Permalink to this headline">¶</a></h2>
+<p>WD.py is a Python WebDriver client implemented most of the APIs in the <a class="reference external" href="https://www.w3.org/TR/webdriver/">WebDriver Protocol</a>.
+It was originally designed for <a class="reference external" href="http://macacajs.github.io">Macaca</a> (A Node.js powered WebDriver server), but also available for any other implementation of WebDriver server
+such as Selenium, Appium and etc.</p>
+</div>
+<div class="section" id="installation">
+<h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h2>
+<p>To install WD.py, simply:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">wd</span>
+</pre></div>
+</div>
+<p>To get latest code from source via <a class="reference external" href="https://github.com/macacajs/wd.py">GitHub</a>.</p>
+<div class="highlight-shell"><div class="highlight"><pre><span></span>git clone https://github.com/macacajs/wd.py.git
+</pre></div>
+</div>
+</div>
+<div class="section" id="prerequisite">
+<h2>Prerequisite<a class="headerlink" href="#prerequisite" title="Permalink to this headline">¶</a></h2>
+<p>WD.py does not start the WebDriver server automaticalliy, you may use <a class="reference external" href="http://macacajs.github.io">Macaca</a> to start a WebDriver server and run the tests after.</p>
+</div>
+<div class="section" id="usage">
+<h2>Usage<a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h2>
+<p><strong>Configure the WebDriver</strong></p>
+<p>Firstly, you need to configure the WebDriver with desired capabilities and server url.</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">macaca</span> <span class="kn">import</span> <span class="n">WebDriver</span>
+
+<span class="n">desired_caps</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;browserName&#39;</span><span class="p">:</span> <span class="s1">&#39;Chrome&#39;</span><span class="p">,</span> <span class="c1"># Electon, Safari(iOS).</span>
+    <span class="s1">&#39;platformName&#39;</span><span class="p">:</span> <span class="s1">&#39;desktop&#39;</span><span class="p">,</span> <span class="c1"># iOS, Android.</span>
+    <span class="s1">&#39;platformVersion&#39;</span><span class="p">:</span> <span class="s1">&#39;*&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;autoAcceptAlerts&#39;</span><span class="p">:</span> <span class="bp">True</span> <span class="c1"># Accept the Alerts in page automaticalliy.</span>
+<span class="p">}</span>
+
+<span class="n">server_url</span> <span class="o">=</span> <span class="s1">&#39;http://127.0.0.1:3456/wd/hub/&#39;</span>
+
+<span class="c1"># You can omit the server_url if you use the default url above.</span>
+<span class="n">driver</span> <span class="o">=</span> <span class="n">WebDriver</span><span class="p">(</span><span class="n">desired_caps</span><span class="p">,</span> <span class="n">server_url</span><span class="p">)</span>
+
+<span class="c1"># You can also use a dict to represent the url.</span>
+<span class="n">driver</span> <span class="o">=</span> <span class="n">WebDriver</span><span class="p">(</span><span class="n">desired_caps</span><span class="p">,</span> <span class="p">{</span>
+    <span class="s1">&#39;protocol&#39;</span><span class="p">:</span> <span class="s1">&#39;https&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;hostname&#39;</span><span class="p">:</span> <span class="s1">&#39;127.0.0.1&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;port&#39;</span><span class="p">:</span> <span class="mi">5678</span><span class="p">,</span>
+    <span class="s1">&#39;username&#39;</span><span class="p">:</span> <span class="s1">&#39;macaca&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;password&#39;</span><span class="p">:</span> <span class="s1">&#39;123456&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;path&#39;</span><span class="p">:</span> <span class="s1">&#39;/hub&#39;</span>
+<span class="p">})</span>
+
+<span class="c1"># Defaults</span>
+<span class="p">{</span>
+    <span class="s1">&#39;protocol&#39;</span><span class="p">:</span> <span class="s1">&#39;http&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;hostname&#39;</span><span class="p">:</span> <span class="s1">&#39;127.0.0.1&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;port&#39;</span><span class="p">:</span> <span class="mi">3456</span><span class="p">,</span>
+    <span class="s1">&#39;path&#39;</span><span class="p">:</span> <span class="s1">&#39;/wd/hub&#39;</span>
+<span class="p">}</span>
+
+<span class="c1"># Which equals to</span>
+<span class="n">driver</span> <span class="o">=</span> <span class="n">WebDriver</span><span class="p">(</span><span class="n">desired_caps</span><span class="p">,</span> <span class="s1">&#39;https://macaca:123456@127.0.0.1:5678/hub&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Init the WebDriver</strong></p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="c1"># Create a new session towards WebDriver server.</span>
+<span class="n">driver</span><span class="o">.</span><span class="n">init</span><span class="p">()</span>
+</pre></div>
+</div>
+<p><strong>Stop the WebDriver</strong></p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="c1"># Delete current session.</span>
+<span class="n">driver</span><span class="o">.</span><span class="n">quit</span><span class="p">()</span>
+</pre></div>
+</div>
+<p><strong>Attach to an existing session</strong></p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="c1"># Attach to a given session.</span>
+<span class="n">driver</span><span class="o">.</span><span class="n">attach</span><span class="p">(</span><span class="s1">&#39;012-345-678-9&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>WebDriver methods</strong></p>
+<p>The instance methods of WebDriver mostly related to the global action of driver.
+For example, switch to a new url, refresh and get title.</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="c1"># Navigate to a url.</span>
+<span class="n">driver</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;https://www.google.com&#39;</span><span class="p">)</span>
+
+<span class="c1"># Refresh current page.</span>
+<span class="n">driver</span><span class="o">.</span><span class="n">refresh</span><span class="p">()</span>
+
+<span class="c1"># Get title of current page</span>
+<span class="n">title</span> <span class="o">=</span> <span class="n">driver</span><span class="o">.</span><span class="n">title</span>
+</pre></div>
+</div>
+<p><strong>Find element(s)</strong></p>
+<p>The Find Element and Find Elements commands allow look up of individual elements and collections of elements, respectively.
+Locator strategies are listed below:</p>
+<ul class="simple">
+<li>“id”</li>
+<li>“xpath”</li>
+<li>“link text”</li>
+<li>“partial link text”</li>
+<li>“tag name”</li>
+<li>“class name”</li>
+<li>“css selector”</li>
+</ul>
+<p>The basic method of finding element(s) is <cite>element</cite>:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="c1"># Finding the element which its `id` matches `login`</span>
+<span class="n">driver</span><span class="o">.</span><span class="n">element</span><span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">,</span> <span class="s1">&#39;login&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>But in most cases, you don’t need to use this basic method, there are a lot of extension methods for convenience.</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="c1"># Finding the element which its `id` matches `login`</span>
+<span class="n">driver</span><span class="o">.</span><span class="n">element_by_id</span><span class="p">(</span><span class="s1">&#39;login&#39;</span><span class="p">)</span>
+
+<span class="c1"># Similarly, all the strategies can be append after `element` using snake case.</span>
+<span class="n">driver</span><span class="o">.</span><span class="n">element_by_id</span><span class="p">(</span><span class="s1">&#39;login&#39;</span><span class="p">)</span>
+
+<span class="n">driver</span><span class="o">.</span><span class="n">element_by_xpath</span><span class="p">(</span><span class="s1">&#39;//*[@id=&quot;finding-elements-to-interact&quot;]/table[4]&#39;</span><span class="p">)</span>
+
+<span class="n">driver</span><span class="o">.</span><span class="n">element_by_link_text</span><span class="p">(</span><span class="s1">&#39;macaca&#39;</span><span class="p">)</span>
+
+<span class="n">driver</span><span class="o">.</span><span class="n">element_by_partial_link_text</span><span class="p">(</span><span class="s1">&#39;maca&#39;</span><span class="p">)</span>
+
+<span class="n">driver</span><span class="o">.</span><span class="n">element_by_tag_name</span><span class="p">(</span><span class="s1">&#39;input&#39;</span><span class="p">)</span>
+
+<span class="n">driver</span><span class="o">.</span><span class="n">element_by_class_name</span><span class="p">(</span><span class="s1">&#39;btn&#39;</span><span class="p">)</span>
+
+<span class="n">driver</span><span class="o">.</span><span class="n">element_by_css_selector</span><span class="p">(</span><span class="s1">&#39;.btn&#39;</span><span class="p">)</span>
+
+<span class="c1"># And we have element_if_exists and element_or_none to avoid</span>
+<span class="c1"># raise WebDriverException of ` no such element` when element not found.</span>
+
+<span class="c1"># Return True if the element does exists and return False otherwise.</span>
+<span class="n">driver</span><span class="o">.</span><span class="n">element_by_id_if_exists</span><span class="p">(</span><span class="s1">&#39;login&#39;</span><span class="p">)</span>
+
+<span class="c1"># Return Element if the element does exists and return None otherwise.</span>
+<span class="n">driver</span><span class="o">.</span><span class="n">element_by_id_or_none</span><span class="p">(</span><span class="s1">&#39;login&#39;</span><span class="p">)</span>
+
+<span class="c1"># More over, there are `wait for` method to wait for element</span>
+<span class="c1"># till satisfy the given condition</span>
+
+<span class="c1"># Default to wait 10s, each interval 1s.</span>
+<span class="c1"># The asserter function defaults to asserters.is_displayed.</span>
+
+<span class="c1"># See more at API section.</span>
+<span class="n">driver</span><span class="o">.</span><span class="n">wait_for_element_by_id</span><span class="p">(</span><span class="s1">&#39;login&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>WebElement methods</strong></p>
+<p>The instance methods of WebElement mostly related to the action element such as
+click the element, get the tag name or get the innerText of the element.</p>
+<p>The WebElement instance is returned by finding element command.</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">macaca</span> <span class="kn">import</span> <span class="n">WebElement</span>
+
+<span class="c1"># Retrieve the element by id</span>
+<span class="n">web_element</span> <span class="o">=</span> <span class="n">driver</span><span class="o">.</span><span class="n">element_by_id</span><span class="p">(</span><span class="s1">&#39;login&#39;</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">web_element</span><span class="p">)</span> <span class="o">==</span> <span class="n">WebElement</span><span class="p">)</span> <span class="c1"># True</span>
+
+<span class="c1"># Click the element</span>
+<span class="n">web_element</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>
+
+<span class="c1"># Get the tag name of the element</span>
+<span class="n">tag_name</span> <span class="o">=</span> <span class="n">web_element</span><span class="o">.</span><span class="n">tag_name</span>
+
+<span class="c1"># Get the innerText of the element</span>
+<span class="n">text</span> <span class="o">=</span> <span class="n">web_element</span><span class="o">.</span><span class="n">text</span>
+</pre></div>
+</div>
+<p>Futhermore, all the <cite>element</cite> methods on WebDriver can be used on WebElement, it means to
+find element from the current Web Element.</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">web_element</span><span class="o">.</span><span class="n">element_by_id</span><span class="p">(</span><span class="s1">&#39;ss&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Keys</strong></p>
+<p>We can send a sequence of key strokes to an element when need to fulfill a input field.</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">web_element</span><span class="o">.</span><span class="n">send_keys</span><span class="p">(</span><span class="s1">&#39;123456&#39;</span><span class="p">)</span>
+
+<span class="c1"># or</span>
+<span class="n">driver</span><span class="o">.</span><span class="n">send_keys</span><span class="p">(</span><span class="n">web_element</span><span class="p">,</span> <span class="s1">&#39;123456&#39;</span><span class="p">)</span>
+
+<span class="c1"># `send_keys` also accept an array, it&#39;s very useful when sending special keys.</span>
+<span class="n">driver</span><span class="o">.</span><span class="n">send_keys</span><span class="p">(</span><span class="n">web_element</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">])</span>
+</pre></div>
+</div>
+<p><em>Special keys</em> means the pressable keys that aren’t text, learn more at <a class="reference external" href="https://w3c.github.io/webdriver/webdriver-spec.html#dfn-character-types">Character Types</a>.</p>
+<p>For easily use, the <em>keys</em> defined in above protocol can import from <cite>Keys</cite> module directly.</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">macaca</span> <span class="kn">import</span> <span class="n">keys</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">keys</span><span class="o">.</span><span class="n">ENTER</span><span class="p">)</span>
+<span class="go">\uE007</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">keys</span><span class="o">.</span><span class="n">DELETE</span><span class="p">)</span>
+<span class="go">\uE017</span>
+</pre></div>
+</div>
+<p>It is convenient to send special keys using array.</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">macaca.keys</span> <span class="kn">import</span> <span class="n">ENTER</span><span class="p">,</span> <span class="n">DELETE</span>
+
+<span class="n">web_element</span><span class="o">.</span><span class="n">keys</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="n">DELETE</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">])</span>
+</pre></div>
+</div>
+<p><strong>Screenshot</strong></p>
+<p>There are two methods to use when taking screenshot.</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="c1"># Return the base64 encoded string of the screenshot.</span>
+<span class="n">base64_str</span> <span class="o">=</span> <span class="n">driver</span><span class="o">.</span><span class="n">take_screenshot</span><span class="p">()</span>
+
+<span class="c1"># Save screenshot to the given path.</span>
+<span class="n">driver</span><span class="o">.</span><span class="n">save_screenshot</span><span class="p">(</span><span class="s1">&#39;./screen.png&#39;</span><span class="p">)</span>
+
+<span class="c1"># `save_screenshot` has the optional second parameter</span>
+<span class="c1"># to decide whether to ignore the IOError when failed to</span>
+<span class="c1"># save to file system for some reason.</span>
+<span class="c1"># For example, no permission to write.</span>
+
+<span class="o">&gt;&gt;&gt;</span> <span class="n">driver</span><span class="o">.</span><span class="n">save_screenshot</span><span class="p">(</span><span class="s1">&#39;/etc/screen.png&#39;</span><span class="p">)</span>
+<span class="ne">IOError</span><span class="p">:</span> <span class="p">[</span><span class="n">Errno</span> <span class="mi">13</span><span class="p">]</span> <span class="n">Permission</span> <span class="n">denied</span><span class="p">:</span> <span class="s1">&#39;/etc/screen.png&#39;</span>
+
+<span class="c1"># Nothing happened.</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">driver</span><span class="o">.</span><span class="n">save_screenshot</span><span class="p">(</span><span class="s1">&#39;/etc/screen.png&#39;</span><span class="p">,</span> <span class="bp">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Switch context</strong></p>
+<p>For mobile testing, we will need to switch context between <em>Native</em> and <em>Webview</em>.</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="c1"># Get existing contexts</span>
+<span class="n">ctxs</span> <span class="o">=</span> <span class="n">driver</span><span class="o">.</span><span class="n">contexts</span>
+
+<span class="k">print</span><span class="p">(</span><span class="n">ctxs</span><span class="p">)</span> <span class="c1"># [&#39;NATIVE&#39;, &#39;WEBVIEW_1&#39;, &#39;WEBVIEW_2&#39;]</span>
+
+<span class="c1"># Switch to `WEBVIEW_1`</span>
+<span class="n">driver</span><span class="o">.</span><span class="n">context</span> <span class="o">=</span> <span class="s1">&#39;WEBVIEW_1&#39;</span>
+
+<span class="k">print</span><span class="p">(</span><span class="n">driver</span><span class="o">.</span><span class="n">context</span><span class="p">)</span> <span class="c1"># WEBVIEW_1</span>
+</pre></div>
+</div>
+<p><strong>Execute JavaScript Snippets</strong></p>
+<p>In some complex situation, we may need to inject a snippet of JavaScript into the page
+and get whatever we want.</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="c1"># You can use `arguments` in the script to represent the</span>
+<span class="c1"># indexed parameter after the `script`.</span>
+
+<span class="n">script</span> <span class="o">=</span> <span class="s1">&#39;return document.querySelector(&quot;.btn&quot;).tagName === arguments[0]&#39;</span>
+<span class="n">args</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;div&#39;</span><span class="p">]</span>
+
+<span class="n">result</span> <span class="o">=</span> <span class="n">driver</span><span class="o">.</span><span class="n">execute_script</span><span class="p">(</span><span class="n">script</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">)</span>
+
+<span class="c1"># The script above equals to a IIFE in JavaScript.</span>
+<span class="c1"># function () {</span>
+<span class="c1">#   return document.querySelector(&quot;.btn&quot;).tagName === &quot;div&quot;</span>
+<span class="c1"># }()</span>
+</pre></div>
+</div>
+<p><strong>Fluent Interface</strong></p>
+<p>All the APIs in <em>WebDriver</em> and <em>WebElement</em> support fluent interface,
+which means we can chain the method if the method returns None.</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">driver</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;https://www.google.com&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">element_by_id</span><span class="p">(</span><span class="s1">&#39;login&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>
+
+<span class="go"># For method that returns something, it&#39;s not working.</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">driver</span><span class="o">.</span><span class="n">element_by_id</span><span class="p">(</span><span class="s1">&#39;login&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">get_attribute</span><span class="p">(</span><span class="s1">&#39;class&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>
+<span class="go">AttributeError: &#39;str&#39; object has no attribute &#39;click&#39;</span>
+</pre></div>
+</div>
+<p>Due to the nature of Python, it is illegal to write method chaining like JavaScript below:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="nx">driver</span>
+  <span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;https://www.google.com&#39;</span><span class="p">)</span>
+  <span class="p">.</span><span class="nx">element_by_id</span><span class="p">(</span><span class="s1">&#39;login&#39;</span><span class="p">)</span>
+  <span class="p">.</span><span class="nx">click</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>For Pythoner, we recommend two coding style for you to choose.</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="c1"># Use additional parenthesis</span>
+<span class="p">(</span>
+    <span class="n">driver</span>
+        <span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;https://www.google.com&#39;</span><span class="p">)</span>
+        <span class="o">.</span><span class="n">element_by_id</span><span class="p">(</span><span class="s1">&#39;login&#39;</span><span class="p">)</span>
+        <span class="o">.</span><span class="n">click</span><span class="p">()</span>
+<span class="p">)</span>
+
+<span class="c1"># Use backslashes</span>
+<span class="n">driver</span>                             \
+    <span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;https://www.google.com&#39;</span><span class="p">)</span> \
+    <span class="o">.</span><span class="n">element_by_id</span><span class="p">(</span><span class="s1">&#39;login&#39;</span><span class="p">)</span>        \
+    <span class="o">.</span><span class="n">click</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="next-step">
+<h2>Next Step<a class="headerlink" href="#next-step" title="Permalink to this headline">¶</a></h2>
+<p>TODO</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Quick Start</a><ul>
+<li><a class="reference internal" href="#what-is-wd-py">What is WD.py?</a></li>
+<li><a class="reference internal" href="#installation">Installation</a></li>
+<li><a class="reference internal" href="#prerequisite">Prerequisite</a></li>
+<li><a class="reference internal" href="#usage">Usage</a></li>
+<li><a class="reference internal" href="#next-step">Next Step</a></li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="index.html" title="previous chapter">Welcome to WD.py’s documentation!</a></li>
+      <li>Next: <a href="api.html" title="next chapter">API</a></li>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/quickstart.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2017, zenzhu.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.4</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="_sources/quickstart.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
