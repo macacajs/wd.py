@@ -80,12 +80,20 @@ request.</p>
 <dt id="macaca.webdriver.WebDriver.accept_alert">
 <code class="descname">accept_alert</code><span class="sig-paren">(</span><em>instance</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/macaca/webdriver.html#WebDriver.accept_alert"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#macaca.webdriver.WebDriver.accept_alert" title="Permalink to this definition">¶</a></dt>
 <dd><p>Accepts the alert available.</p>
+<dl class="docutils">
+<dt>Support:</dt>
+<dd>iOS</dd>
+</dl>
 </dd></dl>
 
 <dl class="method">
 <dt id="macaca.webdriver.WebDriver.add_cookie">
 <code class="descname">add_cookie</code><span class="sig-paren">(</span><em>instance</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/macaca/webdriver.html#WebDriver.add_cookie"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#macaca.webdriver.WebDriver.add_cookie" title="Permalink to this definition">¶</a></dt>
 <dd><p>Set a cookie.</p>
+<dl class="docutils">
+<dt>Support:</dt>
+<dd>Web(WebView)</dd>
+</dl>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -103,6 +111,10 @@ request.</p>
 <dt id="macaca.webdriver.WebDriver.alert_keys">
 <code class="descname">alert_keys</code><span class="sig-paren">(</span><em>instance</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/macaca/webdriver.html#WebDriver.alert_keys"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#macaca.webdriver.WebDriver.alert_keys" title="Permalink to this definition">¶</a></dt>
 <dd><p>Sends keystrokes to a JavaScript prompt() dialog.</p>
+<dl class="docutils">
+<dt>Support:</dt>
+<dd>iOS</dd>
+</dl>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -117,12 +129,20 @@ request.</p>
 <dt id="macaca.webdriver.WebDriver.alert_text">
 <code class="descname">alert_text</code><a class="headerlink" href="#macaca.webdriver.WebDriver.alert_text" title="Permalink to this definition">¶</a></dt>
 <dd><p>Gets the text of the Alert.</p>
+<dl class="docutils">
+<dt>Support:</dt>
+<dd>iOS</dd>
+</dl>
 </dd></dl>
 
 <dl class="method">
 <dt id="macaca.webdriver.WebDriver.attach">
 <code class="descname">attach</code><span class="sig-paren">(</span><em>instance</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/macaca/webdriver.html#WebDriver.attach"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#macaca.webdriver.WebDriver.attach" title="Permalink to this definition">¶</a></dt>
 <dd><p>Attach to given Session.</p>
+<dl class="docutils">
+<dt>Support:</dt>
+<dd>Android iOS Web(WebView)</dd>
+</dl>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -139,6 +159,10 @@ request.</p>
 <dt id="macaca.webdriver.WebDriver.back">
 <code class="descname">back</code><span class="sig-paren">(</span><em>instance</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/macaca/webdriver.html#WebDriver.back"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#macaca.webdriver.WebDriver.back" title="Permalink to this definition">¶</a></dt>
 <dd><p>Back.</p>
+<dl class="docutils">
+<dt>Support:</dt>
+<dd>Web(WebView)</dd>
+</dl>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -153,6 +177,10 @@ request.</p>
 <dt id="macaca.webdriver.WebDriver.close">
 <code class="descname">close</code><span class="sig-paren">(</span><em>instance</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/macaca/webdriver.html#WebDriver.close"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#macaca.webdriver.WebDriver.close" title="Permalink to this definition">¶</a></dt>
 <dd><p>Closes the current window.</p>
+<dl class="docutils">
+<dt>Support:</dt>
+<dd>Web(WebView)</dd>
+</dl>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -167,24 +195,40 @@ request.</p>
 <dt id="macaca.webdriver.WebDriver.context">
 <code class="descname">context</code><a class="headerlink" href="#macaca.webdriver.WebDriver.context" title="Permalink to this definition">¶</a></dt>
 <dd><p>returns the current context (Native or WebView).</p>
+<dl class="docutils">
+<dt>Support:</dt>
+<dd>Android iOS</dd>
+</dl>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="macaca.webdriver.WebDriver.contexts">
 <code class="descname">contexts</code><a class="headerlink" href="#macaca.webdriver.WebDriver.contexts" title="Permalink to this definition">¶</a></dt>
 <dd><p>returns a list of available contexts</p>
+<dl class="docutils">
+<dt>Support:</dt>
+<dd>Android iOS</dd>
+</dl>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="macaca.webdriver.WebDriver.cookies">
 <code class="descname">cookies</code><a class="headerlink" href="#macaca.webdriver.WebDriver.cookies" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns  all cookies associated with the address of the current context.</p>
+<dl class="docutils">
+<dt>Support:</dt>
+<dd>Web(WebView)</dd>
+</dl>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="macaca.webdriver.WebDriver.current_url">
 <code class="descname">current_url</code><a class="headerlink" href="#macaca.webdriver.WebDriver.current_url" title="Permalink to this definition">¶</a></dt>
 <dd><p>Gets the URL of the current page.</p>
+<dl class="docutils">
+<dt>Support:</dt>
+<dd>Web(WebView)</dd>
+</dl>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -199,18 +243,30 @@ request.</p>
 <dt id="macaca.webdriver.WebDriver.current_window_handle">
 <code class="descname">current_window_handle</code><a class="headerlink" href="#macaca.webdriver.WebDriver.current_window_handle" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the handle of the current window.</p>
+<dl class="docutils">
+<dt>Support:</dt>
+<dd>Web(WebView)</dd>
+</dl>
 </dd></dl>
 
 <dl class="method">
 <dt id="macaca.webdriver.WebDriver.delete_all_cookies">
 <code class="descname">delete_all_cookies</code><span class="sig-paren">(</span><em>instance</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/macaca/webdriver.html#WebDriver.delete_all_cookies"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#macaca.webdriver.WebDriver.delete_all_cookies" title="Permalink to this definition">¶</a></dt>
 <dd><p>Delete all cookies at once.</p>
+<dl class="docutils">
+<dt>Support:</dt>
+<dd>Web(WebView)</dd>
+</dl>
 </dd></dl>
 
 <dl class="method">
 <dt id="macaca.webdriver.WebDriver.delete_cookie">
 <code class="descname">delete_cookie</code><span class="sig-paren">(</span><em>instance</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/macaca/webdriver.html#WebDriver.delete_cookie"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#macaca.webdriver.WebDriver.delete_cookie" title="Permalink to this definition">¶</a></dt>
 <dd><p>Delete a single cookie by name.</p>
+<dl class="docutils">
+<dt>Support:</dt>
+<dd>Web(WebView)</dd>
+</dl>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -225,12 +281,20 @@ request.</p>
 <dt id="macaca.webdriver.WebDriver.dismiss_alert">
 <code class="descname">dismiss_alert</code><span class="sig-paren">(</span><em>instance</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/macaca/webdriver.html#WebDriver.dismiss_alert"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#macaca.webdriver.WebDriver.dismiss_alert" title="Permalink to this definition">¶</a></dt>
 <dd><p>Dismisses the alert available.</p>
+<dl class="docutils">
+<dt>Support:</dt>
+<dd>iOS</dd>
+</dl>
 </dd></dl>
 
 <dl class="method">
 <dt id="macaca.webdriver.WebDriver.element">
 <code class="descname">element</code><span class="sig-paren">(</span><em>using</em>, <em>value</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/macaca/webdriver.html#WebDriver.element"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#macaca.webdriver.WebDriver.element" title="Permalink to this definition">¶</a></dt>
 <dd><p>Find an element in the current context.</p>
+<dl class="docutils">
+<dt>Support:</dt>
+<dd>Android iOS Web(WebView)</dd>
+</dl>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -423,6 +487,10 @@ See more in ‘element_or_none’ method.</p>
 <dt id="macaca.webdriver.WebDriver.element_if_exists">
 <code class="descname">element_if_exists</code><span class="sig-paren">(</span><em>using</em>, <em>value</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/macaca/webdriver.html#WebDriver.element_if_exists"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#macaca.webdriver.WebDriver.element_if_exists" title="Permalink to this definition">¶</a></dt>
 <dd><p>Check if an element in the current context.</p>
+<dl class="docutils">
+<dt>Support:</dt>
+<dd>Android iOS Web(WebView)</dd>
+</dl>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -447,6 +515,10 @@ See more in ‘element_or_none’ method.</p>
 <dt id="macaca.webdriver.WebDriver.element_or_none">
 <code class="descname">element_or_none</code><span class="sig-paren">(</span><em>using</em>, <em>value</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/macaca/webdriver.html#WebDriver.element_or_none"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#macaca.webdriver.WebDriver.element_or_none" title="Permalink to this definition">¶</a></dt>
 <dd><p>Check if an element in the current context.</p>
+<dl class="docutils">
+<dt>Support:</dt>
+<dd>Android iOS Web(WebView)</dd>
+</dl>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -471,6 +543,10 @@ See more in ‘element_or_none’ method.</p>
 <dt id="macaca.webdriver.WebDriver.elements">
 <code class="descname">elements</code><span class="sig-paren">(</span><em>using</em>, <em>value</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/macaca/webdriver.html#WebDriver.elements"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#macaca.webdriver.WebDriver.elements" title="Permalink to this definition">¶</a></dt>
 <dd><p>Find elements in the current context.</p>
+<dl class="docutils">
+<dt>Support:</dt>
+<dd>Android iOS Web(WebView)</dd>
+</dl>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -551,6 +627,10 @@ See more in ‘elements’ method.</p>
 <dt id="macaca.webdriver.WebDriver.execute_async_script">
 <code class="descname">execute_async_script</code><span class="sig-paren">(</span><em>instance</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/macaca/webdriver.html#WebDriver.execute_async_script"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#macaca.webdriver.WebDriver.execute_async_script" title="Permalink to this definition">¶</a></dt>
 <dd><p>Execute JavaScript Asynchronously in current context.</p>
+<dl class="docutils">
+<dt>Support:</dt>
+<dd>Web(WebView)</dd>
+</dl>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -572,6 +652,10 @@ See more in ‘elements’ method.</p>
 <dt id="macaca.webdriver.WebDriver.execute_script">
 <code class="descname">execute_script</code><span class="sig-paren">(</span><em>script</em>, <em>*args</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/macaca/webdriver.html#WebDriver.execute_script"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#macaca.webdriver.WebDriver.execute_script" title="Permalink to this definition">¶</a></dt>
 <dd><p>Execute JavaScript Synchronously in current context.</p>
+<dl class="docutils">
+<dt>Support:</dt>
+<dd>Web(WebView)</dd>
+</dl>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -593,8 +677,11 @@ See more in ‘elements’ method.</p>
 <dt id="macaca.webdriver.WebDriver.flick">
 <code class="descname">flick</code><span class="sig-paren">(</span><em>instance</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/macaca/webdriver.html#WebDriver.flick"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#macaca.webdriver.WebDriver.flick" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="docutils">
-<dt>Flick on the touch screen using finger motion events.</dt>
-<dd>This flickcommand starts at a particulat screen location.</dd>
+<dt>Deprecated use touch(‘drag’, { fromX, fromY, toX, toY, duration(s) }) instead.</dt>
+<dd>Flick on the touch screen using finger motion events.
+This flickcommand starts at a particulat screen location.</dd>
+<dt>Support:</dt>
+<dd>iOS</dd>
 </dl>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -619,6 +706,10 @@ See more in ‘elements’ method.</p>
 <dt id="macaca.webdriver.WebDriver.forward">
 <code class="descname">forward</code><span class="sig-paren">(</span><em>instance</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/macaca/webdriver.html#WebDriver.forward"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#macaca.webdriver.WebDriver.forward" title="Permalink to this definition">¶</a></dt>
 <dd><p>Forward.</p>
+<dl class="docutils">
+<dt>Support:</dt>
+<dd>Web(WebView)</dd>
+</dl>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -633,6 +724,10 @@ See more in ‘elements’ method.</p>
 <dt id="macaca.webdriver.WebDriver.get">
 <code class="descname">get</code><span class="sig-paren">(</span><em>instance</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/macaca/webdriver.html#WebDriver.get"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#macaca.webdriver.WebDriver.get" title="Permalink to this definition">¶</a></dt>
 <dd><p>Loads a web page in the current browser session.</p>
+<dl class="docutils">
+<dt>Support:</dt>
+<dd>Web(WebView)</dd>
+</dl>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -651,12 +746,20 @@ See more in ‘elements’ method.</p>
 <dt id="macaca.webdriver.WebDriver.get_active_element">
 <code class="descname">get_active_element</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/macaca/webdriver.html#WebDriver.get_active_element"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#macaca.webdriver.WebDriver.get_active_element" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the active element in current context.</p>
+<dl class="docutils">
+<dt>Support:</dt>
+<dd>Web(WebView)</dd>
+</dl>
 </dd></dl>
 
 <dl class="method">
 <dt id="macaca.webdriver.WebDriver.get_cookie">
 <code class="descname">get_cookie</code><span class="sig-paren">(</span><em>name</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/macaca/webdriver.html#WebDriver.get_cookie"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#macaca.webdriver.WebDriver.get_cookie" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get a single cookie by name.</p>
+<dl class="docutils">
+<dt>Support:</dt>
+<dd>Web(WebView)</dd>
+</dl>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -671,6 +774,10 @@ See more in ‘elements’ method.</p>
 <dt id="macaca.webdriver.WebDriver.get_window_position">
 <code class="descname">get_window_position</code><span class="sig-paren">(</span><em>window_handle='current'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/macaca/webdriver.html#WebDriver.get_window_position"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#macaca.webdriver.WebDriver.get_window_position" title="Permalink to this definition">¶</a></dt>
 <dd><p>Gets the x,y position of the current window.</p>
+<dl class="docutils">
+<dt>Support:</dt>
+<dd>Web(WebView)</dd>
+</dl>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -690,6 +797,10 @@ default to ‘current’.</td>
 <dt id="macaca.webdriver.WebDriver.get_window_size">
 <code class="descname">get_window_size</code><span class="sig-paren">(</span><em>window_handle='current'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/macaca/webdriver.html#WebDriver.get_window_size"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#macaca.webdriver.WebDriver.get_window_size" title="Permalink to this definition">¶</a></dt>
 <dd><p>Gets the width and height of the current window.</p>
+<dl class="docutils">
+<dt>Support:</dt>
+<dd>Web(WebView)</dd>
+</dl>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -707,6 +818,10 @@ default to ‘current’.</td>
 <dt id="macaca.webdriver.WebDriver.init">
 <code class="descname">init</code><span class="sig-paren">(</span><em>instance</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/macaca/webdriver.html#WebDriver.init"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#macaca.webdriver.WebDriver.init" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create Session by desiredCapabilities</p>
+<dl class="docutils">
+<dt>Support:</dt>
+<dd>Android iOS Web(WebView)</dd>
+</dl>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -718,9 +833,32 @@ default to ‘current’.</td>
 </dd></dl>
 
 <dl class="method">
+<dt id="macaca.webdriver.WebDriver.keys">
+<code class="descname">keys</code><span class="sig-paren">(</span><em>instance</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/macaca/webdriver.html#WebDriver.keys"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#macaca.webdriver.WebDriver.keys" title="Permalink to this definition">¶</a></dt>
+<dd><p>Send a sequence of key strokes.</p>
+<dl class="docutils">
+<dt>Support:</dt>
+<dd>Android iOS Web(WebView)</dd>
+</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str|int|list</em>) – value can be a string,
+int or a list contains defined Keys.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
 <dt id="macaca.webdriver.WebDriver.maximize_window">
 <code class="descname">maximize_window</code><span class="sig-paren">(</span><em>instance</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/macaca/webdriver.html#WebDriver.maximize_window"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#macaca.webdriver.WebDriver.maximize_window" title="Permalink to this definition">¶</a></dt>
 <dd><p>Maximizes the current window.</p>
+<dl class="docutils">
+<dt>Support:</dt>
+<dd>Web(WebView)</dd>
+</dl>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -734,7 +872,12 @@ default to ‘current’.</td>
 <dl class="method">
 <dt id="macaca.webdriver.WebDriver.move_to">
 <code class="descname">move_to</code><span class="sig-paren">(</span><em>instance</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/macaca/webdriver.html#WebDriver.move_to"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#macaca.webdriver.WebDriver.move_to" title="Permalink to this definition">¶</a></dt>
-<dd><p>Move the mouse by an offset of the specificed element.</p>
+<dd><dl class="docutils">
+<dt>Deprecated use element.touch(‘drag’, { toX, toY, duration(s) }) instead.</dt>
+<dd>Move the mouse by an offset of the specificed element.</dd>
+<dt>Support:</dt>
+<dd>Android</dd>
+</dl>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -759,6 +902,10 @@ top-left corner of the element.</li>
 <dt id="macaca.webdriver.WebDriver.quit">
 <code class="descname">quit</code><span class="sig-paren">(</span><em>instance</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/macaca/webdriver.html#WebDriver.quit"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#macaca.webdriver.WebDriver.quit" title="Permalink to this definition">¶</a></dt>
 <dd><p>Quit the driver.</p>
+<dl class="docutils">
+<dt>Support:</dt>
+<dd>Android iOS Web(WebView)</dd>
+</dl>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -773,6 +920,10 @@ top-left corner of the element.</li>
 <dt id="macaca.webdriver.WebDriver.refresh">
 <code class="descname">refresh</code><span class="sig-paren">(</span><em>instance</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/macaca/webdriver.html#WebDriver.refresh"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#macaca.webdriver.WebDriver.refresh" title="Permalink to this definition">¶</a></dt>
 <dd><p>Refresh.</p>
+<dl class="docutils">
+<dt>Support:</dt>
+<dd>Web(WebView)</dd>
+</dl>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -787,6 +938,10 @@ top-left corner of the element.</li>
 <dt id="macaca.webdriver.WebDriver.save_screenshot">
 <code class="descname">save_screenshot</code><span class="sig-paren">(</span><em>instance</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/macaca/webdriver.html#WebDriver.save_screenshot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#macaca.webdriver.WebDriver.save_screenshot" title="Permalink to this definition">¶</a></dt>
 <dd><p>Save the screenshot to local.</p>
+<dl class="docutils">
+<dt>Support:</dt>
+<dd>Android iOS Web(WebView)</dd>
+</dl>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -815,12 +970,34 @@ failed to save the image.</li>
 <dt id="macaca.webdriver.WebDriver.send_keys">
 <code class="descname">send_keys</code><span class="sig-paren">(</span><em>instance</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/macaca/webdriver.html#WebDriver.send_keys"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#macaca.webdriver.WebDriver.send_keys" title="Permalink to this definition">¶</a></dt>
 <dd><p>Send a sequence of key strokes.</p>
+<dl class="docutils">
+<dt>Support:</dt>
+<dd>Android iOS Web(WebView)</dd>
+</dl>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str|int|list</em>) – value can be a string,
 int or a list contains defined Keys.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="macaca.webdriver.WebDriver.sessions">
+<code class="descname">sessions</code><a class="headerlink" href="#macaca.webdriver.WebDriver.sessions" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets all the sessions of the webdriver server.</p>
+<dl class="docutils">
+<dt>Support:</dt>
+<dd>Android iOS Web(WebView)</dd>
+</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Return the URL of the current page.</td>
 </tr>
 </tbody>
 </table>
@@ -833,6 +1010,8 @@ int or a list contains defined Keys.</td>
 <dt>Implicit wait timeout that specifies a time to</dt>
 <dd>wait for the implicit element location strategy
 hen locating elements using Find Element and Find Elements.</dd>
+<dt>Support:</dt>
+<dd>Android iOS Web(WebView)</dd>
 </dl>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -852,6 +1031,8 @@ hen locating elements using Find Element and Find Elements.</dd>
 <dd><dl class="docutils">
 <dt>Page load timeout that specifies a time to</dt>
 <dd>wait for the page loading to complete.</dd>
+<dt>Support:</dt>
+<dd>Web(WebView)</dd>
 </dl>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -869,6 +1050,10 @@ hen locating elements using Find Element and Find Elements.</dd>
 <dt id="macaca.webdriver.WebDriver.set_script_timeout">
 <code class="descname">set_script_timeout</code><span class="sig-paren">(</span><em>instance</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/macaca/webdriver.html#WebDriver.set_script_timeout"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#macaca.webdriver.WebDriver.set_script_timeout" title="Permalink to this definition">¶</a></dt>
 <dd><p>Script timeout that specifies a time to wait for scripts to run.</p>
+<dl class="docutils">
+<dt>Support:</dt>
+<dd>Web(WebView)</dd>
+</dl>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -885,6 +1070,10 @@ hen locating elements using Find Element and Find Elements.</dd>
 <dt id="macaca.webdriver.WebDriver.set_window_position">
 <code class="descname">set_window_position</code><span class="sig-paren">(</span><em>instance</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/macaca/webdriver.html#WebDriver.set_window_position"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#macaca.webdriver.WebDriver.set_window_position" title="Permalink to this definition">¶</a></dt>
 <dd><p>Sets the x,y position of the current window.</p>
+<dl class="docutils">
+<dt>Support:</dt>
+<dd>Web(WebView)</dd>
+</dl>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -908,6 +1097,10 @@ default to ‘current’.</li>
 <dt id="macaca.webdriver.WebDriver.set_window_size">
 <code class="descname">set_window_size</code><span class="sig-paren">(</span><em>instance</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/macaca/webdriver.html#WebDriver.set_window_size"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#macaca.webdriver.WebDriver.set_window_size" title="Permalink to this definition">¶</a></dt>
 <dd><p>Sets the width and height of the current window.</p>
+<dl class="docutils">
+<dt>Support:</dt>
+<dd>Web(WebView)</dd>
+</dl>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -931,6 +1124,10 @@ default to ‘current’.</li>
 <dt id="macaca.webdriver.WebDriver.source">
 <code class="descname">source</code><a class="headerlink" href="#macaca.webdriver.WebDriver.source" title="Permalink to this definition">¶</a></dt>
 <dd><p>Gets the source of the current page.</p>
+<dl class="docutils">
+<dt>Support:</dt>
+<dd>Android iOS Web(WebView)</dd>
+</dl>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -942,33 +1139,13 @@ default to ‘current’.</li>
 </dd></dl>
 
 <dl class="method">
-<dt id="macaca.webdriver.WebDriver.swipe">
-<code class="descname">swipe</code><span class="sig-paren">(</span><em>instance</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/macaca/webdriver.html#WebDriver.swipe"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#macaca.webdriver.WebDriver.swipe" title="Permalink to this definition">¶</a></dt>
-<dd><p>Swipe on the touch screen using finger motion events.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>startX</strong> (<em>Float</em>) – The x-coordinate of start point.</li>
-<li><strong>startY</strong> (<em>Float</em>) – The y-coordinate of start point.</li>
-<li><strong>endX</strong> (<em>Float</em>) – The x-coordinate of end point.</li>
-<li><strong>endY</strong> (<em>Float</em>) – The y-coordinate of end point.</li>
-<li><strong>duration</strong> (<em>Float</em>) – The duration in ms.</li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">WebDriver object.</p>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
 <dt id="macaca.webdriver.WebDriver.switch_to_frame">
 <code class="descname">switch_to_frame</code><span class="sig-paren">(</span><em>instance</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/macaca/webdriver.html#WebDriver.switch_to_frame"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#macaca.webdriver.WebDriver.switch_to_frame" title="Permalink to this definition">¶</a></dt>
 <dd><p>Switches focus to the specified frame, by index, name, or webelement.</p>
+<dl class="docutils">
+<dt>Support:</dt>
+<dd>Web(WebView)</dd>
+</dl>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -989,12 +1166,20 @@ Otherwise throw an error.</td>
 <dt id="macaca.webdriver.WebDriver.switch_to_parent_frame">
 <code class="descname">switch_to_parent_frame</code><span class="sig-paren">(</span><em>instance</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/macaca/webdriver.html#WebDriver.switch_to_parent_frame"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#macaca.webdriver.WebDriver.switch_to_parent_frame" title="Permalink to this definition">¶</a></dt>
 <dd><p>Switches focus to the parent context.</p>
+<dl class="docutils">
+<dt>Support:</dt>
+<dd>Web(WebView)</dd>
+</dl>
 </dd></dl>
 
 <dl class="method">
 <dt id="macaca.webdriver.WebDriver.switch_to_window">
 <code class="descname">switch_to_window</code><span class="sig-paren">(</span><em>instance</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/macaca/webdriver.html#WebDriver.switch_to_window"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#macaca.webdriver.WebDriver.switch_to_window" title="Permalink to this definition">¶</a></dt>
 <dd><p>Switch to the given window.</p>
+<dl class="docutils">
+<dt>Support:</dt>
+<dd>Web(WebView)</dd>
+</dl>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1013,6 +1198,8 @@ Otherwise throw an error.</td>
 <dd><dl class="docutils">
 <dt>Gets the screenshot of the current window</dt>
 <dd>as a base64 encoded string.</dd>
+<dt>Support:</dt>
+<dd>Android iOS Web(WebView)</dd>
 </dl>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -1027,7 +1214,12 @@ Otherwise throw an error.</td>
 <dl class="method">
 <dt id="macaca.webdriver.WebDriver.tap">
 <code class="descname">tap</code><span class="sig-paren">(</span><em>instance</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/macaca/webdriver.html#WebDriver.tap"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#macaca.webdriver.WebDriver.tap" title="Permalink to this definition">¶</a></dt>
-<dd><p>Single tap on the touch enabled device.</p>
+<dd><dl class="docutils">
+<dt>Deprecated use element.touch(‘tap’) instead.</dt>
+<dd>Single tap on the touch enabled device.</dd>
+<dt>Support:</dt>
+<dd>Android iOS</dd>
+</dl>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1044,12 +1236,49 @@ Otherwise throw an error.</td>
 <dt id="macaca.webdriver.WebDriver.title">
 <code class="descname">title</code><a class="headerlink" href="#macaca.webdriver.WebDriver.title" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the current page title.</p>
+<dl class="docutils">
+<dt>Support:</dt>
+<dd>Web(WebView)</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="macaca.webdriver.WebDriver.touch">
+<code class="descname">touch</code><span class="sig-paren">(</span><em>instance</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/macaca/webdriver.html#WebDriver.touch"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#macaca.webdriver.WebDriver.touch" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="docutils">
+<dt>Apply touch actions on devices. Such as, tap/doubleTap/press/pinch/rotate/drag.</dt>
+<dd>See more on <a class="reference external" href="https://github.com/alibaba/macaca/issues/366">https://github.com/alibaba/macaca/issues/366</a>.</dd>
+<dt>Support:</dt>
+<dd>Android iOS</dd>
+</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>name</strong> (<em>str</em>) – Name of the action</li>
+<li><strong>args</strong> (<em>dict</em>) – Arguments of the action</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">WebDriver Object.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><code class="xref py py-exc docutils literal"><span class="pre">WebDriverException.</span></code></p>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
 <dt id="macaca.webdriver.WebDriver.wait_for">
 <code class="descname">wait_for</code><span class="sig-paren">(</span><em>timeout=10000</em>, <em>interval=1000</em>, <em>asserter=&lt;function &lt;lambda&gt;&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/macaca/webdriver.html#WebDriver.wait_for"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#macaca.webdriver.WebDriver.wait_for" title="Permalink to this definition">¶</a></dt>
 <dd><p>Wait for driver till satisfy the given condition</p>
+<dl class="docutils">
+<dt>Support:</dt>
+<dd>Android iOS Web(WebView)</dd>
+</dl>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1075,6 +1304,10 @@ Otherwise throw an error.</td>
 <dt id="macaca.webdriver.WebDriver.wait_for_element">
 <code class="descname">wait_for_element</code><span class="sig-paren">(</span><em>using</em>, <em>value</em>, <em>timeout=10000</em>, <em>interval=1000</em>, <em>asserter=&lt;function is_displayed&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/macaca/webdriver.html#WebDriver.wait_for_element"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#macaca.webdriver.WebDriver.wait_for_element" title="Permalink to this definition">¶</a></dt>
 <dd><p>Wait for element till satisfy the given condition</p>
+<dl class="docutils">
+<dt>Support:</dt>
+<dd>Android iOS Web(WebView)</dd>
+</dl>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1158,6 +1391,10 @@ See more in ‘wait_for_element’ method.</p>
 <dt id="macaca.webdriver.WebDriver.wait_for_elements">
 <code class="descname">wait_for_elements</code><span class="sig-paren">(</span><em>using</em>, <em>value</em>, <em>timeout=10000</em>, <em>interval=1000</em>, <em>asserter=&lt;function is_displayed&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/macaca/webdriver.html#WebDriver.wait_for_elements"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#macaca.webdriver.WebDriver.wait_for_elements" title="Permalink to this definition">¶</a></dt>
 <dd><p>Wait for elements till satisfy the given condition</p>
+<dl class="docutils">
+<dt>Support:</dt>
+<dd>Android iOS Web(WebView)</dd>
+</dl>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1241,6 +1478,10 @@ See more in ‘wait_for_elements’ method.</p>
 <dt id="macaca.webdriver.WebDriver.window_handles">
 <code class="descname">window_handles</code><a class="headerlink" href="#macaca.webdriver.WebDriver.window_handles" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the handles of all windows within the current session.</p>
+<dl class="docutils">
+<dt>Support:</dt>
+<dd>Web(WebView)</dd>
+</dl>
 </dd></dl>
 
 </dd></dl>
@@ -1262,20 +1503,28 @@ See more in ‘wait_for_elements’ method.</p>
 <dl class="method">
 <dt id="macaca.webelement.WebElement.clear">
 <code class="descname">clear</code><span class="sig-paren">(</span><em>instance</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/macaca/webelement.html#WebElement.clear"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#macaca.webelement.WebElement.clear" title="Permalink to this definition">¶</a></dt>
-<dd><p>The Element Clear command scrolls into view
-a submittable element excluding buttons or
+<dd><dl class="docutils">
+<dt>The Element Clear command scrolls into view</dt>
+<dd>a submittable element excluding buttons or
 editable element, and then attempts to clear
-its value, checkedness, or text content.</p>
+its value, checkedness, or text content.</dd>
+<dt>Support:</dt>
+<dd>Android iOS Web(WebView)</dd>
+</dl>
 </dd></dl>
 
 <dl class="method">
 <dt id="macaca.webelement.WebElement.click">
 <code class="descname">click</code><span class="sig-paren">(</span><em>instance</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/macaca/webelement.html#WebElement.click"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#macaca.webelement.WebElement.click" title="Permalink to this definition">¶</a></dt>
-<dd><p>The Element Click command scrolls into view
-the element and then attempts to click the
+<dd><dl class="docutils">
+<dt>The Element Click command scrolls into view</dt>
+<dd>the element and then attempts to click the
 centre of the visible area of the first element
 of the DOMRect sequence. In case the element is
-not displayed, an element not visible error is returned.</p>
+not displayed, an element not visible error is returned.</dd>
+<dt>Support:</dt>
+<dd>Android iOS Web(WebView)</dd>
+</dl>
 </dd></dl>
 
 <dl class="attribute">
@@ -1288,6 +1537,10 @@ not displayed, an element not visible error is returned.</p>
 <dt id="macaca.webelement.WebElement.element">
 <code class="descname">element</code><span class="sig-paren">(</span><em>using</em>, <em>value</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/macaca/webelement.html#WebElement.element"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#macaca.webelement.WebElement.element" title="Permalink to this definition">¶</a></dt>
 <dd><p>find an element in the current element.</p>
+<dl class="docutils">
+<dt>Support:</dt>
+<dd>Android iOS Web(WebView)</dd>
+</dl>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1480,6 +1733,10 @@ See more in ‘element_or_none’ method.</p>
 <dt id="macaca.webelement.WebElement.element_if_exists">
 <code class="descname">element_if_exists</code><span class="sig-paren">(</span><em>using</em>, <em>value</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/macaca/webelement.html#WebElement.element_if_exists"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#macaca.webelement.WebElement.element_if_exists" title="Permalink to this definition">¶</a></dt>
 <dd><p>Check if an element in the current element.</p>
+<dl class="docutils">
+<dt>Support:</dt>
+<dd>Android iOS Web(WebView)</dd>
+</dl>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1504,6 +1761,10 @@ See more in ‘element_or_none’ method.</p>
 <dt id="macaca.webelement.WebElement.element_or_none">
 <code class="descname">element_or_none</code><span class="sig-paren">(</span><em>using</em>, <em>value</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/macaca/webelement.html#WebElement.element_or_none"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#macaca.webelement.WebElement.element_or_none" title="Permalink to this definition">¶</a></dt>
 <dd><p>Check if an element in the current element.</p>
+<dl class="docutils">
+<dt>Support:</dt>
+<dd>Android iOS Web(WebView)</dd>
+</dl>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1528,6 +1789,10 @@ See more in ‘element_or_none’ method.</p>
 <dt id="macaca.webelement.WebElement.elements">
 <code class="descname">elements</code><span class="sig-paren">(</span><em>using</em>, <em>value</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/macaca/webelement.html#WebElement.elements"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#macaca.webelement.WebElement.elements" title="Permalink to this definition">¶</a></dt>
 <dd><p>find elements in the current element.</p>
+<dl class="docutils">
+<dt>Support:</dt>
+<dd>Android iOS Web(WebView)</dd>
+</dl>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1608,8 +1873,11 @@ See more in ‘elements’ method.</p>
 <dt id="macaca.webelement.WebElement.flick">
 <code class="descname">flick</code><span class="sig-paren">(</span><em>instance</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/macaca/webelement.html#WebElement.flick"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#macaca.webelement.WebElement.flick" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="docutils">
-<dt>Flick on the touch screen using finger motion events.</dt>
-<dd>This flickcommand starts at a particulat screen location.</dd>
+<dt>Deprecated use touch(‘drag’, { fromX, fromY, toX, toY, duration(s) }) instead.</dt>
+<dd>Flick on the touch screen using finger motion events.
+This flickcommand starts at a particulat screen location.</dd>
+<dt>Support:</dt>
+<dd>iOS</dd>
 </dl>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -1630,27 +1898,13 @@ See more in ‘elements’ method.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="macaca.webelement.WebElement.get_attribute">
-<code class="descname">get_attribute</code><span class="sig-paren">(</span><em>name</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/macaca/webelement.html#WebElement.get_attribute"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#macaca.webelement.WebElement.get_attribute" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return the attribute of a web element.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>name</strong> (<em>str</em>) – Name of the attribute to retrieve.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The attribute of the web element.</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
 <dt id="macaca.webelement.WebElement.get_computed_css">
 <code class="descname">get_computed_css</code><span class="sig-paren">(</span><em>property_name</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/macaca/webelement.html#WebElement.get_computed_css"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#macaca.webelement.WebElement.get_computed_css" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="docutils">
 <dt>The computed value of the given CSS property</dt>
 <dd>of the given web element.</dd>
+<dt>Support:</dt>
+<dd>Support: Web(WebView)</dd>
 </dl>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -1670,12 +1924,16 @@ else let it be “”</td>
 <dl class="method">
 <dt id="macaca.webelement.WebElement.get_property">
 <code class="descname">get_property</code><span class="sig-paren">(</span><em>name</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/macaca/webelement.html#WebElement.get_property"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#macaca.webelement.WebElement.get_property" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return the result of getting a property of a element.</p>
+<dd><p>Return the result of getting a property, Support: Android iOS Web(WebView).</p>
+<dl class="docutils">
+<dt>Support:</dt>
+<dd>Support: Android iOS Web(WebView)</dd>
+</dl>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>name</strong> (<em>str</em>) – Name of the property to retrieve.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>name</strong> (<em>str</em>) – Name of the property to retrieve, Android iOS can only get <cite>origin</cite> <cite>size</cite>.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The property of the element.</td>
 </tr>
@@ -1687,32 +1945,46 @@ else let it be “”</td>
 <dt id="macaca.webelement.WebElement.is_displayed">
 <code class="descname">is_displayed</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/macaca/webelement.html#WebElement.is_displayed"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#macaca.webelement.WebElement.is_displayed" title="Permalink to this definition">¶</a></dt>
 <dd><p>Whether the element is visible.</p>
+<dl class="docutils">
+<dt>Support:</dt>
+<dd>Android Web(WebView)</dd>
+</dl>
 </dd></dl>
 
 <dl class="method">
 <dt id="macaca.webelement.WebElement.is_enabled">
 <code class="descname">is_enabled</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/macaca/webelement.html#WebElement.is_enabled"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#macaca.webelement.WebElement.is_enabled" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns whether the element is enabled.</p>
+<dl class="docutils">
+<dt>Support:</dt>
+<dd>Web(WebView)</dd>
+</dl>
 </dd></dl>
 
 <dl class="method">
 <dt id="macaca.webelement.WebElement.is_selected">
 <code class="descname">is_selected</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/macaca/webelement.html#WebElement.is_selected"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#macaca.webelement.WebElement.is_selected" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns whether the element is selected.</p>
+<dl class="docutils">
+<dt>Support:</dt>
+<dd>Web(WebView)</dd>
+</dl>
 </dd></dl>
 
-<dl class="attribute">
-<dt id="macaca.webelement.WebElement.location">
-<code class="descname">location</code><a class="headerlink" href="#macaca.webelement.WebElement.location" title="Permalink to this definition">¶</a></dt>
-<dd><p>The location of the element in the renderable canvas in pixels.</p>
+<dl class="method">
+<dt id="macaca.webelement.WebElement.keys">
+<code class="descname">keys</code><span class="sig-paren">(</span><em>instance</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/macaca/webelement.html#WebElement.keys"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#macaca.webelement.WebElement.keys" title="Permalink to this definition">¶</a></dt>
+<dd><p>Send a sequence of key strokes to an element.</p>
+<dl class="docutils">
+<dt>Support:</dt>
+<dd>Android iOS Web(WebView)</dd>
+</dl>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">x(float): X axis position of the top-left corner.
-y(float): Y axis position of the top-left corner.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">A dict contains</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>value</strong> (<em>str|int|list</em>) – value can be a string,
+int or a list contains defined Keys.</td>
 </tr>
 </tbody>
 </table>
@@ -1721,7 +1993,12 @@ y(float): Y axis position of the top-left corner.</td>
 <dl class="method">
 <dt id="macaca.webelement.WebElement.move_to">
 <code class="descname">move_to</code><span class="sig-paren">(</span><em>instance</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/macaca/webelement.html#WebElement.move_to"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#macaca.webelement.WebElement.move_to" title="Permalink to this definition">¶</a></dt>
-<dd><p>Move the mouse by an offset of the specificed element.</p>
+<dd><dl class="docutils">
+<dt>Deprecated use element.touch(‘drag’, { toX, toY, duration(s) }) instead.</dt>
+<dd>Move the mouse by an offset of the specificed element.</dd>
+<dt>Support:</dt>
+<dd>Android</dd>
+</dl>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1745,6 +2022,10 @@ top-left corner of the element.</li>
 <dt id="macaca.webelement.WebElement.rect">
 <code class="descname">rect</code><a class="headerlink" href="#macaca.webelement.WebElement.rect" title="Permalink to this definition">¶</a></dt>
 <dd><p>The dimensions and coordinates of the given web element in pixels.</p>
+<dl class="docutils">
+<dt>Support:</dt>
+<dd>Android iOS Web(WebView)</dd>
+</dl>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1764,6 +2045,10 @@ width(float): Width of the web element’s bounding rectangle.</td>
 <dt id="macaca.webelement.WebElement.save_screenshot">
 <code class="descname">save_screenshot</code><span class="sig-paren">(</span><em>instance</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/macaca/webelement.html#WebElement.save_screenshot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#macaca.webelement.WebElement.save_screenshot" title="Permalink to this definition">¶</a></dt>
 <dd><p>Save the screenshot to local.</p>
+<dl class="docutils">
+<dt>Support:</dt>
+<dd>Android iOS Web(WebView)</dd>
+</dl>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1792,6 +2077,10 @@ failed to save the image.</li>
 <dt id="macaca.webelement.WebElement.send_keys">
 <code class="descname">send_keys</code><span class="sig-paren">(</span><em>instance</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/macaca/webelement.html#WebElement.send_keys"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#macaca.webelement.WebElement.send_keys" title="Permalink to this definition">¶</a></dt>
 <dd><p>Send a sequence of key strokes to an element.</p>
+<dl class="docutils">
+<dt>Support:</dt>
+<dd>Android iOS Web(WebView)</dd>
+</dl>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1807,6 +2096,10 @@ int or a list contains defined Keys.</td>
 <dt id="macaca.webelement.WebElement.size">
 <code class="descname">size</code><a class="headerlink" href="#macaca.webelement.WebElement.size" title="Permalink to this definition">¶</a></dt>
 <dd><p>The size of the given web element in pixels.</p>
+<dl class="docutils">
+<dt>Support:</dt>
+<dd>Web(WebView)</dd>
+</dl>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1820,34 +2113,14 @@ width(float): Width of the web element’s bounding rectangle.</td>
 </table>
 </dd></dl>
 
-<dl class="method">
-<dt id="macaca.webelement.WebElement.swipe">
-<code class="descname">swipe</code><span class="sig-paren">(</span><em>instance</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/macaca/webelement.html#WebElement.swipe"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#macaca.webelement.WebElement.swipe" title="Permalink to this definition">¶</a></dt>
-<dd><p>Swipe on the touch screen using finger motion events.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>startX</strong> (<em>Float</em>) – The x-coordinate of start point.</li>
-<li><strong>startY</strong> (<em>Float</em>) – The y-coordinate of start point.</li>
-<li><strong>endX</strong> (<em>Float</em>) – The x-coordinate of end point.</li>
-<li><strong>endY</strong> (<em>Float</em>) – The y-coordinate of end point.</li>
-<li><strong>duration</strong> (<em>Float</em>) – The duration in ms.</li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">WebElement object.</p>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
 <dl class="attribute">
 <dt id="macaca.webelement.WebElement.tag_name">
 <code class="descname">tag_name</code><a class="headerlink" href="#macaca.webelement.WebElement.tag_name" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the tagName of the element.</p>
+<dl class="docutils">
+<dt>Support:</dt>
+<dd>Web(WebView)</dd>
+</dl>
 </dd></dl>
 
 <dl class="method">
@@ -1856,6 +2129,8 @@ width(float): Width of the web element’s bounding rectangle.</td>
 <dd><dl class="docutils">
 <dt>Gets the screenshot of the current element</dt>
 <dd>as a base64 encoded string.</dd>
+<dt>Support:</dt>
+<dd>Android iOS Web(WebView)</dd>
 </dl>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -1870,7 +2145,12 @@ width(float): Width of the web element’s bounding rectangle.</td>
 <dl class="method">
 <dt id="macaca.webelement.WebElement.tap">
 <code class="descname">tap</code><span class="sig-paren">(</span><em>instance</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/macaca/webelement.html#WebElement.tap"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#macaca.webelement.WebElement.tap" title="Permalink to this definition">¶</a></dt>
-<dd><p>Single tap on the touch enabled device..</p>
+<dd><dl class="docutils">
+<dt>Deprecated use touch(‘tap’) instead.</dt>
+<dd>Single tap on the touch enabled device.</dd>
+<dt>Support:</dt>
+<dd>Android iOS</dd>
+</dl>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1886,14 +2166,51 @@ width(float): Width of the web element’s bounding rectangle.</td>
 <dl class="attribute">
 <dt id="macaca.webelement.WebElement.text">
 <code class="descname">text</code><a class="headerlink" href="#macaca.webelement.WebElement.text" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return the text of the element.
-This is equivalent to calling element.innerText.</p>
+<dd><dl class="docutils">
+<dt>Return the text of the element.</dt>
+<dd>This is equivalent to calling element.innerText.</dd>
+<dt>Support:</dt>
+<dd>Android iOS Web(WebView)</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="macaca.webelement.WebElement.touch">
+<code class="descname">touch</code><span class="sig-paren">(</span><em>instance</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/macaca/webelement.html#WebElement.touch"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#macaca.webelement.WebElement.touch" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="docutils">
+<dt>Apply touch actions on devices. Such as, tap/doubleTap/press/pinch/rotate/drag.</dt>
+<dd>See more on <a class="reference external" href="https://github.com/alibaba/macaca/issues/366">https://github.com/alibaba/macaca/issues/366</a>.</dd>
+<dt>Support:</dt>
+<dd>Android iOS</dd>
+</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>name</strong> (<em>str</em>) – Name of the action</li>
+<li><strong>args</strong> (<em>dict</em>) – Arguments of the action</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">WebDriver Object.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><code class="xref py py-exc docutils literal"><span class="pre">WebDriverException.</span></code></p>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
 <dt id="macaca.webelement.WebElement.wait_for">
 <code class="descname">wait_for</code><span class="sig-paren">(</span><em>timeout=10000</em>, <em>interval=1000</em>, <em>asserter=&lt;function &lt;lambda&gt;&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/macaca/webelement.html#WebElement.wait_for"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#macaca.webelement.WebElement.wait_for" title="Permalink to this definition">¶</a></dt>
 <dd><p>Wait for element till given condition</p>
+<dl class="docutils">
+<dt>Support:</dt>
+<dd>Android iOS Web(WebView)</dd>
+</dl>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1919,6 +2236,10 @@ This is equivalent to calling element.innerText.</p>
 <dt id="macaca.webelement.WebElement.wait_for_element">
 <code class="descname">wait_for_element</code><span class="sig-paren">(</span><em>using</em>, <em>value</em>, <em>timeout=10000</em>, <em>interval=1000</em>, <em>asserter=&lt;function is_displayed&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/macaca/webelement.html#WebElement.wait_for_element"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#macaca.webelement.WebElement.wait_for_element" title="Permalink to this definition">¶</a></dt>
 <dd><p>Wait for element till the given condition</p>
+<dl class="docutils">
+<dt>Support:</dt>
+<dd>Android iOS Web(WebView)</dd>
+</dl>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -2002,6 +2323,10 @@ See more in ‘wait_for_element’ method.</p>
 <dt id="macaca.webelement.WebElement.wait_for_elements">
 <code class="descname">wait_for_elements</code><span class="sig-paren">(</span><em>using</em>, <em>value</em>, <em>timeout=10000</em>, <em>interval=1000</em>, <em>asserter=&lt;function is_displayed&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/macaca/webelement.html#WebElement.wait_for_elements"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#macaca.webelement.WebElement.wait_for_elements" title="Permalink to this definition">¶</a></dt>
 <dd><p>Wait for elements till the given condition</p>
+<dl class="docutils">
+<dt>Support:</dt>
+<dd>Android iOS Web(WebView)</dd>
+</dl>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -2129,287 +2454,367 @@ See more in ‘wait_for_elements’ method.</p>
 are used to represent pressable, non-text keys.</p>
 <dl class="attribute">
 <dt id="macaca.keys.Keys.ADD">
-<code class="descname">ADD</code><em class="property"> = '\\ue025'</em><a class="headerlink" href="#macaca.keys.Keys.ADD" title="Permalink to this definition">¶</a></dt>
+<code class="descname">ADD</code><em class="property"> = u'\ue025'</em><a class="headerlink" href="#macaca.keys.Keys.ADD" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="macaca.keys.Keys.ALT">
-<code class="descname">ALT</code><em class="property"> = '\\ue00a'</em><a class="headerlink" href="#macaca.keys.Keys.ALT" title="Permalink to this definition">¶</a></dt>
+<code class="descname">ALT</code><em class="property"> = u'\ue00a'</em><a class="headerlink" href="#macaca.keys.Keys.ALT" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="macaca.keys.Keys.ARROW_DOWN">
-<code class="descname">ARROW_DOWN</code><em class="property"> = '\\ue015'</em><a class="headerlink" href="#macaca.keys.Keys.ARROW_DOWN" title="Permalink to this definition">¶</a></dt>
+<code class="descname">ARROW_DOWN</code><em class="property"> = u'\ue015'</em><a class="headerlink" href="#macaca.keys.Keys.ARROW_DOWN" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="macaca.keys.Keys.ARROW_LEFT">
-<code class="descname">ARROW_LEFT</code><em class="property"> = '\\ue012'</em><a class="headerlink" href="#macaca.keys.Keys.ARROW_LEFT" title="Permalink to this definition">¶</a></dt>
+<code class="descname">ARROW_LEFT</code><em class="property"> = u'\ue012'</em><a class="headerlink" href="#macaca.keys.Keys.ARROW_LEFT" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="macaca.keys.Keys.ARROW_RIGHT">
-<code class="descname">ARROW_RIGHT</code><em class="property"> = '\\ue014'</em><a class="headerlink" href="#macaca.keys.Keys.ARROW_RIGHT" title="Permalink to this definition">¶</a></dt>
+<code class="descname">ARROW_RIGHT</code><em class="property"> = u'\ue014'</em><a class="headerlink" href="#macaca.keys.Keys.ARROW_RIGHT" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="macaca.keys.Keys.ARROW_UP">
-<code class="descname">ARROW_UP</code><em class="property"> = '\\ue013'</em><a class="headerlink" href="#macaca.keys.Keys.ARROW_UP" title="Permalink to this definition">¶</a></dt>
+<code class="descname">ARROW_UP</code><em class="property"> = u'\ue013'</em><a class="headerlink" href="#macaca.keys.Keys.ARROW_UP" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="macaca.keys.Keys.BACK">
+<code class="descname">BACK</code><em class="property"> = u'\ue106'</em><a class="headerlink" href="#macaca.keys.Keys.BACK" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="macaca.keys.Keys.BACKSPACE">
-<code class="descname">BACKSPACE</code><em class="property"> = '\\ue003'</em><a class="headerlink" href="#macaca.keys.Keys.BACKSPACE" title="Permalink to this definition">¶</a></dt>
+<code class="descname">BACKSPACE</code><em class="property"> = u'\ue003'</em><a class="headerlink" href="#macaca.keys.Keys.BACKSPACE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="macaca.keys.Keys.CALL">
+<code class="descname">CALL</code><em class="property"> = u'\ue109'</em><a class="headerlink" href="#macaca.keys.Keys.CALL" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="macaca.keys.Keys.CAMERA">
+<code class="descname">CAMERA</code><em class="property"> = u'\ue108'</em><a class="headerlink" href="#macaca.keys.Keys.CAMERA" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="macaca.keys.Keys.CANCEL">
-<code class="descname">CANCEL</code><em class="property"> = '\\ue001'</em><a class="headerlink" href="#macaca.keys.Keys.CANCEL" title="Permalink to this definition">¶</a></dt>
+<code class="descname">CANCEL</code><em class="property"> = u'\ue001'</em><a class="headerlink" href="#macaca.keys.Keys.CANCEL" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="macaca.keys.Keys.CLEAR">
-<code class="descname">CLEAR</code><em class="property"> = '\\ue005'</em><a class="headerlink" href="#macaca.keys.Keys.CLEAR" title="Permalink to this definition">¶</a></dt>
+<code class="descname">CLEAR</code><em class="property"> = u'\ue005'</em><a class="headerlink" href="#macaca.keys.Keys.CLEAR" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="macaca.keys.Keys.COMMAND">
-<code class="descname">COMMAND</code><em class="property"> = '\\ue03d'</em><a class="headerlink" href="#macaca.keys.Keys.COMMAND" title="Permalink to this definition">¶</a></dt>
+<code class="descname">COMMAND</code><em class="property"> = u'\ue03d'</em><a class="headerlink" href="#macaca.keys.Keys.COMMAND" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="macaca.keys.Keys.CONTROL">
-<code class="descname">CONTROL</code><em class="property"> = '\\ue009'</em><a class="headerlink" href="#macaca.keys.Keys.CONTROL" title="Permalink to this definition">¶</a></dt>
+<code class="descname">CONTROL</code><em class="property"> = u'\ue009'</em><a class="headerlink" href="#macaca.keys.Keys.CONTROL" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="macaca.keys.Keys.DECIMAL">
-<code class="descname">DECIMAL</code><em class="property"> = '\\ue028'</em><a class="headerlink" href="#macaca.keys.Keys.DECIMAL" title="Permalink to this definition">¶</a></dt>
+<code class="descname">DECIMAL</code><em class="property"> = u'\ue028'</em><a class="headerlink" href="#macaca.keys.Keys.DECIMAL" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="macaca.keys.Keys.DELETE">
-<code class="descname">DELETE</code><em class="property"> = '\\ue017'</em><a class="headerlink" href="#macaca.keys.Keys.DELETE" title="Permalink to this definition">¶</a></dt>
+<code class="descname">DELETE</code><em class="property"> = u'\ue017'</em><a class="headerlink" href="#macaca.keys.Keys.DELETE" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="macaca.keys.Keys.DIVIDE">
-<code class="descname">DIVIDE</code><em class="property"> = '\\ue029'</em><a class="headerlink" href="#macaca.keys.Keys.DIVIDE" title="Permalink to this definition">¶</a></dt>
+<code class="descname">DIVIDE</code><em class="property"> = u'\ue029'</em><a class="headerlink" href="#macaca.keys.Keys.DIVIDE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="macaca.keys.Keys.DPAD_CENTER">
+<code class="descname">DPAD_CENTER</code><em class="property"> = u'\ue110'</em><a class="headerlink" href="#macaca.keys.Keys.DPAD_CENTER" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="macaca.keys.Keys.DPAD_DOWN">
+<code class="descname">DPAD_DOWN</code><em class="property"> = u'\ue10f'</em><a class="headerlink" href="#macaca.keys.Keys.DPAD_DOWN" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="macaca.keys.Keys.DPAD_LEFT">
+<code class="descname">DPAD_LEFT</code><em class="property"> = u'\ue10c'</em><a class="headerlink" href="#macaca.keys.Keys.DPAD_LEFT" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="macaca.keys.Keys.DPAD_RIGHT">
+<code class="descname">DPAD_RIGHT</code><em class="property"> = u'\ue10e'</em><a class="headerlink" href="#macaca.keys.Keys.DPAD_RIGHT" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="macaca.keys.Keys.DPAD_UP">
+<code class="descname">DPAD_UP</code><em class="property"> = u'\ue10d'</em><a class="headerlink" href="#macaca.keys.Keys.DPAD_UP" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="macaca.keys.Keys.END">
-<code class="descname">END</code><em class="property"> = '\\ue010'</em><a class="headerlink" href="#macaca.keys.Keys.END" title="Permalink to this definition">¶</a></dt>
+<code class="descname">END</code><em class="property"> = u'\ue010'</em><a class="headerlink" href="#macaca.keys.Keys.END" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="macaca.keys.Keys.END_CALL">
+<code class="descname">END_CALL</code><em class="property"> = u'\ue10a'</em><a class="headerlink" href="#macaca.keys.Keys.END_CALL" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="macaca.keys.Keys.ENTER">
-<code class="descname">ENTER</code><em class="property"> = '\\ue007'</em><a class="headerlink" href="#macaca.keys.Keys.ENTER" title="Permalink to this definition">¶</a></dt>
+<code class="descname">ENTER</code><em class="property"> = u'\ue007'</em><a class="headerlink" href="#macaca.keys.Keys.ENTER" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="macaca.keys.Keys.EQUALS">
-<code class="descname">EQUALS</code><em class="property"> = '\\ue019'</em><a class="headerlink" href="#macaca.keys.Keys.EQUALS" title="Permalink to this definition">¶</a></dt>
+<code class="descname">EQUALS</code><em class="property"> = u'\ue019'</em><a class="headerlink" href="#macaca.keys.Keys.EQUALS" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="macaca.keys.Keys.ESCAPE">
-<code class="descname">ESCAPE</code><em class="property"> = '\\ue00c'</em><a class="headerlink" href="#macaca.keys.Keys.ESCAPE" title="Permalink to this definition">¶</a></dt>
+<code class="descname">ESCAPE</code><em class="property"> = u'\ue00c'</em><a class="headerlink" href="#macaca.keys.Keys.ESCAPE" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="macaca.keys.Keys.F1">
-<code class="descname">F1</code><em class="property"> = '\\ue031'</em><a class="headerlink" href="#macaca.keys.Keys.F1" title="Permalink to this definition">¶</a></dt>
+<code class="descname">F1</code><em class="property"> = u'\ue031'</em><a class="headerlink" href="#macaca.keys.Keys.F1" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="macaca.keys.Keys.F10">
-<code class="descname">F10</code><em class="property"> = '\\ue03a'</em><a class="headerlink" href="#macaca.keys.Keys.F10" title="Permalink to this definition">¶</a></dt>
+<code class="descname">F10</code><em class="property"> = u'\ue03a'</em><a class="headerlink" href="#macaca.keys.Keys.F10" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="macaca.keys.Keys.F11">
-<code class="descname">F11</code><em class="property"> = '\\ue03b'</em><a class="headerlink" href="#macaca.keys.Keys.F11" title="Permalink to this definition">¶</a></dt>
+<code class="descname">F11</code><em class="property"> = u'\ue03b'</em><a class="headerlink" href="#macaca.keys.Keys.F11" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="macaca.keys.Keys.F12">
-<code class="descname">F12</code><em class="property"> = '\\ue03c'</em><a class="headerlink" href="#macaca.keys.Keys.F12" title="Permalink to this definition">¶</a></dt>
+<code class="descname">F12</code><em class="property"> = u'\ue03c'</em><a class="headerlink" href="#macaca.keys.Keys.F12" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="macaca.keys.Keys.F2">
-<code class="descname">F2</code><em class="property"> = '\\ue032'</em><a class="headerlink" href="#macaca.keys.Keys.F2" title="Permalink to this definition">¶</a></dt>
+<code class="descname">F2</code><em class="property"> = u'\ue032'</em><a class="headerlink" href="#macaca.keys.Keys.F2" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="macaca.keys.Keys.F3">
-<code class="descname">F3</code><em class="property"> = '\\ue033'</em><a class="headerlink" href="#macaca.keys.Keys.F3" title="Permalink to this definition">¶</a></dt>
+<code class="descname">F3</code><em class="property"> = u'\ue033'</em><a class="headerlink" href="#macaca.keys.Keys.F3" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="macaca.keys.Keys.F4">
-<code class="descname">F4</code><em class="property"> = '\\ue034'</em><a class="headerlink" href="#macaca.keys.Keys.F4" title="Permalink to this definition">¶</a></dt>
+<code class="descname">F4</code><em class="property"> = u'\ue034'</em><a class="headerlink" href="#macaca.keys.Keys.F4" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="macaca.keys.Keys.F5">
-<code class="descname">F5</code><em class="property"> = '\\ue035'</em><a class="headerlink" href="#macaca.keys.Keys.F5" title="Permalink to this definition">¶</a></dt>
+<code class="descname">F5</code><em class="property"> = u'\ue035'</em><a class="headerlink" href="#macaca.keys.Keys.F5" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="macaca.keys.Keys.F6">
-<code class="descname">F6</code><em class="property"> = '\\ue036'</em><a class="headerlink" href="#macaca.keys.Keys.F6" title="Permalink to this definition">¶</a></dt>
+<code class="descname">F6</code><em class="property"> = u'\ue036'</em><a class="headerlink" href="#macaca.keys.Keys.F6" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="macaca.keys.Keys.F7">
-<code class="descname">F7</code><em class="property"> = '\\ue037'</em><a class="headerlink" href="#macaca.keys.Keys.F7" title="Permalink to this definition">¶</a></dt>
+<code class="descname">F7</code><em class="property"> = u'\ue037'</em><a class="headerlink" href="#macaca.keys.Keys.F7" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="macaca.keys.Keys.F8">
-<code class="descname">F8</code><em class="property"> = '\\ue038'</em><a class="headerlink" href="#macaca.keys.Keys.F8" title="Permalink to this definition">¶</a></dt>
+<code class="descname">F8</code><em class="property"> = u'\ue038'</em><a class="headerlink" href="#macaca.keys.Keys.F8" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="macaca.keys.Keys.F9">
-<code class="descname">F9</code><em class="property"> = '\\ue039'</em><a class="headerlink" href="#macaca.keys.Keys.F9" title="Permalink to this definition">¶</a></dt>
+<code class="descname">F9</code><em class="property"> = u'\ue039'</em><a class="headerlink" href="#macaca.keys.Keys.F9" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="macaca.keys.Keys.HELP">
-<code class="descname">HELP</code><em class="property"> = '\\ue002'</em><a class="headerlink" href="#macaca.keys.Keys.HELP" title="Permalink to this definition">¶</a></dt>
+<code class="descname">HELP</code><em class="property"> = u'\ue002'</em><a class="headerlink" href="#macaca.keys.Keys.HELP" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="macaca.keys.Keys.HOME">
-<code class="descname">HOME</code><em class="property"> = '\\ue011'</em><a class="headerlink" href="#macaca.keys.Keys.HOME" title="Permalink to this definition">¶</a></dt>
+<code class="descname">HOME</code><em class="property"> = u'\ue011'</em><a class="headerlink" href="#macaca.keys.Keys.HOME" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="macaca.keys.Keys.HOME_SCREEN">
+<code class="descname">HOME_SCREEN</code><em class="property"> = u'\ue105'</em><a class="headerlink" href="#macaca.keys.Keys.HOME_SCREEN" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="macaca.keys.Keys.INSERT">
-<code class="descname">INSERT</code><em class="property"> = '\\ue016'</em><a class="headerlink" href="#macaca.keys.Keys.INSERT" title="Permalink to this definition">¶</a></dt>
+<code class="descname">INSERT</code><em class="property"> = u'\ue016'</em><a class="headerlink" href="#macaca.keys.Keys.INSERT" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="macaca.keys.Keys.MENU">
+<code class="descname">MENU</code><em class="property"> = u'\ue107'</em><a class="headerlink" href="#macaca.keys.Keys.MENU" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="macaca.keys.Keys.META">
-<code class="descname">META</code><em class="property"> = '\\ue03d'</em><a class="headerlink" href="#macaca.keys.Keys.META" title="Permalink to this definition">¶</a></dt>
+<code class="descname">META</code><em class="property"> = u'\ue03d'</em><a class="headerlink" href="#macaca.keys.Keys.META" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="macaca.keys.Keys.MULTIPLY">
-<code class="descname">MULTIPLY</code><em class="property"> = '\\ue024'</em><a class="headerlink" href="#macaca.keys.Keys.MULTIPLY" title="Permalink to this definition">¶</a></dt>
+<code class="descname">MULTIPLY</code><em class="property"> = u'\ue024'</em><a class="headerlink" href="#macaca.keys.Keys.MULTIPLY" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="macaca.keys.Keys.NULL">
-<code class="descname">NULL</code><em class="property"> = '\\ue000'</em><a class="headerlink" href="#macaca.keys.Keys.NULL" title="Permalink to this definition">¶</a></dt>
+<code class="descname">NULL</code><em class="property"> = u'\ue000'</em><a class="headerlink" href="#macaca.keys.Keys.NULL" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="macaca.keys.Keys.NUMPAD0">
-<code class="descname">NUMPAD0</code><em class="property"> = '\\ue01a'</em><a class="headerlink" href="#macaca.keys.Keys.NUMPAD0" title="Permalink to this definition">¶</a></dt>
+<code class="descname">NUMPAD0</code><em class="property"> = u'\ue01a'</em><a class="headerlink" href="#macaca.keys.Keys.NUMPAD0" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="macaca.keys.Keys.NUMPAD1">
-<code class="descname">NUMPAD1</code><em class="property"> = '\\ue01b'</em><a class="headerlink" href="#macaca.keys.Keys.NUMPAD1" title="Permalink to this definition">¶</a></dt>
+<code class="descname">NUMPAD1</code><em class="property"> = u'\ue01b'</em><a class="headerlink" href="#macaca.keys.Keys.NUMPAD1" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="macaca.keys.Keys.NUMPAD2">
-<code class="descname">NUMPAD2</code><em class="property"> = '\\ue01c'</em><a class="headerlink" href="#macaca.keys.Keys.NUMPAD2" title="Permalink to this definition">¶</a></dt>
+<code class="descname">NUMPAD2</code><em class="property"> = u'\ue01c'</em><a class="headerlink" href="#macaca.keys.Keys.NUMPAD2" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="macaca.keys.Keys.NUMPAD3">
-<code class="descname">NUMPAD3</code><em class="property"> = '\\ue01d'</em><a class="headerlink" href="#macaca.keys.Keys.NUMPAD3" title="Permalink to this definition">¶</a></dt>
+<code class="descname">NUMPAD3</code><em class="property"> = u'\ue01d'</em><a class="headerlink" href="#macaca.keys.Keys.NUMPAD3" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="macaca.keys.Keys.NUMPAD4">
-<code class="descname">NUMPAD4</code><em class="property"> = '\\ue01e'</em><a class="headerlink" href="#macaca.keys.Keys.NUMPAD4" title="Permalink to this definition">¶</a></dt>
+<code class="descname">NUMPAD4</code><em class="property"> = u'\ue01e'</em><a class="headerlink" href="#macaca.keys.Keys.NUMPAD4" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="macaca.keys.Keys.NUMPAD5">
-<code class="descname">NUMPAD5</code><em class="property"> = '\\ue01f'</em><a class="headerlink" href="#macaca.keys.Keys.NUMPAD5" title="Permalink to this definition">¶</a></dt>
+<code class="descname">NUMPAD5</code><em class="property"> = u'\ue01f'</em><a class="headerlink" href="#macaca.keys.Keys.NUMPAD5" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="macaca.keys.Keys.NUMPAD6">
-<code class="descname">NUMPAD6</code><em class="property"> = '\\ue020'</em><a class="headerlink" href="#macaca.keys.Keys.NUMPAD6" title="Permalink to this definition">¶</a></dt>
+<code class="descname">NUMPAD6</code><em class="property"> = u'\ue020'</em><a class="headerlink" href="#macaca.keys.Keys.NUMPAD6" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="macaca.keys.Keys.NUMPAD7">
-<code class="descname">NUMPAD7</code><em class="property"> = '\\ue021'</em><a class="headerlink" href="#macaca.keys.Keys.NUMPAD7" title="Permalink to this definition">¶</a></dt>
+<code class="descname">NUMPAD7</code><em class="property"> = u'\ue021'</em><a class="headerlink" href="#macaca.keys.Keys.NUMPAD7" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="macaca.keys.Keys.NUMPAD8">
-<code class="descname">NUMPAD8</code><em class="property"> = '\\ue022'</em><a class="headerlink" href="#macaca.keys.Keys.NUMPAD8" title="Permalink to this definition">¶</a></dt>
+<code class="descname">NUMPAD8</code><em class="property"> = u'\ue022'</em><a class="headerlink" href="#macaca.keys.Keys.NUMPAD8" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="macaca.keys.Keys.NUMPAD9">
-<code class="descname">NUMPAD9</code><em class="property"> = '\\ue023'</em><a class="headerlink" href="#macaca.keys.Keys.NUMPAD9" title="Permalink to this definition">¶</a></dt>
+<code class="descname">NUMPAD9</code><em class="property"> = u'\ue023'</em><a class="headerlink" href="#macaca.keys.Keys.NUMPAD9" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="macaca.keys.Keys.PAGE_DOWN">
-<code class="descname">PAGE_DOWN</code><em class="property"> = '\\ue00f'</em><a class="headerlink" href="#macaca.keys.Keys.PAGE_DOWN" title="Permalink to this definition">¶</a></dt>
+<code class="descname">PAGE_DOWN</code><em class="property"> = u'\ue00f'</em><a class="headerlink" href="#macaca.keys.Keys.PAGE_DOWN" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="macaca.keys.Keys.PAGE_UP">
-<code class="descname">PAGE_UP</code><em class="property"> = '\\ue00e'</em><a class="headerlink" href="#macaca.keys.Keys.PAGE_UP" title="Permalink to this definition">¶</a></dt>
+<code class="descname">PAGE_UP</code><em class="property"> = u'\ue00e'</em><a class="headerlink" href="#macaca.keys.Keys.PAGE_UP" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="macaca.keys.Keys.PAUSE">
-<code class="descname">PAUSE</code><em class="property"> = '\\ue00b'</em><a class="headerlink" href="#macaca.keys.Keys.PAUSE" title="Permalink to this definition">¶</a></dt>
+<code class="descname">PAUSE</code><em class="property"> = u'\ue00b'</em><a class="headerlink" href="#macaca.keys.Keys.PAUSE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="macaca.keys.Keys.POWER">
+<code class="descname">POWER</code><em class="property"> = u'\ue101'</em><a class="headerlink" href="#macaca.keys.Keys.POWER" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="macaca.keys.Keys.RETURN">
-<code class="descname">RETURN</code><em class="property"> = '\\ue006'</em><a class="headerlink" href="#macaca.keys.Keys.RETURN" title="Permalink to this definition">¶</a></dt>
+<code class="descname">RETURN</code><em class="property"> = u'\ue006'</em><a class="headerlink" href="#macaca.keys.Keys.RETURN" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="macaca.keys.Keys.SEARCH">
+<code class="descname">SEARCH</code><em class="property"> = u'\ue10b'</em><a class="headerlink" href="#macaca.keys.Keys.SEARCH" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="macaca.keys.Keys.SEMICOLON">
-<code class="descname">SEMICOLON</code><em class="property"> = '\\ue018'</em><a class="headerlink" href="#macaca.keys.Keys.SEMICOLON" title="Permalink to this definition">¶</a></dt>
+<code class="descname">SEMICOLON</code><em class="property"> = u'\ue018'</em><a class="headerlink" href="#macaca.keys.Keys.SEMICOLON" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="macaca.keys.Keys.SEPARATOR">
-<code class="descname">SEPARATOR</code><em class="property"> = '\\ue026'</em><a class="headerlink" href="#macaca.keys.Keys.SEPARATOR" title="Permalink to this definition">¶</a></dt>
+<code class="descname">SEPARATOR</code><em class="property"> = u'\ue026'</em><a class="headerlink" href="#macaca.keys.Keys.SEPARATOR" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="macaca.keys.Keys.SHIFT">
-<code class="descname">SHIFT</code><em class="property"> = '\\ue008'</em><a class="headerlink" href="#macaca.keys.Keys.SHIFT" title="Permalink to this definition">¶</a></dt>
+<code class="descname">SHIFT</code><em class="property"> = u'\ue008'</em><a class="headerlink" href="#macaca.keys.Keys.SHIFT" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="macaca.keys.Keys.SPACE">
-<code class="descname">SPACE</code><em class="property"> = '\\ue00d'</em><a class="headerlink" href="#macaca.keys.Keys.SPACE" title="Permalink to this definition">¶</a></dt>
+<code class="descname">SPACE</code><em class="property"> = u'\ue00d'</em><a class="headerlink" href="#macaca.keys.Keys.SPACE" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="macaca.keys.Keys.SUBTRACT">
-<code class="descname">SUBTRACT</code><em class="property"> = '\\ue027'</em><a class="headerlink" href="#macaca.keys.Keys.SUBTRACT" title="Permalink to this definition">¶</a></dt>
+<code class="descname">SUBTRACT</code><em class="property"> = u'\ue027'</em><a class="headerlink" href="#macaca.keys.Keys.SUBTRACT" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="macaca.keys.Keys.TAB">
-<code class="descname">TAB</code><em class="property"> = '\\ue004'</em><a class="headerlink" href="#macaca.keys.Keys.TAB" title="Permalink to this definition">¶</a></dt>
+<code class="descname">TAB</code><em class="property"> = u'\ue004'</em><a class="headerlink" href="#macaca.keys.Keys.TAB" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="macaca.keys.Keys.VOLUME_DOWN">
+<code class="descname">VOLUME_DOWN</code><em class="property"> = u'\ue103'</em><a class="headerlink" href="#macaca.keys.Keys.VOLUME_DOWN" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="macaca.keys.Keys.VOLUME_MUTE">
+<code class="descname">VOLUME_MUTE</code><em class="property"> = u'\ue104'</em><a class="headerlink" href="#macaca.keys.Keys.VOLUME_MUTE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="macaca.keys.Keys.VOLUME_UP">
+<code class="descname">VOLUME_UP</code><em class="property"> = u'\ue102'</em><a class="headerlink" href="#macaca.keys.Keys.VOLUME_UP" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="macaca.keys.Keys.ZENKAKU_HANKAKU">
-<code class="descname">ZENKAKU_HANKAKU</code><em class="property"> = '\\ue040'</em><a class="headerlink" href="#macaca.keys.Keys.ZENKAKU_HANKAKU" title="Permalink to this definition">¶</a></dt>
+<code class="descname">ZENKAKU_HANKAKU</code><em class="property"> = u'\ue040'</em><a class="headerlink" href="#macaca.keys.Keys.ZENKAKU_HANKAKU" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
