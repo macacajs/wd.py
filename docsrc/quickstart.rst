@@ -1,15 +1,15 @@
 Quick Start
-==============
+===========
 
 What is WD.py?
----------------
+--------------
 
 WD.py is a Python WebDriver client implemented most of the APIs in the `WebDriver Protocol <https://www.w3.org/TR/webdriver/>`_.
 It was originally designed for `Macaca <http://macacajs.github.io>`_ (A Node.js powered WebDriver server), but also available for any other implementation of WebDriver server
 such as Selenium, Appium and etc.
 
 Installation
--------------
+------------
 
 To install WD.py, simply:
 
@@ -25,12 +25,12 @@ To get latest code from source via `GitHub <https://github.com/macacajs/wd.py>`_
 
 
 Prerequisite
--------------
+------------
 
 WD.py does not start the WebDriver server automaticalliy, you may use `Macaca <http://macacajs.github.io>`_ to start a WebDriver server and run the tests after.
 
 Usage
-------
+-----
 
 **Configure the WebDriver**
 
@@ -340,5 +340,5 @@ For Pythoner, we recommend two coding style for you to choose.
         .click()
 
 Next Step
----------------
+---------
 TODO
