@@ -17,8 +17,8 @@ setup(
 
     url='https://github.com/macacajs/wd.py',
 
-    author='xudafeng',
-    author_email='xudafeng@126.com',
+    author='Zichen Zhu',
+    author_email='zic.zhu@gmail.com',
 
     license='MIT',
 
