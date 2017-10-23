@@ -1,19 +1,19 @@
 Macaca Python Client
 ====================
 
-.. image:: https://img.shields.io/coveralls/macacajs/wd.py/master.svg
+.. image:: https://img.shields.io/coveralls/macacajs/wd.py/master.svg?style=flat-square
     :target: https://coveralls.io/github/macacajs/wd.py
 
-.. image:: https://img.shields.io/travis/macacajs/wd.py/master.svg
+.. image:: https://img.shields.io/travis/macacajs/wd.py/master.svg?style=flat-square
     :target: https://travis-ci.org/macacajs/wd.py
 
-.. image:: https://img.shields.io/pypi/v/wd.svg
+.. image:: https://img.shields.io/pypi/v/wd.svg?style=flat-square
     :target: https://pypi.python.org/pypi/wd
 
-.. image:: https://img.shields.io/pypi/pyversions/wd.svg
+.. image:: https://img.shields.io/pypi/pyversions/wd.svg?style=flat-square
     :target: https://pypi.python.org/pypi/wd/
 
-.. image:: https://img.shields.io/pypi/dd/wd.svg
+.. image:: https://img.shields.io/pypi/dd/wd.svg?style=flat-square
     :target: https://pypi.python.org/pypi/wd/
 
 Intro
@@ -40,7 +40,7 @@ Examples
     # Configure the desired capabilities.
     >>> desired_caps = {
         'autoAcceptAlerts': True,
-        'browserName': 'Chrome',
+        'browserName': 'electron',
         'platformName': 'desktop'
     }
 
