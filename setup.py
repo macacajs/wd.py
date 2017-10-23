@@ -10,15 +10,15 @@ with open(path.join(here, 'README.rst'), encoding='utf-8') as f:
 setup(
     name='wd',
 
-    version='0.1.10',
+    version='1.0.0',
 
     description='Macaca Python Client',
     long_description=long_description,
 
     url='https://github.com/macacajs/wd.py',
 
-    author='Zichen Zhu',
-    author_email='zic.zhu@gmail.com',
+    author='xudafeng',
+    author_email='xudafeng@126.com',
 
     license='MIT',
 
