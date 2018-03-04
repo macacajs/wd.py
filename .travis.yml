@@ -5,8 +5,7 @@ python:
   - 3.4
   - 3.5
 install:
-  - pip install tox-travis
-  - pip install coveralls
+  - make install
 script:
-  - tox
-  - tox -e coveralls
+  - make lint
+  - make test
