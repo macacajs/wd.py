@@ -16,3 +16,5 @@ class Locator(Enum):
     TAG_NAME = "tag name"
     CLASS_NAME = "class name"
     CSS_SELECTOR = "css selector"
+    CONTAINS_TEXT = "text contains"
+    CONTAINS_DESC = "desc contains"
