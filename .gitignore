@@ -56,7 +56,6 @@ coverage.xml
 *.pot
 
 # Sphinx documentation
-docs/_modules/
 docs/_sources/
 docs/.buildinfo
 docs/*.inv

@@ -4,20 +4,12 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>Quick Start &#8212; wd.py 0.1.10 documentation</title>
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    './',
-        VERSION:     '0.1.10',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true,
-        SOURCELINK_SUFFIX: '.txt'
-      };
-    </script>
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
@@ -31,8 +23,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
-  </head>
-  <body>
+  </head><body>
   
 
     <div class="document">
@@ -51,11 +42,11 @@ such as Selenium, Appium and etc.</p>
 <div class="section" id="installation">
 <h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h2>
 <p>To install WD.py, simply:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">wd</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">wd</span>
 </pre></div>
 </div>
 <p>To get latest code from source via <a class="reference external" href="https://github.com/macacajs/wd.py">GitHub</a>.</p>
-<div class="highlight-shell"><div class="highlight"><pre><span></span>git clone https://github.com/macacajs/wd.py.git
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>git clone https://github.com/macacajs/wd.py.git
 </pre></div>
 </div>
 </div>
@@ -67,7 +58,7 @@ such as Selenium, Appium and etc.</p>
 <h2>Usage<a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h2>
 <p><strong>Configure the WebDriver</strong></p>
 <p>Firstly, you need to configure the WebDriver with desired capabilities and server url.</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">macaca</span> <span class="kn">import</span> <span class="n">WebDriver</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">macaca</span> <span class="kn">import</span> <span class="n">WebDriver</span>
 
 <span class="n">desired_caps</span> <span class="o">=</span> <span class="p">{</span>
     <span class="s1">&#39;browserName&#39;</span><span class="p">:</span> <span class="s1">&#39;Chrome&#39;</span><span class="p">,</span> <span class="c1"># Electon, Safari(iOS).</span>
@@ -104,24 +95,24 @@ such as Selenium, Appium and etc.</p>
 </pre></div>
 </div>
 <p><strong>Init the WebDriver</strong></p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="c1"># Create a new session towards WebDriver server.</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create a new session towards WebDriver server.</span>
 <span class="n">driver</span><span class="o">.</span><span class="n">init</span><span class="p">()</span>
 </pre></div>
 </div>
 <p><strong>Stop the WebDriver</strong></p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="c1"># Delete current session.</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Delete current session.</span>
 <span class="n">driver</span><span class="o">.</span><span class="n">quit</span><span class="p">()</span>
 </pre></div>
 </div>
 <p><strong>Attach to an existing session</strong></p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="c1"># Attach to a given session.</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Attach to a given session.</span>
 <span class="n">driver</span><span class="o">.</span><span class="n">attach</span><span class="p">(</span><span class="s1">&#39;012-345-678-9&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p><strong>WebDriver methods</strong></p>
 <p>The instance methods of WebDriver mostly related to the global action of driver.
 For example, switch to a new url, refresh and get title.</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="c1"># Navigate to a url.</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Navigate to a url.</span>
 <span class="n">driver</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;https://www.google.com&#39;</span><span class="p">)</span>
 
 <span class="c1"># Refresh current page.</span>
@@ -144,12 +135,12 @@ Locator strategies are listed below:</p>
 <li>“css selector”</li>
 </ul>
 <p>The basic method of finding element(s) is <cite>element</cite>:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="c1"># Finding the element which its `id` matches `login`</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Finding the element which its `id` matches `login`</span>
 <span class="n">driver</span><span class="o">.</span><span class="n">element</span><span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">,</span> <span class="s1">&#39;login&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>But in most cases, you don’t need to use this basic method, there are a lot of extension methods for convenience.</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="c1"># Finding the element which its `id` matches `login`</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Finding the element which its `id` matches `login`</span>
 <span class="n">driver</span><span class="o">.</span><span class="n">element_by_id</span><span class="p">(</span><span class="s1">&#39;login&#39;</span><span class="p">)</span>
 
 <span class="c1"># Similarly, all the strategies can be append after `element` using snake case.</span>
@@ -190,7 +181,7 @@ Locator strategies are listed below:</p>
 <p>The instance methods of WebElement mostly related to the action element such as
 click the element, get the tag name or get the innerText of the element.</p>
 <p>The WebElement instance is returned by finding element command.</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">macaca</span> <span class="kn">import</span> <span class="n">WebElement</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">macaca</span> <span class="kn">import</span> <span class="n">WebElement</span>
 
 <span class="c1"># Retrieve the element by id</span>
 <span class="n">web_element</span> <span class="o">=</span> <span class="n">driver</span><span class="o">.</span><span class="n">element_by_id</span><span class="p">(</span><span class="s1">&#39;login&#39;</span><span class="p">)</span>
@@ -208,12 +199,12 @@ click the element, get the tag name or get the innerText of the element.</p>
 </div>
 <p>Futhermore, all the <cite>element</cite> methods on WebDriver can be used on WebElement, it means to
 find element from the current Web Element.</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">web_element</span><span class="o">.</span><span class="n">element_by_id</span><span class="p">(</span><span class="s1">&#39;ss&#39;</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">web_element</span><span class="o">.</span><span class="n">element_by_id</span><span class="p">(</span><span class="s1">&#39;ss&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p><strong>Keys</strong></p>
 <p>We can send a sequence of key strokes to an element when need to fulfill a input field.</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">web_element</span><span class="o">.</span><span class="n">send_keys</span><span class="p">(</span><span class="s1">&#39;123456&#39;</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">web_element</span><span class="o">.</span><span class="n">send_keys</span><span class="p">(</span><span class="s1">&#39;123456&#39;</span><span class="p">)</span>
 
 <span class="c1"># or</span>
 <span class="n">driver</span><span class="o">.</span><span class="n">send_keys</span><span class="p">(</span><span class="n">web_element</span><span class="p">,</span> <span class="s1">&#39;123456&#39;</span><span class="p">)</span>
@@ -224,7 +215,7 @@ find element from the current Web Element.</p>
 </div>
 <p><em>Special keys</em> means the pressable keys that aren’t text, learn more at <a class="reference external" href="https://w3c.github.io/webdriver/webdriver-spec.html#dfn-character-types">Character Types</a>.</p>
 <p>For easily use, the <em>keys</em> defined in above protocol can import from <cite>Keys</cite> module directly.</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">macaca</span> <span class="kn">import</span> <span class="n">keys</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">macaca</span> <span class="kn">import</span> <span class="n">keys</span>
 
 <span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">keys</span><span class="o">.</span><span class="n">ENTER</span><span class="p">)</span>
 <span class="go">\uE007</span>
@@ -234,14 +225,14 @@ find element from the current Web Element.</p>
 </pre></div>
 </div>
 <p>It is convenient to send special keys using array.</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">macaca.keys</span> <span class="kn">import</span> <span class="n">ENTER</span><span class="p">,</span> <span class="n">DELETE</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">macaca.keys</span> <span class="kn">import</span> <span class="n">ENTER</span><span class="p">,</span> <span class="n">DELETE</span>
 
 <span class="n">web_element</span><span class="o">.</span><span class="n">keys</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="n">DELETE</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">])</span>
 </pre></div>
 </div>
 <p><strong>Screenshot</strong></p>
 <p>There are two methods to use when taking screenshot.</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="c1"># Return the base64 encoded string of the screenshot.</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Return the base64 encoded string of the screenshot.</span>
 <span class="n">base64_str</span> <span class="o">=</span> <span class="n">driver</span><span class="o">.</span><span class="n">take_screenshot</span><span class="p">()</span>
 
 <span class="c1"># Save screenshot to the given path.</span>
@@ -261,7 +252,7 @@ find element from the current Web Element.</p>
 </div>
 <p><strong>Switch context</strong></p>
 <p>For mobile testing, we will need to switch context between <em>Native</em> and <em>Webview</em>.</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="c1"># Get existing contexts</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Get existing contexts</span>
 <span class="n">ctxs</span> <span class="o">=</span> <span class="n">driver</span><span class="o">.</span><span class="n">contexts</span>
 
 <span class="k">print</span><span class="p">(</span><span class="n">ctxs</span><span class="p">)</span> <span class="c1"># [&#39;NATIVE&#39;, &#39;WEBVIEW_1&#39;, &#39;WEBVIEW_2&#39;]</span>
@@ -275,7 +266,7 @@ find element from the current Web Element.</p>
 <p><strong>Execute JavaScript Snippets</strong></p>
 <p>In some complex situation, we may need to inject a snippet of JavaScript into the page
 and get whatever we want.</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="c1"># You can use `arguments` in the script to represent the</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># You can use `arguments` in the script to represent the</span>
 <span class="c1"># indexed parameter after the `script`.</span>
 
 <span class="n">script</span> <span class="o">=</span> <span class="s1">&#39;return document.querySelector(&quot;.btn&quot;).tagName === arguments[0]&#39;</span>
@@ -292,7 +283,7 @@ and get whatever we want.</p>
 <p><strong>Fluent Interface</strong></p>
 <p>All the APIs in <em>WebDriver</em> and <em>WebElement</em> support fluent interface,
 which means we can chain the method if the method returns None.</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">driver</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;https://www.google.com&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">element_by_id</span><span class="p">(</span><span class="s1">&#39;login&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">driver</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;https://www.google.com&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">element_by_id</span><span class="p">(</span><span class="s1">&#39;login&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>
 
 <span class="go"># For method that returns something, it&#39;s not working.</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">driver</span><span class="o">.</span><span class="n">element_by_id</span><span class="p">(</span><span class="s1">&#39;login&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">get_attribute</span><span class="p">(</span><span class="s1">&#39;class&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>
@@ -300,14 +291,14 @@ which means we can chain the method if the method returns None.</p>
 </pre></div>
 </div>
 <p>Due to the nature of Python, it is illegal to write method chaining like JavaScript below:</p>
-<div class="highlight-javascript"><div class="highlight"><pre><span></span><span class="nx">driver</span>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="nx">driver</span>
   <span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;https://www.google.com&#39;</span><span class="p">)</span>
   <span class="p">.</span><span class="nx">element_by_id</span><span class="p">(</span><span class="s1">&#39;login&#39;</span><span class="p">)</span>
   <span class="p">.</span><span class="nx">click</span><span class="p">()</span>
 </pre></div>
 </div>
 <p>For Pythoner, we recommend two coding style for you to choose.</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="c1"># Use additional parenthesis</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Use additional parenthesis</span>
 <span class="p">(</span>
     <span class="n">driver</span>
         <span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;https://www.google.com&#39;</span><span class="p">)</span>
@@ -364,12 +355,14 @@ which means we can chain the method if the method returns None.</p>
    </div>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
+    <div class="searchformwrapper">
     <form class="search" action="search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
+    </div>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -380,7 +373,7 @@ which means we can chain the method if the method returns None.</p>
       &copy;2017, zenzhu.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.4</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.7.5</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
       
       |
