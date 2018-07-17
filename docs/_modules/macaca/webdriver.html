@@ -1,0 +1,1095 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>macaca.webdriver &#8212; wd.py 1.0.1 documentation</title>
+    <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for macaca.webdriver</h1><div class="highlight"><pre>
+<span></span><span class="c1">#</span>
+<span class="c1"># https = //w3c.github.io/webdriver/webdriver-spec.html</span>
+<span class="c1"># WebDriver Protocol Implemenation</span>
+<span class="c1">#</span>
+
+<span class="kn">from</span> <span class="nn">base64</span> <span class="k">import</span> <span class="n">b64decode</span>
+
+<span class="kn">from</span> <span class="nn">retrying</span> <span class="k">import</span> <span class="n">retry</span>
+
+<span class="kn">from</span> <span class="nn">.asserters</span> <span class="k">import</span> <span class="n">is_displayed</span>
+<span class="kn">from</span> <span class="nn">.command</span> <span class="k">import</span> <span class="n">Command</span>
+<span class="kn">from</span> <span class="nn">.locator</span> <span class="k">import</span> <span class="n">Locator</span>
+<span class="kn">from</span> <span class="nn">.remote_invoker</span> <span class="k">import</span> <span class="n">RemoteInvoker</span>
+<span class="kn">from</span> <span class="nn">.util</span> <span class="k">import</span> <span class="n">add_element_extension_method</span><span class="p">,</span> <span class="n">value_to_key_strokes</span><span class="p">,</span> <span class="n">value_to_single_key_strokes</span><span class="p">,</span> <span class="n">fluent</span>
+<span class="kn">from</span> <span class="nn">.webdriverresult</span> <span class="k">import</span> <span class="n">WebDriverResult</span>
+<span class="kn">from</span> <span class="nn">.webdriverexception</span> <span class="k">import</span> <span class="n">WebDriverException</span>
+<span class="kn">from</span> <span class="nn">.webelement</span> <span class="k">import</span> <span class="n">WebElement</span>
+
+
+<div class="viewcode-block" id="WebDriver"><a class="viewcode-back" href="../../api.html#macaca.webdriver.WebDriver">[docs]</a><span class="k">class</span> <span class="nc">WebDriver</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;The WebDriver Object to implement most part of WebDriver protocol.</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        session_id(str): A UDID used to uniquely identify each session.</span>
+<span class="sd">        capabilities(dict): The capabilities of the driver/browserreturned by</span>
+<span class="sd">            remote server.</span>
+<span class="sd">        desired_capabilities(dict): The desired capabilities requested by the</span>
+<span class="sd">            local end.</span>
+<span class="sd">        remote_invoker(RemoteInvoker): The remote invoker responsible for send</span>
+<span class="sd">            request.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">desired_capabilities</span><span class="p">,</span> <span class="n">url</span><span class="o">=</span><span class="s1">&#39;http://127.0.0.1:3456/wd/hub&#39;</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Initialize the WebDriver</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            desired_capabilities(dict): The desired capabilities requested by</span>
+<span class="sd">                the local end.</span>
+<span class="sd">            url(str): The url of remote server, default: localhost:3456/wd/hub.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">session_id</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">capabilities</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">desired_capabilities</span> <span class="o">=</span> <span class="n">desired_capabilities</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">remote_invoker</span> <span class="o">=</span> <span class="n">RemoteInvoker</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s1">&#39;&lt;</span><span class="si">{0.__name__}</span><span class="s1"> (session=&quot;</span><span class="si">{1}</span><span class="s1">&quot;)&gt;&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+            <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">session_id</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_execute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">command</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">unpack</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Private method to execute command.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            command(Command): The defined command.</span>
+<span class="sd">            data(dict): The uri variable and body.</span>
+<span class="sd">            uppack(bool): If unpack value from result.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            The unwrapped value field in the json response.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">data</span><span class="p">:</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">session_id</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">data</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s1">&#39;session_id&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">session_id</span><span class="p">)</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_wrap_el</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+        <span class="n">res</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">remote_invoker</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">command</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
+        <span class="n">ret</span> <span class="o">=</span> <span class="n">WebDriverResult</span><span class="o">.</span><span class="n">from_object</span><span class="p">(</span><span class="n">res</span><span class="p">)</span>
+        <span class="n">ret</span><span class="o">.</span><span class="n">raise_for_status</span><span class="p">()</span>
+        <span class="n">ret</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_unwrap_el</span><span class="p">(</span><span class="n">ret</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">unpack</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">ret</span>
+        <span class="k">return</span> <span class="n">ret</span><span class="o">.</span><span class="n">value</span>
+
+    <span class="k">def</span> <span class="nf">_unwrap_el</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Convert {&#39;Element&#39;: 1234} to WebElement Object</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            value(str|list|dict): The value field in the json response.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            The unwrapped value.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">dict</span><span class="p">)</span> <span class="ow">and</span> <span class="s1">&#39;ELEMENT&#39;</span> <span class="ow">in</span> <span class="n">value</span><span class="p">:</span>
+            <span class="n">element_id</span> <span class="o">=</span> <span class="n">value</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;ELEMENT&#39;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">WebElement</span><span class="p">(</span><span class="n">element_id</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+            <span class="k">return</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_unwrap_el</span><span class="p">(</span><span class="n">item</span><span class="p">)</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">value</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">value</span>
+
+    <span class="k">def</span> <span class="nf">_wrap_el</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Convert WebElement Object to {&#39;Element&#39;: 1234}</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            value(str|list|dict): The local value.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            The wrapped value.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+            <span class="k">return</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_wrap_el</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">value</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">WebElement</span><span class="p">):</span>
+            <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;ELEMENT&#39;</span><span class="p">:</span> <span class="n">value</span><span class="o">.</span><span class="n">element_id</span><span class="p">}</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+            <span class="k">return</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_wrap_el</span><span class="p">(</span><span class="n">item</span><span class="p">)</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">value</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">value</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">sessions</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Gets all the sessions of the webdriver server.</span>
+
+<span class="sd">        Support:</span>
+<span class="sd">            Android iOS Web(WebView)</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Return the URL of the current page.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_execute</span><span class="p">(</span><span class="n">Command</span><span class="o">.</span><span class="n">GET_ALL_SESSIONS</span><span class="p">)</span>
+
+<div class="viewcode-block" id="WebDriver.attach"><a class="viewcode-back" href="../../api.html#macaca.webdriver.WebDriver.attach">[docs]</a>    <span class="nd">@fluent</span>
+    <span class="k">def</span> <span class="nf">attach</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">session_id</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Attach to given Session.</span>
+
+<span class="sd">        Support:</span>
+<span class="sd">            Android iOS Web(WebView)</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            session_id(str): The given session ID</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            WebDriver Object.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">session_id</span> <span class="o">=</span> <span class="n">session_id</span></div>
+
+<div class="viewcode-block" id="WebDriver.init"><a class="viewcode-back" href="../../api.html#macaca.webdriver.WebDriver.init">[docs]</a>    <span class="nd">@fluent</span>
+    <span class="k">def</span> <span class="nf">init</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Create Session by desiredCapabilities</span>
+
+<span class="sd">        Support:</span>
+<span class="sd">            Android iOS Web(WebView)</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            WebDriver Object.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">resp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_execute</span><span class="p">(</span><span class="n">Command</span><span class="o">.</span><span class="n">NEW_SESSION</span><span class="p">,</span> <span class="p">{</span>
+            <span class="s1">&#39;desiredCapabilities&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">desired_capabilities</span>
+        <span class="p">},</span> <span class="kc">False</span><span class="p">)</span>
+        <span class="n">resp</span><span class="o">.</span><span class="n">raise_for_status</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">session_id</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">resp</span><span class="o">.</span><span class="n">session_id</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">capabilities</span> <span class="o">=</span> <span class="n">resp</span><span class="o">.</span><span class="n">value</span></div>
+
+<div class="viewcode-block" id="WebDriver.quit"><a class="viewcode-back" href="../../api.html#macaca.webdriver.WebDriver.quit">[docs]</a>    <span class="nd">@fluent</span>
+    <span class="k">def</span> <span class="nf">quit</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Quit the driver.</span>
+
+<span class="sd">        Support:</span>
+<span class="sd">            Android iOS Web(WebView)</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            WebDriver Object.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_execute</span><span class="p">(</span><span class="n">Command</span><span class="o">.</span><span class="n">QUIT</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="WebDriver.get"><a class="viewcode-back" href="../../api.html#macaca.webdriver.WebDriver.get">[docs]</a>    <span class="nd">@fluent</span>
+    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">url</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Loads a web page in the current browser session.</span>
+
+<span class="sd">        Support:</span>
+<span class="sd">            Web(WebView)</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            url(str): The URL to navigate to.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            WebDriver Object.</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            WebDriverException.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_execute</span><span class="p">(</span><span class="n">Command</span><span class="o">.</span><span class="n">GET</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;url&#39;</span><span class="p">:</span> <span class="n">url</span><span class="p">})</span></div>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">current_url</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Gets the URL of the current page.</span>
+
+<span class="sd">        Support:</span>
+<span class="sd">            Web(WebView)</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Return the URL of the current page.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_execute</span><span class="p">(</span><span class="n">Command</span><span class="o">.</span><span class="n">GET_CURRENT_URL</span><span class="p">)</span>
+
+<div class="viewcode-block" id="WebDriver.back"><a class="viewcode-back" href="../../api.html#macaca.webdriver.WebDriver.back">[docs]</a>    <span class="nd">@fluent</span>
+    <span class="k">def</span> <span class="nf">back</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Back.</span>
+
+<span class="sd">        Support:</span>
+<span class="sd">            Web(WebView)</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            WebDriver Object.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_execute</span><span class="p">(</span><span class="n">Command</span><span class="o">.</span><span class="n">GO_BACK</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="WebDriver.forward"><a class="viewcode-back" href="../../api.html#macaca.webdriver.WebDriver.forward">[docs]</a>    <span class="nd">@fluent</span>
+    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Forward.</span>
+
+<span class="sd">        Support:</span>
+<span class="sd">            Web(WebView)</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            WebDriver Object.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_execute</span><span class="p">(</span><span class="n">Command</span><span class="o">.</span><span class="n">GO_FORWARD</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="WebDriver.refresh"><a class="viewcode-back" href="../../api.html#macaca.webdriver.WebDriver.refresh">[docs]</a>    <span class="nd">@fluent</span>
+    <span class="k">def</span> <span class="nf">refresh</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Refresh.</span>
+
+<span class="sd">        Support:</span>
+<span class="sd">            Web(WebView)</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            WebDriver Object.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_execute</span><span class="p">(</span><span class="n">Command</span><span class="o">.</span><span class="n">REFRESH</span><span class="p">)</span></div>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">title</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Get the current page title.</span>
+
+<span class="sd">        Support:</span>
+<span class="sd">            Web(WebView)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_execute</span><span class="p">(</span><span class="n">Command</span><span class="o">.</span><span class="n">GET_TITLE</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">current_window_handle</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Returns the handle of the current window.</span>
+
+<span class="sd">        Support:</span>
+<span class="sd">            Web(WebView)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_execute</span><span class="p">(</span><span class="n">Command</span><span class="o">.</span><span class="n">GET_CURRENT_WINDOW_HANDLE</span><span class="p">)</span>
+
+<div class="viewcode-block" id="WebDriver.close"><a class="viewcode-back" href="../../api.html#macaca.webdriver.WebDriver.close">[docs]</a>    <span class="nd">@fluent</span>
+    <span class="k">def</span> <span class="nf">close</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Closes the current window.</span>
+
+<span class="sd">        Support:</span>
+<span class="sd">            Web(WebView)</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            WebDriver Object.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_execute</span><span class="p">(</span><span class="n">Command</span><span class="o">.</span><span class="n">CLOSE</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="WebDriver.switch_to_window"><a class="viewcode-back" href="../../api.html#macaca.webdriver.WebDriver.switch_to_window">[docs]</a>    <span class="nd">@fluent</span>
+    <span class="k">def</span> <span class="nf">switch_to_window</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">window_name</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Switch to the given window.</span>
+
+<span class="sd">        Support:</span>
+<span class="sd">            Web(WebView)</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            window_name(str): The window to change focus to.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            WebDriver Object.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="n">window_name</span>
+        <span class="p">}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_execute</span><span class="p">(</span><span class="n">Command</span><span class="o">.</span><span class="n">SWITCH_TO_WINDOW</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span></div>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">window_handles</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Returns the handles of all windows within the current session.</span>
+
+<span class="sd">        Support:</span>
+<span class="sd">            Web(WebView)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_execute</span><span class="p">(</span><span class="n">Command</span><span class="o">.</span><span class="n">GET_WINDOW_HANDLES</span><span class="p">)</span>
+
+<div class="viewcode-block" id="WebDriver.maximize_window"><a class="viewcode-back" href="../../api.html#macaca.webdriver.WebDriver.maximize_window">[docs]</a>    <span class="nd">@fluent</span>
+    <span class="k">def</span> <span class="nf">maximize_window</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Maximizes the current window.</span>
+
+<span class="sd">        Support:</span>
+<span class="sd">            Web(WebView)</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            WebDriver Object.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_execute</span><span class="p">(</span><span class="n">Command</span><span class="o">.</span><span class="n">MAXIMIZE_WINDOW</span><span class="p">,</span>
+            <span class="p">{</span><span class="s2">&quot;window_handle&quot;</span><span class="p">:</span> <span class="s2">&quot;current&quot;</span><span class="p">})</span></div>
+
+<div class="viewcode-block" id="WebDriver.set_window_size"><a class="viewcode-back" href="../../api.html#macaca.webdriver.WebDriver.set_window_size">[docs]</a>    <span class="nd">@fluent</span>
+    <span class="k">def</span> <span class="nf">set_window_size</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="p">,</span> <span class="n">window_handle</span><span class="o">=</span><span class="s1">&#39;current&#39;</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Sets the width and height of the current window.</span>
+
+<span class="sd">        Support:</span>
+<span class="sd">            Web(WebView)</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            width(int): the width in pixels.</span>
+<span class="sd">            height(int): the height in pixels.</span>
+<span class="sd">            window_handle(str): Identifier of window_handle,</span>
+<span class="sd">                default to &#39;current&#39;.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            WebDriver Object.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_execute</span><span class="p">(</span><span class="n">Command</span><span class="o">.</span><span class="n">SET_WINDOW_SIZE</span><span class="p">,</span> <span class="p">{</span>
+            <span class="s1">&#39;width&#39;</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="n">width</span><span class="p">),</span>
+            <span class="s1">&#39;height&#39;</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="n">height</span><span class="p">),</span>
+            <span class="s1">&#39;window_handle&#39;</span><span class="p">:</span> <span class="n">window_handle</span><span class="p">})</span></div>
+
+<div class="viewcode-block" id="WebDriver.get_window_size"><a class="viewcode-back" href="../../api.html#macaca.webdriver.WebDriver.get_window_size">[docs]</a>    <span class="k">def</span> <span class="nf">get_window_size</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">window_handle</span><span class="o">=</span><span class="s1">&#39;current&#39;</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Gets the width and height of the current window.</span>
+
+<span class="sd">        Support:</span>
+<span class="sd">            Web(WebView)</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            window_handle(str): Identifier of window_handle,</span>
+<span class="sd">                default to &#39;current&#39;.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            A dict contains width and height</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_execute</span><span class="p">(</span><span class="n">Command</span><span class="o">.</span><span class="n">GET_WINDOW_SIZE</span><span class="p">,</span>
+            <span class="p">{</span><span class="s1">&#39;window_handle&#39;</span><span class="p">:</span> <span class="n">window_handle</span><span class="p">})</span></div>
+
+<div class="viewcode-block" id="WebDriver.set_window_position"><a class="viewcode-back" href="../../api.html#macaca.webdriver.WebDriver.set_window_position">[docs]</a>    <span class="nd">@fluent</span>
+    <span class="k">def</span> <span class="nf">set_window_position</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">window_handle</span><span class="o">=</span><span class="s1">&#39;current&#39;</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Sets the x,y position of the current window.</span>
+
+<span class="sd">        Support:</span>
+<span class="sd">            Web(WebView)</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            x(int): the x-coordinate in pixels.</span>
+<span class="sd">            y(int): the y-coordinate in pixels.</span>
+<span class="sd">            window_handle(str): Identifier of window_handle,</span>
+<span class="sd">                default to &#39;current&#39;.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            WebDriver Object.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_execute</span><span class="p">(</span><span class="n">Command</span><span class="o">.</span><span class="n">SET_WINDOW_POSITION</span><span class="p">,</span> <span class="p">{</span>
+            <span class="s1">&#39;x&#39;</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="n">x</span><span class="p">),</span>
+            <span class="s1">&#39;y&#39;</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="n">y</span><span class="p">),</span>
+            <span class="s1">&#39;window_handle&#39;</span><span class="p">:</span> <span class="n">window_handle</span><span class="p">})</span></div>
+
+<div class="viewcode-block" id="WebDriver.get_window_position"><a class="viewcode-back" href="../../api.html#macaca.webdriver.WebDriver.get_window_position">[docs]</a>    <span class="k">def</span> <span class="nf">get_window_position</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">window_handle</span><span class="o">=</span><span class="s1">&#39;current&#39;</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Gets the x,y position of the current window.</span>
+
+<span class="sd">        Support:</span>
+<span class="sd">            Web(WebView)</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            window_handle(str): Identifier of window_handle,</span>
+<span class="sd">                default to &#39;current&#39;.</span>
+
+<span class="sd">        Usage:</span>
+<span class="sd">            driver.get_window_position()</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_execute</span><span class="p">(</span><span class="n">Command</span><span class="o">.</span><span class="n">GET_WINDOW_POSITION</span><span class="p">,</span> <span class="p">{</span>
+            <span class="s1">&#39;window_handle&#39;</span><span class="p">:</span> <span class="n">window_handle</span><span class="p">})</span></div>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">context</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;returns the current context (Native or WebView).</span>
+
+<span class="sd">        Support:</span>
+<span class="sd">            Android iOS</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_execute</span><span class="p">(</span><span class="n">Command</span><span class="o">.</span><span class="n">CURRENT_CONTEXT_HANDLE</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">contexts</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;returns a list of available contexts</span>
+
+<span class="sd">        Support:</span>
+<span class="sd">            Android iOS</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_execute</span><span class="p">(</span><span class="n">Command</span><span class="o">.</span><span class="n">CONTEXT_HANDLES</span><span class="p">)</span>
+
+    <span class="nd">@context</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">context</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">new_context</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;sets the current context</span>
+
+<span class="sd">        Support:</span>
+<span class="sd">            Android iOS</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_execute</span><span class="p">(</span><span class="n">Command</span><span class="o">.</span><span class="n">SWITCH_TO_CONTEXT</span><span class="p">,</span> <span class="p">{</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="n">new_context</span><span class="p">})</span>
+
+<div class="viewcode-block" id="WebDriver.move_to"><a class="viewcode-back" href="../../api.html#macaca.webdriver.WebDriver.move_to">[docs]</a>    <span class="nd">@fluent</span>
+    <span class="k">def</span> <span class="nf">move_to</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">element</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Deprecated use element.touch(&#39;drag&#39;, { toX, toY, duration(s) }) instead.</span>
+<span class="sd">            Move the mouse by an offset of the specificed element.</span>
+
+<span class="sd">        Support:</span>
+<span class="sd">            Android</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            element(WebElement): WebElement Object.</span>
+<span class="sd">            x(float): X offset to move to, relative to the</span>
+<span class="sd">                      top-left corner of the element.</span>
+<span class="sd">            y(float): Y offset to move to, relative to the</span>
+<span class="sd">                      top-left corner of the element.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            WebDriver object.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_execute</span><span class="p">(</span><span class="n">Command</span><span class="o">.</span><span class="n">MOVE_TO</span><span class="p">,</span> <span class="p">{</span>
+            <span class="s1">&#39;element&#39;</span><span class="p">:</span> <span class="n">element</span><span class="o">.</span><span class="n">element_id</span><span class="p">,</span>
+            <span class="s1">&#39;x&#39;</span><span class="p">:</span> <span class="n">x</span><span class="p">,</span>
+            <span class="s1">&#39;y&#39;</span><span class="p">:</span> <span class="n">y</span>
+        <span class="p">})</span></div>
+
+<div class="viewcode-block" id="WebDriver.flick"><a class="viewcode-back" href="../../api.html#macaca.webdriver.WebDriver.flick">[docs]</a>    <span class="nd">@fluent</span>
+    <span class="k">def</span> <span class="nf">flick</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">element</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">speed</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Deprecated use touch(&#39;drag&#39;, { fromX, fromY, toX, toY, duration(s) }) instead.</span>
+<span class="sd">            Flick on the touch screen using finger motion events.</span>
+<span class="sd">            This flickcommand starts at a particulat screen location.</span>
+
+
+<span class="sd">        Support:</span>
+<span class="sd">            iOS</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            element(WebElement): WebElement Object where the flick starts.</span>
+<span class="sd">            x(float}: The x offset in pixels to flick by.</span>
+<span class="sd">            y(float): The y offset in pixels to flick by.</span>
+<span class="sd">            speed(float) The speed in pixels per seconds.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            WebDriver object.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_execute</span><span class="p">(</span><span class="n">Command</span><span class="o">.</span><span class="n">FLICK</span><span class="p">,</span> <span class="p">{</span>
+            <span class="s1">&#39;element&#39;</span><span class="p">:</span> <span class="n">element</span><span class="o">.</span><span class="n">element_id</span><span class="p">,</span>
+            <span class="s1">&#39;x&#39;</span><span class="p">:</span> <span class="n">x</span><span class="p">,</span>
+            <span class="s1">&#39;y&#39;</span><span class="p">:</span> <span class="n">y</span><span class="p">,</span>
+            <span class="s1">&#39;speed&#39;</span><span class="p">:</span> <span class="n">speed</span>
+        <span class="p">})</span></div>
+
+<div class="viewcode-block" id="WebDriver.tap"><a class="viewcode-back" href="../../api.html#macaca.webdriver.WebDriver.tap">[docs]</a>    <span class="nd">@fluent</span>
+    <span class="k">def</span> <span class="nf">tap</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">element</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Deprecated use element.touch(&#39;tap&#39;) instead.</span>
+<span class="sd">            Single tap on the touch enabled device.</span>
+
+<span class="sd">        Support:</span>
+<span class="sd">            Android iOS</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            element(WebElement): WebElement Object to single tap on.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            WebDriver object.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_execute</span><span class="p">(</span><span class="n">Command</span><span class="o">.</span><span class="n">SINGLE_TAP</span><span class="p">,</span> <span class="p">{</span>
+            <span class="s1">&#39;element&#39;</span><span class="p">:</span> <span class="n">element</span><span class="o">.</span><span class="n">element_id</span><span class="p">,</span>
+        <span class="p">})</span></div>
+
+<div class="viewcode-block" id="WebDriver.keys"><a class="viewcode-back" href="../../api.html#macaca.webdriver.WebDriver.keys">[docs]</a>    <span class="nd">@fluent</span>
+    <span class="k">def</span> <span class="nf">keys</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Send a sequence of key strokes.</span>
+
+<span class="sd">        Support:</span>
+<span class="sd">            Android iOS Web(WebView)</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            value(str|int|list): value can be a string,</span>
+<span class="sd">              int or a list contains defined Keys.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_execute</span><span class="p">(</span><span class="n">Command</span><span class="o">.</span><span class="n">SEND_KEYS_TO_ACTIVE_ELEMENT</span><span class="p">,</span> <span class="p">{</span>
+            <span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="n">value_to_single_key_strokes</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+        <span class="p">})</span></div>
+
+<div class="viewcode-block" id="WebDriver.send_keys"><a class="viewcode-back" href="../../api.html#macaca.webdriver.WebDriver.send_keys">[docs]</a>    <span class="nd">@fluent</span>
+    <span class="k">def</span> <span class="nf">send_keys</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Send a sequence of key strokes.</span>
+
+<span class="sd">        Support:</span>
+<span class="sd">            Android iOS Web(WebView)</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            value(str|int|list): value can be a string,</span>
+<span class="sd">              int or a list contains defined Keys.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_execute</span><span class="p">(</span><span class="n">Command</span><span class="o">.</span><span class="n">SEND_KEYS_TO_ACTIVE_ELEMENT</span><span class="p">,</span> <span class="p">{</span>
+            <span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="n">value_to_key_strokes</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+        <span class="p">})</span></div>
+
+<div class="viewcode-block" id="WebDriver.switch_to_frame"><a class="viewcode-back" href="../../api.html#macaca.webdriver.WebDriver.switch_to_frame">[docs]</a>    <span class="nd">@fluent</span>
+    <span class="k">def</span> <span class="nf">switch_to_frame</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">frame_reference</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Switches focus to the specified frame, by index, name, or webelement.</span>
+
+<span class="sd">        Support:</span>
+<span class="sd">            Web(WebView)</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            frame_reference(None|int|WebElement):</span>
+<span class="sd">                The identifier of the frame to switch to.</span>
+<span class="sd">                None means to set to the default context.</span>
+<span class="sd">                An integer representing the index.</span>
+<span class="sd">                A webelement means that is an (i)frame to switch to.</span>
+<span class="sd">                Otherwise throw an error.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            WebDriver Object.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">frame_reference</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="nb">type</span><span class="p">(</span><span class="n">frame_reference</span><span class="p">)</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">WebElement</span><span class="p">]:</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s1">&#39;Type of frame_reference must be None or int or WebElement&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_execute</span><span class="p">(</span><span class="n">Command</span><span class="o">.</span><span class="n">SWITCH_TO_FRAME</span><span class="p">,</span>
+            <span class="p">{</span><span class="s1">&#39;id&#39;</span><span class="p">:</span> <span class="n">frame_reference</span><span class="p">})</span></div>
+
+<div class="viewcode-block" id="WebDriver.switch_to_parent_frame"><a class="viewcode-back" href="../../api.html#macaca.webdriver.WebDriver.switch_to_parent_frame">[docs]</a>    <span class="nd">@fluent</span>
+    <span class="k">def</span> <span class="nf">switch_to_parent_frame</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Switches focus to the parent context.</span>
+
+<span class="sd">        Support:</span>
+<span class="sd">            Web(WebView)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_execute</span><span class="p">(</span><span class="n">Command</span><span class="o">.</span><span class="n">SWITCH_TO_PARENT_FRAME</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="WebDriver.get_active_element"><a class="viewcode-back" href="../../api.html#macaca.webdriver.WebDriver.get_active_element">[docs]</a>    <span class="k">def</span> <span class="nf">get_active_element</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Returns the active element in current context.</span>
+
+<span class="sd">        Support:</span>
+<span class="sd">            Web(WebView)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_execute</span><span class="p">(</span><span class="n">Command</span><span class="o">.</span><span class="n">GET_ACTIVE_ELEMENT</span><span class="p">)</span></div>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">source</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Gets the source of the current page.</span>
+
+<span class="sd">        Support:</span>
+<span class="sd">            Android iOS Web(WebView)</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Return the source of the current page.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_execute</span><span class="p">(</span><span class="n">Command</span><span class="o">.</span><span class="n">GET_PAGE_SOURCE</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="WebDriver.execute_script"><a class="viewcode-back" href="../../api.html#macaca.webdriver.WebDriver.execute_script">[docs]</a>    <span class="k">def</span> <span class="nf">execute_script</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">script</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Execute JavaScript Synchronously in current context.</span>
+
+<span class="sd">        Support:</span>
+<span class="sd">            Web(WebView)</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            script: The JavaScript to execute.</span>
+<span class="sd">            *args: Arguments for your JavaScript.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Returns the return value of the function.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_execute</span><span class="p">(</span><span class="n">Command</span><span class="o">.</span><span class="n">EXECUTE_SCRIPT</span><span class="p">,</span> <span class="p">{</span>
+            <span class="s1">&#39;script&#39;</span><span class="p">:</span> <span class="n">script</span><span class="p">,</span>
+            <span class="s1">&#39;args&#39;</span><span class="p">:</span> <span class="nb">list</span><span class="p">(</span><span class="n">args</span><span class="p">)})</span></div>
+
+<div class="viewcode-block" id="WebDriver.execute_async_script"><a class="viewcode-back" href="../../api.html#macaca.webdriver.WebDriver.execute_async_script">[docs]</a>    <span class="nd">@fluent</span>
+    <span class="k">def</span> <span class="nf">execute_async_script</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">script</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Execute JavaScript Asynchronously in current context.</span>
+
+<span class="sd">        Support:</span>
+<span class="sd">            Web(WebView)</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            script: The JavaScript to execute.</span>
+<span class="sd">            *args: Arguments for your JavaScript.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Returns the return value of the function.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_execute</span><span class="p">(</span><span class="n">Command</span><span class="o">.</span><span class="n">EXECUTE_ASYNC_SCRIPT</span><span class="p">,</span> <span class="p">{</span>
+            <span class="s1">&#39;script&#39;</span><span class="p">:</span> <span class="n">script</span><span class="p">,</span>
+            <span class="s1">&#39;args&#39;</span><span class="p">:</span> <span class="nb">list</span><span class="p">(</span><span class="n">args</span><span class="p">)})</span></div>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">cookies</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Returns  all cookies associated with the address of the current context.</span>
+
+<span class="sd">        Support:</span>
+<span class="sd">            Web(WebView)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_execute</span><span class="p">(</span><span class="n">Command</span><span class="o">.</span><span class="n">GET_ALL_COOKIES</span><span class="p">)</span>
+
+<div class="viewcode-block" id="WebDriver.get_cookie"><a class="viewcode-back" href="../../api.html#macaca.webdriver.WebDriver.get_cookie">[docs]</a>    <span class="k">def</span> <span class="nf">get_cookie</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Get a single cookie by name.</span>
+
+<span class="sd">        Support:</span>
+<span class="sd">            Web(WebView)</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Returns the cookie if found, None if not.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">cookie</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">cookies</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">cookie</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">name</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">cookie</span>
+        <span class="k">return</span> <span class="kc">None</span></div>
+
+<div class="viewcode-block" id="WebDriver.delete_cookie"><a class="viewcode-back" href="../../api.html#macaca.webdriver.WebDriver.delete_cookie">[docs]</a>    <span class="nd">@fluent</span>
+    <span class="k">def</span> <span class="nf">delete_cookie</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Delete a single cookie by name.</span>
+
+<span class="sd">        Support:</span>
+<span class="sd">            Web(WebView)</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            name: The cookie name.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_execute</span><span class="p">(</span><span class="n">Command</span><span class="o">.</span><span class="n">DELETE_COOKIE</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="n">name</span><span class="p">})</span></div>
+
+<div class="viewcode-block" id="WebDriver.delete_all_cookies"><a class="viewcode-back" href="../../api.html#macaca.webdriver.WebDriver.delete_all_cookies">[docs]</a>    <span class="nd">@fluent</span>
+    <span class="k">def</span> <span class="nf">delete_all_cookies</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Delete all cookies at once.</span>
+
+<span class="sd">        Support:</span>
+<span class="sd">            Web(WebView)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_execute</span><span class="p">(</span><span class="n">Command</span><span class="o">.</span><span class="n">DELETE_ALL_COOKIES</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="WebDriver.add_cookie"><a class="viewcode-back" href="../../api.html#macaca.webdriver.WebDriver.add_cookie">[docs]</a>    <span class="nd">@fluent</span>
+    <span class="k">def</span> <span class="nf">add_cookie</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cookie_dict</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Set a cookie.</span>
+
+<span class="sd">        Support:</span>
+<span class="sd">            Web(WebView)</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            cookie_dict: A dictionary contain keys: &quot;name&quot;, &quot;value&quot;,</span>
+<span class="sd">                [&quot;path&quot;], [&quot;domain&quot;], [&quot;secure&quot;], [&quot;httpOnly&quot;], [&quot;expiry&quot;].</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            WebElement Object.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">cookie_dict</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s1">&#39;Type of the cookie must be a dict.&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">cookie_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
+            <span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="kc">None</span>
+        <span class="p">)</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">cookie_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
+            <span class="s1">&#39;value&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="s1">&#39;Missing required keys, </span><span class="se">\&#39;</span><span class="s1">name</span><span class="se">\&#39;</span><span class="s1"> and </span><span class="se">\&#39;</span><span class="s1">value</span><span class="se">\&#39;</span><span class="s1"> must be provided.&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_execute</span><span class="p">(</span><span class="n">Command</span><span class="o">.</span><span class="n">ADD_COOKIE</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;cookie&#39;</span><span class="p">:</span> <span class="n">cookie_dict</span><span class="p">})</span></div>
+
+<div class="viewcode-block" id="WebDriver.set_implicitly_wait"><a class="viewcode-back" href="../../api.html#macaca.webdriver.WebDriver.set_implicitly_wait">[docs]</a>    <span class="nd">@fluent</span>
+    <span class="k">def</span> <span class="nf">set_implicitly_wait</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">time_to_wait</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Implicit wait timeout that specifies a time to</span>
+<span class="sd">           wait for the implicit element location strategy</span>
+<span class="sd">           hen locating elements using Find Element and Find Elements.</span>
+
+<span class="sd">        Support:</span>
+<span class="sd">            Android iOS Web(WebView)</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            time_to_wait(int): Amount of time to wait (in seconds)</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            WebElement Object.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_execute</span><span class="p">(</span><span class="n">Command</span><span class="o">.</span><span class="n">IMPLICIT_WAIT</span><span class="p">,</span> <span class="p">{</span>
+            <span class="s1">&#39;ms&#39;</span><span class="p">:</span> <span class="nb">float</span><span class="p">(</span><span class="n">time_to_wait</span><span class="p">)</span> <span class="o">*</span> <span class="mi">1000</span><span class="p">})</span></div>
+
+<div class="viewcode-block" id="WebDriver.set_script_timeout"><a class="viewcode-back" href="../../api.html#macaca.webdriver.WebDriver.set_script_timeout">[docs]</a>    <span class="nd">@fluent</span>
+    <span class="k">def</span> <span class="nf">set_script_timeout</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">time_to_wait</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Script timeout that specifies a time to wait for scripts to run.</span>
+
+<span class="sd">        Support:</span>
+<span class="sd">            Web(WebView)</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            time_to_wait(int): Amount of time to wait (in seconds)</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            WebElement Object.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_execute</span><span class="p">(</span><span class="n">Command</span><span class="o">.</span><span class="n">SET_SCRIPT_TIMEOUT</span><span class="p">,</span> <span class="p">{</span>
+            <span class="s1">&#39;ms&#39;</span><span class="p">:</span> <span class="nb">float</span><span class="p">(</span><span class="n">time_to_wait</span><span class="p">)</span> <span class="o">*</span> <span class="mi">1000</span><span class="p">})</span></div>
+
+<div class="viewcode-block" id="WebDriver.set_page_load_timeout"><a class="viewcode-back" href="../../api.html#macaca.webdriver.WebDriver.set_page_load_timeout">[docs]</a>    <span class="nd">@fluent</span>
+    <span class="k">def</span> <span class="nf">set_page_load_timeout</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">time_to_wait</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Page load timeout that specifies a time to</span>
+<span class="sd">           wait for the page loading to complete.</span>
+
+<span class="sd">        Support:</span>
+<span class="sd">            Web(WebView)</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            time_to_wait(int): Amount of time to wait</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            WebElement Object.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_execute</span><span class="p">(</span><span class="n">Command</span><span class="o">.</span><span class="n">SET_TIMEOUTS</span><span class="p">,</span> <span class="p">{</span>
+            <span class="s1">&#39;ms&#39;</span><span class="p">:</span> <span class="nb">float</span><span class="p">(</span><span class="n">time_to_wait</span><span class="p">)</span> <span class="o">*</span> <span class="mi">1000</span><span class="p">,</span>
+            <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;page load&#39;</span><span class="p">})</span></div>
+
+<div class="viewcode-block" id="WebDriver.accept_alert"><a class="viewcode-back" href="../../api.html#macaca.webdriver.WebDriver.accept_alert">[docs]</a>    <span class="nd">@fluent</span>
+    <span class="k">def</span> <span class="nf">accept_alert</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Accepts the alert available.</span>
+
+<span class="sd">        Support:</span>
+<span class="sd">            iOS</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_execute</span><span class="p">(</span><span class="n">Command</span><span class="o">.</span><span class="n">ACCEPT_ALERT</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="WebDriver.dismiss_alert"><a class="viewcode-back" href="../../api.html#macaca.webdriver.WebDriver.dismiss_alert">[docs]</a>    <span class="nd">@fluent</span>
+    <span class="k">def</span> <span class="nf">dismiss_alert</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Dismisses the alert available.</span>
+
+<span class="sd">        Support:</span>
+<span class="sd">            iOS</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_execute</span><span class="p">(</span><span class="n">Command</span><span class="o">.</span><span class="n">DISMISS_ALERT</span><span class="p">)</span></div>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">alert_text</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Gets the text of the Alert.</span>
+
+<span class="sd">        Support:</span>
+<span class="sd">            iOS</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_execute</span><span class="p">(</span><span class="n">Command</span><span class="o">.</span><span class="n">GET_ALERT_TEXT</span><span class="p">)</span>
+
+<div class="viewcode-block" id="WebDriver.alert_keys"><a class="viewcode-back" href="../../api.html#macaca.webdriver.WebDriver.alert_keys">[docs]</a>    <span class="nd">@fluent</span>
+    <span class="k">def</span> <span class="nf">alert_keys</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">keys</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Sends keystrokes to a JavaScript prompt() dialog.</span>
+
+<span class="sd">        Support:</span>
+<span class="sd">            iOS</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            keys(str): The keys send to.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_execute</span><span class="p">(</span><span class="n">Command</span><span class="o">.</span><span class="n">SET_ALERT_VALUE</span><span class="p">,</span> <span class="p">{</span>
+            <span class="s1">&#39;text&#39;</span><span class="p">:</span> <span class="n">keys</span>
+        <span class="p">})</span></div>
+
+<div class="viewcode-block" id="WebDriver.take_screenshot"><a class="viewcode-back" href="../../api.html#macaca.webdriver.WebDriver.take_screenshot">[docs]</a>    <span class="k">def</span> <span class="nf">take_screenshot</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Gets the screenshot of the current window</span>
+<span class="sd">           as a base64 encoded string.</span>
+
+<span class="sd">        Support:</span>
+<span class="sd">            Android iOS Web(WebView)</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Base64 encoded string of the screenshot.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_execute</span><span class="p">(</span><span class="n">Command</span><span class="o">.</span><span class="n">SCREENSHOT</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="WebDriver.save_screenshot"><a class="viewcode-back" href="../../api.html#macaca.webdriver.WebDriver.save_screenshot">[docs]</a>    <span class="nd">@fluent</span>
+    <span class="k">def</span> <span class="nf">save_screenshot</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="n">quietly</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Save the screenshot to local.</span>
+
+<span class="sd">        Support:</span>
+<span class="sd">            Android iOS Web(WebView)</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            filename(str): The path to save the image.</span>
+<span class="sd">            quietly(bool): If True, omit the IOError when</span>
+<span class="sd">                failed to save the image.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            WebElement Object.</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            WebDriverException.</span>
+<span class="sd">            IOError.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">imgData</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">take_screenshot</span><span class="p">()</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s2">&quot;wb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+                <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">b64decode</span><span class="p">(</span><span class="n">imgData</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">&#39;ascii&#39;</span><span class="p">)))</span>
+        <span class="k">except</span> <span class="ne">IOError</span> <span class="k">as</span> <span class="n">err</span><span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">quietly</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="n">err</span></div>
+
+<div class="viewcode-block" id="WebDriver.element"><a class="viewcode-back" href="../../api.html#macaca.webdriver.WebDriver.element">[docs]</a>    <span class="k">def</span> <span class="nf">element</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">using</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Find an element in the current context.</span>
+
+<span class="sd">        Support:</span>
+<span class="sd">            Android iOS Web(WebView)</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            using(str): The element location strategy.</span>
+<span class="sd">            value(str): The value of the location strategy.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            WebElement Object.</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            WebDriverException.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_execute</span><span class="p">(</span><span class="n">Command</span><span class="o">.</span><span class="n">FIND_ELEMENT</span><span class="p">,</span> <span class="p">{</span>
+            <span class="s1">&#39;using&#39;</span><span class="p">:</span> <span class="n">using</span><span class="p">,</span>
+            <span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="n">value</span>
+        <span class="p">})</span></div>
+
+<div class="viewcode-block" id="WebDriver.element_if_exists"><a class="viewcode-back" href="../../api.html#macaca.webdriver.WebDriver.element_if_exists">[docs]</a>    <span class="k">def</span> <span class="nf">element_if_exists</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">using</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Check if an element in the current context.</span>
+
+<span class="sd">        Support:</span>
+<span class="sd">            Android iOS Web(WebView)</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            using(str): The element location strategy.</span>
+<span class="sd">            value(str): The value of the location strategy.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Return True if the element does exists and return False otherwise.</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            WebDriverException.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_execute</span><span class="p">(</span><span class="n">Command</span><span class="o">.</span><span class="n">FIND_ELEMENT</span><span class="p">,</span> <span class="p">{</span>
+                <span class="s1">&#39;using&#39;</span><span class="p">:</span> <span class="n">using</span><span class="p">,</span>
+                <span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="n">value</span>
+            <span class="p">})</span>
+            <span class="k">return</span> <span class="kc">True</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">False</span></div>
+
+<div class="viewcode-block" id="WebDriver.element_or_none"><a class="viewcode-back" href="../../api.html#macaca.webdriver.WebDriver.element_or_none">[docs]</a>    <span class="k">def</span> <span class="nf">element_or_none</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">using</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Check if an element in the current context.</span>
+
+<span class="sd">        Support:</span>
+<span class="sd">            Android iOS Web(WebView)</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            using(str): The element location strategy.</span>
+<span class="sd">            value(str): The value of the location strategy.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Return Element if the element does exists and return None otherwise.</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            WebDriverException.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_execute</span><span class="p">(</span><span class="n">Command</span><span class="o">.</span><span class="n">FIND_ELEMENT</span><span class="p">,</span> <span class="p">{</span>
+                <span class="s1">&#39;using&#39;</span><span class="p">:</span> <span class="n">using</span><span class="p">,</span>
+                <span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="n">value</span>
+            <span class="p">})</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span></div>
+
+<div class="viewcode-block" id="WebDriver.elements"><a class="viewcode-back" href="../../api.html#macaca.webdriver.WebDriver.elements">[docs]</a>    <span class="k">def</span> <span class="nf">elements</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">using</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Find elements in the current context.</span>
+
+<span class="sd">        Support:</span>
+<span class="sd">            Android iOS Web(WebView)</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            using(str): The element location strategy.</span>
+<span class="sd">            value(str): The value of the location strategy.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Return a List&lt;Element | None&gt;, if no element matched, the list is empty.</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            WebDriverException.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_execute</span><span class="p">(</span><span class="n">Command</span><span class="o">.</span><span class="n">FIND_ELEMENTS</span><span class="p">,</span> <span class="p">{</span>
+            <span class="s1">&#39;using&#39;</span><span class="p">:</span> <span class="n">using</span><span class="p">,</span>
+            <span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="n">value</span>
+        <span class="p">})</span></div>
+
+<div class="viewcode-block" id="WebDriver.wait_for"><a class="viewcode-back" href="../../api.html#macaca.webdriver.WebDriver.wait_for">[docs]</a>    <span class="k">def</span> <span class="nf">wait_for</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">10000</span><span class="p">,</span> <span class="n">interval</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span>
+        <span class="n">asserter</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Wait for driver till satisfy the given condition</span>
+
+<span class="sd">        Support:</span>
+<span class="sd">            Android iOS Web(WebView)</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            timeout(int): How long we should be retrying stuff.</span>
+<span class="sd">            interval(int): How long between retries.</span>
+<span class="sd">            asserter(callable): The asserter func to determine the result.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Return the driver.</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            WebDriverException.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">callable</span><span class="p">(</span><span class="n">asserter</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s1">&#39;Asserter must be callable.&#39;</span><span class="p">)</span>
+        <span class="nd">@retry</span><span class="p">(</span>
+            <span class="n">retry_on_exception</span><span class="o">=</span><span class="k">lambda</span> <span class="n">ex</span><span class="p">:</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ex</span><span class="p">,</span> <span class="n">WebDriverException</span><span class="p">),</span>
+            <span class="n">stop_max_delay</span><span class="o">=</span><span class="n">timeout</span><span class="p">,</span>
+            <span class="n">wait_fixed</span><span class="o">=</span><span class="n">interval</span>
+        <span class="p">)</span>
+        <span class="k">def</span> <span class="nf">_wait_for</span><span class="p">(</span><span class="n">driver</span><span class="p">):</span>
+            <span class="n">asserter</span><span class="p">(</span><span class="n">driver</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">driver</span>
+
+        <span class="k">return</span> <span class="n">_wait_for</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="WebDriver.wait_for_element"><a class="viewcode-back" href="../../api.html#macaca.webdriver.WebDriver.wait_for_element">[docs]</a>    <span class="k">def</span> <span class="nf">wait_for_element</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">using</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">10000</span><span class="p">,</span>
+        <span class="n">interval</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">asserter</span><span class="o">=</span><span class="n">is_displayed</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Wait for element till satisfy the given condition</span>
+
+<span class="sd">        Support:</span>
+<span class="sd">            Android iOS Web(WebView)</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            using(str): The element location strategy.</span>
+<span class="sd">            value(str): The value of the location strategy.</span>
+<span class="sd">            timeout(int): How long we should be retrying stuff.</span>
+<span class="sd">            interval(int): How long between retries.</span>
+<span class="sd">            asserter(callable): The asserter func to determine the result.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Return the Element.</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            WebDriverException.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">callable</span><span class="p">(</span><span class="n">asserter</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s1">&#39;Asserter must be callable.&#39;</span><span class="p">)</span>
+        <span class="nd">@retry</span><span class="p">(</span>
+            <span class="n">retry_on_exception</span><span class="o">=</span><span class="k">lambda</span> <span class="n">ex</span><span class="p">:</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ex</span><span class="p">,</span> <span class="n">WebDriverException</span><span class="p">),</span>
+            <span class="n">stop_max_delay</span><span class="o">=</span><span class="n">timeout</span><span class="p">,</span>
+            <span class="n">wait_fixed</span><span class="o">=</span><span class="n">interval</span>
+        <span class="p">)</span>
+        <span class="k">def</span> <span class="nf">_wait_for_element</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">using</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+            <span class="n">el</span> <span class="o">=</span> <span class="n">ctx</span><span class="o">.</span><span class="n">element</span><span class="p">(</span><span class="n">using</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+            <span class="n">asserter</span><span class="p">(</span><span class="n">el</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">el</span>
+
+        <span class="k">return</span> <span class="n">_wait_for_element</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">using</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="WebDriver.wait_for_elements"><a class="viewcode-back" href="../../api.html#macaca.webdriver.WebDriver.wait_for_elements">[docs]</a>    <span class="k">def</span> <span class="nf">wait_for_elements</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">using</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">10000</span><span class="p">,</span>
+        <span class="n">interval</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">asserter</span><span class="o">=</span><span class="n">is_displayed</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Wait for elements till satisfy the given condition</span>
+
+<span class="sd">        Support:</span>
+<span class="sd">            Android iOS Web(WebView)</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            using(str): The element location strategy.</span>
+<span class="sd">            value(str): The value of the location strategy.</span>
+<span class="sd">            timeout(int): How long we should be retrying stuff.</span>
+<span class="sd">            interval(int): How long between retries.</span>
+<span class="sd">            asserter(callable): The asserter func to determine the result.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Return the list of Element if any of them satisfy the condition.</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            WebDriverException.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">callable</span><span class="p">(</span><span class="n">asserter</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s1">&#39;Asserter must be callable.&#39;</span><span class="p">)</span>
+        <span class="nd">@retry</span><span class="p">(</span>
+            <span class="n">retry_on_exception</span><span class="o">=</span><span class="k">lambda</span> <span class="n">ex</span><span class="p">:</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ex</span><span class="p">,</span> <span class="n">WebDriverException</span><span class="p">),</span>
+            <span class="n">stop_max_delay</span><span class="o">=</span><span class="n">timeout</span><span class="p">,</span>
+            <span class="n">wait_fixed</span><span class="o">=</span><span class="n">interval</span>
+        <span class="p">)</span>
+        <span class="k">def</span> <span class="nf">_wait_for_elements</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">using</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+            <span class="n">els</span> <span class="o">=</span> <span class="n">ctx</span><span class="o">.</span><span class="n">elements</span><span class="p">(</span><span class="n">using</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="nb">len</span><span class="p">(</span><span class="n">els</span><span class="p">):</span>
+                <span class="k">raise</span> <span class="n">WebDriverException</span><span class="p">(</span><span class="s1">&#39;no such element&#39;</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">el</span> <span class="o">=</span> <span class="n">els</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+                <span class="n">asserter</span><span class="p">(</span><span class="n">el</span><span class="p">)</span>
+                <span class="k">return</span> <span class="n">els</span>
+
+        <span class="k">return</span> <span class="n">_wait_for_elements</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">using</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="WebDriver.touch"><a class="viewcode-back" href="../../api.html#macaca.webdriver.WebDriver.touch">[docs]</a>    <span class="nd">@fluent</span>
+    <span class="k">def</span> <span class="nf">touch</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Apply touch actions on devices. Such as, tap/doubleTap/press/pinch/rotate/drag.</span>
+<span class="sd">            See more on https://github.com/alibaba/macaca/issues/366.</span>
+
+<span class="sd">        Support:</span>
+<span class="sd">            Android iOS</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            name(str): Name of the action</span>
+<span class="sd">            args(dict): Arguments of the action</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            WebDriver Object.</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            WebDriverException.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+            <span class="n">actions</span> <span class="o">=</span> <span class="n">name</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">args</span><span class="p">:</span>
+                <span class="n">args</span> <span class="o">=</span> <span class="p">{}</span>
+            <span class="n">args</span><span class="p">[</span><span class="s1">&#39;type&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">name</span>
+            <span class="n">actions</span> <span class="o">=</span> <span class="p">[</span><span class="n">args</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s1">&#39;Invalid parameters.&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_execute</span><span class="p">(</span><span class="n">Command</span><span class="o">.</span><span class="n">PERFORM_ACTIONS</span><span class="p">,</span> <span class="p">{</span>
+            <span class="s1">&#39;actions&#39;</span><span class="p">:</span> <span class="n">actions</span>
+        <span class="p">})</span></div></div>
+
+
+<span class="n">add_element_extension_method</span><span class="p">(</span><span class="n">WebDriver</span><span class="p">)</span>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+  <li><a href="../index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2018, Macaca.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.7.5</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

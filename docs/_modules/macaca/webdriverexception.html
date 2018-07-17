@@ -1,0 +1,161 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>macaca.webdriverexception &#8212; wd.py 1.0.1 documentation</title>
+    <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for macaca.webdriverexception</h1><div class="highlight"><pre>
+<span></span><span class="c1">#</span>
+<span class="c1"># https = //w3c.github.io/webdriver/webdriver-spec.html</span>
+<span class="c1"># WebDriver Exception</span>
+<span class="c1">#</span>
+
+<span class="kn">from</span> <span class="nn">collections</span> <span class="k">import</span> <span class="n">namedtuple</span>
+<span class="kn">from</span> <span class="nn">enum</span> <span class="k">import</span> <span class="n">Enum</span>
+
+<span class="n">ErrorCode</span> <span class="o">=</span> <span class="n">namedtuple</span><span class="p">(</span><span class="s1">&#39;ErrorCode&#39;</span><span class="p">,</span> <span class="s1">&#39;code error_code&#39;</span><span class="p">)</span>
+
+
+<span class="k">class</span> <span class="nc">WebDriverError</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Error codes defined in the WebDriver wire protocol.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">NO_SUCH_ELEMENT</span> <span class="o">=</span> <span class="n">ErrorCode</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="s1">&#39;no such element&#39;</span><span class="p">)</span>
+    <span class="n">NO_SUCH_FRAME</span> <span class="o">=</span> <span class="n">ErrorCode</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="s1">&#39;no such frame&#39;</span><span class="p">)</span>
+    <span class="n">UNKNOWN_COMMAND</span> <span class="o">=</span> <span class="n">ErrorCode</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span> <span class="s1">&#39;unknown command&#39;</span><span class="p">)</span>
+    <span class="n">STALE_ELEMENT_REFERENCE</span> <span class="o">=</span> <span class="n">ErrorCode</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="s1">&#39;stale element reference&#39;</span><span class="p">)</span>
+    <span class="n">ELEMENT_NOT_VISIBLE</span> <span class="o">=</span> <span class="n">ErrorCode</span><span class="p">(</span><span class="mi">11</span><span class="p">,</span> <span class="s1">&#39;element not visible&#39;</span><span class="p">)</span>
+    <span class="n">INVALID_ELEMENT_STATE</span> <span class="o">=</span> <span class="n">ErrorCode</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="s1">&#39;invalid element state&#39;</span><span class="p">)</span>
+    <span class="n">UNKNOWN_ERROR</span> <span class="o">=</span> <span class="n">ErrorCode</span><span class="p">(</span><span class="mi">13</span><span class="p">,</span> <span class="s1">&#39;unknown error&#39;</span><span class="p">)</span>
+    <span class="n">ELEMENT_IS_NOT_SELECTABLE</span> <span class="o">=</span> <span class="n">ErrorCode</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="s1">&#39;element not selectable&#39;</span><span class="p">)</span>
+    <span class="n">JAVASCRIPT_ERROR</span> <span class="o">=</span> <span class="n">ErrorCode</span><span class="p">(</span><span class="mi">17</span><span class="p">,</span> <span class="s1">&#39;javascript error&#39;</span><span class="p">)</span>
+    <span class="n">XPATH_LOOKUP_ERROR</span> <span class="o">=</span> <span class="n">ErrorCode</span><span class="p">(</span><span class="mi">19</span><span class="p">,</span> <span class="s1">&#39;invalid selector&#39;</span><span class="p">)</span>
+    <span class="n">TIMEOUT</span> <span class="o">=</span> <span class="n">ErrorCode</span><span class="p">(</span><span class="mi">21</span><span class="p">,</span> <span class="s1">&#39;timeout&#39;</span><span class="p">)</span>
+    <span class="n">NO_SUCH_WINDOW</span> <span class="o">=</span> <span class="n">ErrorCode</span><span class="p">(</span><span class="mi">23</span><span class="p">,</span> <span class="s1">&#39;no such window&#39;</span><span class="p">)</span>
+    <span class="n">INVALID_COOKIE_DOMAIN</span> <span class="o">=</span> <span class="n">ErrorCode</span><span class="p">(</span><span class="mi">24</span><span class="p">,</span> <span class="s1">&#39;invalid cookie domain&#39;</span><span class="p">)</span>
+    <span class="n">UNABLE_TO_SET_COOKIE</span> <span class="o">=</span> <span class="n">ErrorCode</span><span class="p">(</span><span class="mi">25</span><span class="p">,</span> <span class="s1">&#39;unable to set cookie&#39;</span><span class="p">)</span>
+    <span class="n">UNEXPECTED_ALERT_OPEN</span> <span class="o">=</span> <span class="n">ErrorCode</span><span class="p">(</span><span class="mi">26</span><span class="p">,</span> <span class="s1">&#39;unexpected alert open&#39;</span><span class="p">)</span>
+    <span class="n">NO_ALERT_OPEN</span> <span class="o">=</span> <span class="n">ErrorCode</span><span class="p">(</span><span class="mi">27</span><span class="p">,</span> <span class="s1">&#39;no such alert&#39;</span><span class="p">)</span>
+    <span class="n">SCRIPT_TIMEOUT</span> <span class="o">=</span> <span class="n">ErrorCode</span><span class="p">(</span><span class="mi">28</span><span class="p">,</span> <span class="s1">&#39;script timeout&#39;</span><span class="p">)</span>
+    <span class="n">INVALID_ELEMENT_COORDINATES</span> <span class="o">=</span> <span class="n">ErrorCode</span><span class="p">(</span><span class="mi">29</span><span class="p">,</span> <span class="s1">&#39;invalid element coordinates&#39;</span><span class="p">)</span>
+    <span class="n">IME_NOT_AVAILABLE</span> <span class="o">=</span> <span class="n">ErrorCode</span><span class="p">(</span><span class="mi">30</span><span class="p">,</span> <span class="s1">&#39;ime not available&#39;</span><span class="p">)</span>
+    <span class="n">IME_ENGINE_ACTIVATION_FAILED</span> <span class="o">=</span> <span class="n">ErrorCode</span><span class="p">(</span>
+        <span class="mi">31</span><span class="p">,</span> <span class="s1">&#39;ime engine activation failed&#39;</span><span class="p">)</span>
+    <span class="n">INVALID_SELECTOR</span> <span class="o">=</span> <span class="n">ErrorCode</span><span class="p">(</span><span class="mi">32</span><span class="p">,</span> <span class="s1">&#39;invalid selector&#39;</span><span class="p">)</span>
+    <span class="n">MOVE_TARGET_OUT_OF_BOUNDS</span> <span class="o">=</span> <span class="n">ErrorCode</span><span class="p">(</span><span class="mi">34</span><span class="p">,</span> <span class="s1">&#39;move target out of bounds&#39;</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">find_exception_by_code</span><span class="p">(</span><span class="n">code</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Find name of exception by WebDriver defined error code.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        code(str): Error code defined in protocol.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        The error name defined in protocol.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">errorName</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="k">for</span> <span class="n">error</span> <span class="ow">in</span> <span class="n">WebDriverError</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">error</span><span class="o">.</span><span class="n">value</span><span class="o">.</span><span class="n">code</span> <span class="o">==</span> <span class="n">code</span><span class="p">:</span>
+            <span class="n">errorName</span> <span class="o">=</span> <span class="n">error</span>
+            <span class="k">break</span>
+    <span class="k">return</span> <span class="n">errorName</span>
+
+
+<div class="viewcode-block" id="WebDriverException"><a class="viewcode-back" href="../../api.html#macaca.webdriverexception.WebDriverException">[docs]</a><span class="k">class</span> <span class="nc">WebDriverException</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;WebDriver exception.</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        error(str): Error type defined in WebDriver Protocol.</span>
+<span class="sd">        message(str): A description of the kind of error that occurred.</span>
+<span class="sd">        screen(str):  If included, a screenshot of the current page as</span>
+<span class="sd">            a base64 encoded string.</span>
+<span class="sd">        stacktrace(str): A stack trace report of the error occurred.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">error</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">message</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">screen</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">stacktrace</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Initialize the WebDriverException&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">error</span> <span class="o">=</span> <span class="n">error</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">message</span> <span class="o">=</span> <span class="n">message</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">screen</span> <span class="o">=</span> <span class="n">screen</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">stacktrace</span> <span class="o">=</span> <span class="n">stacktrace</span>
+
+    <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">exception_msg</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Error: </span><span class="si">{0}</span><span class="se">\n</span><span class="s2">Message: </span><span class="si">{1}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">error</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">message</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">screen</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">exception_msg</span> <span class="o">+=</span> <span class="s2">&quot;Screenshot: available via screen</span><span class="se">\n</span><span class="s2">&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">stacktrace</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">stacktrace</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">stacktrace</span><span class="p">)</span>
+            <span class="n">exception_msg</span> <span class="o">+=</span> <span class="s2">&quot;Stacktrace:</span><span class="se">\n</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">stacktrace</span>
+        <span class="k">return</span> <span class="n">exception_msg</span></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+  <li><a href="../index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2018, Macaca.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.7.5</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>
